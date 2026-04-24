@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WaitTimeCalculationApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00df0bf158014cbb6fe43befeb22d4bcf0cf82c7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7027d10e1d9872d9315b4964674c77a58e91d627")]
 [assembly: System.Reflection.AssemblyProductAttribute("WaitTimeCalculationApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WaitTimeCalculationApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
