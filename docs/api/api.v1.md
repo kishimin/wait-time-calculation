@@ -30,7 +30,7 @@
 
 # 1. 行列一覧表示API
 
-## GET /events
+## GET /queues
 
 全ての行列を返す。
 
@@ -55,7 +55,7 @@
 
 # 2. 行列詳細表示API
 
-## GET /events/{id}
+## GET /queues/{id}
 
 ### Response（200 OK）
 
@@ -71,7 +71,7 @@
 
 # 3. 行列作成API
 
-## POST /events
+## POST /queues
 
 ### Request
 
@@ -115,7 +115,7 @@
 
 # 4. 行列更新API
 
-## PUT /events/{id}
+## PUT /queues/{id}
 
 ### Request
 
@@ -159,7 +159,7 @@
 
 # 5. 行列削除API
 
-## DELETE /events/{id}
+## DELETE /queues/{id}
 
 ### Response（204 No Content）
 
