@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {}
+    "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {
+    "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj",
+        "projectUniqueName": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj",
         "projectName": "WaitTimeCalculationApi",
-        "projectPath": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj",
+        "projectPath": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj",
         "packagesPath": "C:\\Users\\Kazum\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\obj\\",
+        "outputPath": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
