@@ -1,6 +1,6 @@
 namespace WaitTimeCalculationApi.Models
 {
-    public class Event
+    public class Queue
     {
 
     }
