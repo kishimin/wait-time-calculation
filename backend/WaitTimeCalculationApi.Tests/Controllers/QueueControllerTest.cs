@@ -14,7 +14,7 @@ namespace WaitTimeCalculationApi.Tests.Controllers
             var result = controller.Index();
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Queue>>(okResult.Value);
+            var model = Assert.IsAssignableFrom<IEnumerable<QueueViewModel>>(okResult.Value);
         }
     }
 }
