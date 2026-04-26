@@ -1034,11 +1034,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\WaitTimeCalculationApi.Tests.csproj",
+      "projectUniqueName": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\WaitTimeCalculationApi.Tests.csproj",
       "projectName": "WaitTimeCalculationApi.Tests",
-      "projectPath": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\WaitTimeCalculationApi.Tests.csproj",
+      "projectPath": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\WaitTimeCalculationApi.Tests.csproj",
       "packagesPath": "C:\\Users\\Kazum\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\obj\\",
+      "outputPath": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -1059,8 +1059,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {
-              "projectPath": "C:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj"
+            "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj": {
+              "projectPath": "c:\\Users\\Kazum\\Desktop\\programming\\website\\waitTimeCalculation\\backend\\WaitTimeCalculationApi\\WaitTimeCalculationApi.csproj"
             }
           }
         }
