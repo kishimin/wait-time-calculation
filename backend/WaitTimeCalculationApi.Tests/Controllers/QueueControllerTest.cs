@@ -4,17 +4,17 @@ using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Tests.Controllers
 {
-    public class EventControllerTest
+    public class QueueControllerTest
     {
         [Fact]
         public void Index()
         {
-            var controller = new EventController();
+            var controller = new QueueController();
 
             var result = controller.Index();
 
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var model = Assert.IsAssignableFrom<IEnumerable<Event>>(okResult.Value);
+            var model = Assert.IsAssignableFrom<IEnumerable<Queue>>(okResult.Value);
         }
     }
 }
