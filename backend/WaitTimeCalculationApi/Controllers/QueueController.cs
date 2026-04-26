@@ -7,7 +7,7 @@ namespace WaitTimeCalculationApi.Controllers
     {
         public ActionResult Index()
         {
-            var queues = new List<Queue>();
+            var queues = new List<QueueViewModel>();
             return Ok(queues);
         }
     }
