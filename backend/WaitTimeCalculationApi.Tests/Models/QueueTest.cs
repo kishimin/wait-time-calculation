@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
 using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Tests.Models
