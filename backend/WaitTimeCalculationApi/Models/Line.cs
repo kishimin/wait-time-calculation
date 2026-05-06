@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WaitTimeCalculationApi.Models
 {
-    public class Queue
+    public class Line
     {
         public Guid Id { get; set; }
 
