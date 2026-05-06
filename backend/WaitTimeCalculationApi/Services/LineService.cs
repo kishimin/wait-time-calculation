@@ -10,9 +10,9 @@ namespace WaitTimeCalculationApi.Services
 {
     public class LineService : ILineService
     {
-        private readonly LineRepository _lineRepo;
+        private readonly ILineRepository _lineRepo;
 
-        public LineService(LineRepository lineRepo)
+        public LineService(ILineRepository lineRepo)
         {
             _lineRepo = lineRepo;
         }
