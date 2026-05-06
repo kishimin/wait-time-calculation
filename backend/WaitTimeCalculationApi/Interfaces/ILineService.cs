@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Interfaces
@@ -10,6 +11,6 @@ namespace WaitTimeCalculationApi.Interfaces
     {
         Task<List<Line>> GetAllAsync();
 
-        Task<Line> CreateAsync(Line lineModel);
+        Task<LineResponseDto> CreateAsync(LineRequestDto lineRequestDto);
     }
 }
