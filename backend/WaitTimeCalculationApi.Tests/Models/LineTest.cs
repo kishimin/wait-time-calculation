@@ -7,15 +7,15 @@ using Xunit;
 
 namespace WaitTimeCalculationApi.Tests.Models
 {
-    public class QueueTest
+    public class LineTest
     {
         [Fact]
         public void 初期値が仕様通りである()
         {
-            var queue = new Queue();
+            var line = new Line();
 
-            Assert.Equal("", queue.Title);
-            Assert.Equal("", queue.Explanation);
+            Assert.Equal("", line.Title);
+            Assert.Equal("", line.Explanation);
         }
     }
 }

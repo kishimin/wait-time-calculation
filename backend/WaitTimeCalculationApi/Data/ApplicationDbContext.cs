@@ -14,6 +14,6 @@ namespace WaitTimeCalculationApi.Data
         {
         }
 
-        public DbSet<Queue> Queues { get; set; }
+        public DbSet<Line> Lines { get; set; }
     }
 }
