@@ -30,6 +30,8 @@ namespace WaitTimeCalculationApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var lineResponseDto = await _lineService.GetByIdAsync(id);
 
             if (lineResponseDto == null)
@@ -43,6 +45,8 @@ namespace WaitTimeCalculationApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] LineRequestDto lineRequestDto)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var lineResponseDto = await _lineService.CreateAsync(lineRequestDto);
 
             return CreatedAtAction(nameof(GetById), new { id = lineResponseDto.Id }, lineResponseDto);
