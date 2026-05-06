@@ -23,5 +23,15 @@ namespace WaitTimeCalculationApi.Tests.Repositories
             // モックしたDBに保存した内容が取得できることを確認
             // リストの大きさが等しいことも確認
         }
+
+        [Fact]
+        public void 待つ対象が作成できる()
+        {
+            // Given
+
+            // When
+
+            // Then
+        }
     }
 }
