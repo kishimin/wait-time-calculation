@@ -17,6 +17,11 @@ namespace WaitTimeCalculationApi.Services
             _lineRepo = lineRepo;
         }
 
+        public async Task<Line> CreateAsync(Line lineModel)
+        {
+            return await _lineRepo.CreateAsync(lineModel);
+        }
+
         public async Task<List<Line>> GetAllAsync()
         {
             return await _lineRepo.GetAllAsync();
