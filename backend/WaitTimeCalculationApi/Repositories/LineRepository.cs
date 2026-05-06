@@ -18,6 +18,14 @@ namespace WaitTimeCalculationApi.Repositories
             _context = context;
         }
 
+        public async Task<Line> CreateAsync(Line lineModel)
+        {
+            await _context.Lines.AddAsync(lineModel);
+            await _context.SaveChangesAsync();
+
+            return lineModel;
+        }
+
         public Task<List<Line>> GetAllAsync()
         {
             return _context.Lines.ToListAsync();
