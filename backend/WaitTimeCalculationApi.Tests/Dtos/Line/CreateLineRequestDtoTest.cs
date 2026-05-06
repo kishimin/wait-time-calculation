@@ -12,7 +12,7 @@ namespace WaitTimeCalculationApi.Tests.Dtos.Line
         [Fact]
         public void 初期値が仕様通りである()
         {
-            var line = new CreateLineRequestDto();
+            var line = new LineRequestDto();
 
             Assert.Equal("", line.Title);
             Assert.Equal("", line.Explanation);
