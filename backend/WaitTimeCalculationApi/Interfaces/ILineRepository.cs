@@ -10,6 +10,8 @@ namespace WaitTimeCalculationApi.Interfaces
     {
         Task<List<Line>> GetAllAsync();
 
+        Task<Line?> GetByIdAsync(Guid id);
+
         Task<Line> CreateAsync(Line lineModel);
     }
 }
