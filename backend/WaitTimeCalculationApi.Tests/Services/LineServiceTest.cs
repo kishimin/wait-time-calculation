@@ -20,5 +20,15 @@ namespace WaitTimeCalculationApi.Tests.Services
             // Then
             // モックした返り値とGetAllAsync()の返り値が一致することを確認
         }
+
+        [Fact]
+        public void 待つ対象が作成できる()
+        {
+            // Given
+
+            // When
+
+            // Then
+        }
     }
 }

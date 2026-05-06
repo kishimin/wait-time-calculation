@@ -9,5 +9,7 @@ namespace WaitTimeCalculationApi.Interfaces
     public interface ILineService
     {
         Task<List<Line>> GetAllAsync();
+
+        Task<Line> CreateAsync(Line lineModel);
     }
 }
