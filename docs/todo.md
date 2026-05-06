@@ -6,6 +6,12 @@
 
 # Models
 
-## Queue
+## Line
 
 1. 初期値が仕様通りである
+
+## Interfaces
+
+## Repository
+
+1. 行列の一覧が取得できる
