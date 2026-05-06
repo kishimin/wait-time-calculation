@@ -17,8 +17,10 @@
          1. 行列の一覧が取得できる
    4. Services
       1. LineService.cs
+         1. 行列の一覧が取得できる
    5. Controllers
       1. LineController.cs
+         1. 行列の一覧が取得できる
 2. 行列詳細を取得できる
 3. 行列を作成できる
 4. 行列を更新できる
