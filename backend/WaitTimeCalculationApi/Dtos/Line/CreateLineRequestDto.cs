@@ -4,12 +4,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WaitTimeCalculationApi.Models
+namespace WaitTimeCalculationApi.Dtos.Line
 {
-    public class Line
+    public class CreateLineRequestDto
     {
-        public Guid Id { get; set; }
-
         [Required]
         public string Title { get; set; } = string.Empty;
 
