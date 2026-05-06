@@ -30,5 +30,10 @@ namespace WaitTimeCalculationApi.Repositories
         {
             return _context.Lines.ToListAsync();
         }
+
+        public async Task<Line?> GetByIdAsync(Guid id)
+        {
+            return await _context.Lines.FindAsync(id);
+        }
     }
 }

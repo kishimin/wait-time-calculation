@@ -30,5 +30,17 @@ namespace WaitTimeCalculationApi.Services
         {
             return await _lineRepo.GetAllAsync();
         }
+
+        public async Task<LineResponseDto?> GetByIdAsync(Guid id)
+        {
+            var lineModel = await _lineRepo.GetByIdAsync(id);
+
+            if (lineModel == null)
+            {
+                return null;
+            }
+
+            return lineModel.ToLineResponseDto();
+        }
     }
 }
