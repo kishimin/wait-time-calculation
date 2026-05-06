@@ -10,8 +10,11 @@ namespace WaitTimeCalculationApi.Models
     {
         public Guid Id { get; set; }
 
+        [Required]
+        [MaxLength(100)]
         public string Title { get; set; } = string.Empty;
 
+        [MaxLength(400)]
         public string Explanation { get; set; } = string.Empty;
     }
 }
