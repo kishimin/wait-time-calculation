@@ -27,7 +27,7 @@ namespace WaitTimeCalculationApi.Controllers
             return Ok(lines);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
