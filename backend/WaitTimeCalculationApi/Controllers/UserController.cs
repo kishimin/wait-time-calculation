@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WaitTimeCalculationApi.Dtos.User;
+using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Controllers
@@ -15,9 +16,12 @@ namespace WaitTimeCalculationApi.Controllers
     {
         private readonly UserManager<User> _userManager;
 
-        public UserController(UserManager<User> userManager)
+        private readonly ITokenService _tokenService;
+
+        public UserController(UserManager<User> userManager, ITokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
