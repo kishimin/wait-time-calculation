@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WaitTimeCalculationApi.Dtos.User;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Models;
@@ -15,13 +16,14 @@ namespace WaitTimeCalculationApi.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-
         private readonly ITokenService _tokenService;
+        private readonly SignInManager<User> _signinManager;
 
-        public UserController(UserManager<User> userManager, ITokenService tokenService)
+        public UserController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _signinManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -45,7 +47,14 @@ namespace WaitTimeCalculationApi.Controllers
 
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User created");
+                        return Ok(
+                            new NewUserDto
+                            {
+                                UserName = user.UserName,
+                                Email = user.Email,
+                                Token = _tokenService.CreateToken(user)
+                            }
+                        );
                     }
                     else
                     {
@@ -61,6 +70,29 @@ namespace WaitTimeCalculationApi.Controllers
             {
                 return StatusCode(500, e);
             }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
+
+            if (user == null) return Unauthorized("Invalid username!");
+
+            var result = await _signinManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
+
+            if (!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
+
+            return Ok(
+                new NewUserDto
+                {
+                    UserName = user.UserName ?? "",
+                    Email = user.Email ?? "",
+                    Token = _tokenService.CreateToken(user)
+                }
+            );
         }
     }
 }
