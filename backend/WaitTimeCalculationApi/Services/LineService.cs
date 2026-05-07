@@ -6,7 +6,6 @@ using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Mappers;
 using WaitTimeCalculationApi.Models;
-using WaitTimeCalculationApi.Repositories;
 
 namespace WaitTimeCalculationApi.Services
 {
@@ -26,9 +25,10 @@ namespace WaitTimeCalculationApi.Services
             return lineModel.ToLineResponseDto();
         }
 
-        public async Task<List<Line>> GetAllAsync()
+        public async Task<List<LineResponseDto>> GetAllAsync()
         {
-            return await _lineRepo.GetAllAsync();
+            var lines = await _lineRepo.GetAllAsync();
+            return lines.Select(l => l.ToLineResponseDto()).ToList();
         }
 
         public async Task<LineResponseDto?> GetByIdAsync(Guid id)
