@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace WaitTimeCalculationApi.Models
+{
+    [Table("LineEntries")]
+    public class LineEntry
+    {
+        public string UserId { get; set; } = string.Empty;
+
+        public Guid LineId { get; set; }
+
+        public User? User { get; set; }
+
+        public Line? Line { get; set; }
+    }
+}
