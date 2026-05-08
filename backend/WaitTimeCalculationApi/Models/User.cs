@@ -8,5 +8,6 @@ namespace WaitTimeCalculationApi.Models
 {
     public class User : IdentityUser
     {
+        public List<LineEntry> LineEntries { get; set; } = [];
     }
 }
