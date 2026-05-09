@@ -13,6 +13,10 @@ namespace WaitTimeCalculationApi.Models
 
         public Guid LineId { get; set; }
 
+        public DateTimeOffset EnteredAt { get; set; }
+
+        public DateTimeOffset ExitedAt { get; set; }
+
         public User User { get; set; } = new User();
 
         public Line Line { get; set; } = new Line();
