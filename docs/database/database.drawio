@@ -176,7 +176,7 @@
                         <mxRectangle width="30" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="56" value="in_datetime datetimeoffset|null" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" parent="54" vertex="1">
+                <mxCell id="56" value="entered_at datetimeoffset|null" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" parent="54" vertex="1">
                     <mxGeometry x="30" width="239" height="30" as="geometry">
                         <mxRectangle width="239" height="30" as="alternateBounds"/>
                     </mxGeometry>
@@ -189,7 +189,7 @@
                         <mxRectangle width="30" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="63" value="out_datetime datetimeoffset|null" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" parent="61" vertex="1">
+                <mxCell id="63" value="exited_at datetimeoffset|null" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;" parent="61" vertex="1">
                     <mxGeometry x="30" width="239" height="30" as="geometry">
                         <mxRectangle width="239" height="30" as="alternateBounds"/>
                     </mxGeometry>
