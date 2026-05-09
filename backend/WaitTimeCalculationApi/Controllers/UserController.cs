@@ -13,18 +13,11 @@ namespace WaitTimeCalculationApi.Controllers
 {
     [ApiController]
     [Route("api/user")]
-    public class UserController : ControllerBase
+    public class UserController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager) : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly ITokenService _tokenService;
-        private readonly SignInManager<User> _signinManager;
-
-        public UserController(UserManager<User> userManager, ITokenService tokenService, SignInManager<User> signInManager)
-        {
-            _userManager = userManager;
-            _tokenService = tokenService;
-            _signinManager = signInManager;
-        }
+        private readonly UserManager<User> _userManager = userManager;
+        private readonly ITokenService _tokenService = tokenService;
+        private readonly SignInManager<User> _signinManager = signInManager;
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
