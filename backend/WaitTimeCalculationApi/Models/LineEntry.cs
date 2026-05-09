@@ -13,8 +13,8 @@ namespace WaitTimeCalculationApi.Models
 
         public Guid LineId { get; set; }
 
-        public User? User { get; set; }
+        public User User { get; set; } = new User();
 
-        public Line? Line { get; set; }
+        public Line Line { get; set; } = new Line();
     }
 }
