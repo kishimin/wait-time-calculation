@@ -30,8 +30,8 @@ namespace WaitTimeCalculationApi.Data
             .WithMany(u => u.LineEntries)
             .HasForeignKey(p => p.LineId);
 
-            List<IdentityRole> roles = new List<IdentityRole>
-            {
+            List<IdentityRole> roles =
+            [
                 new IdentityRole
                 {
                     Id = "admin-role-id",
@@ -44,7 +44,7 @@ namespace WaitTimeCalculationApi.Data
                     Name = "User",
                     NormalizedName = "USER"
                 }
-            };
+            ];
 
             builder.Entity<IdentityRole>().HasData(roles);
         }

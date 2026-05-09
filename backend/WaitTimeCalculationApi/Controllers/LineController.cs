@@ -11,14 +11,9 @@ namespace WaitTimeCalculationApi.Controllers
 {
     [ApiController]
     [Route("api/line")]
-    public class LineController : ControllerBase
+    public class LineController(ILineService lineService) : ControllerBase
     {
-        private readonly ILineService _lineService;
-
-        public LineController(ILineService lineService)
-        {
-            _lineService = lineService;
-        }
+        private readonly ILineService _lineService = lineService;
 
         [HttpGet]
         [Authorize]

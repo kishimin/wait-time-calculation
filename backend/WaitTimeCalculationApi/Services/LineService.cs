@@ -9,14 +9,9 @@ using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Services
 {
-    public class LineService : ILineService
+    public class LineService(ILineRepository lineRepo) : ILineService
     {
-        private readonly ILineRepository _lineRepo;
-
-        public LineService(ILineRepository lineRepo)
-        {
-            _lineRepo = lineRepo;
-        }
+        private readonly ILineRepository _lineRepo = lineRepo;
 
         public async Task<LineResponseDto> CreateAsync(LineRequestDto lineRequestDto)
         {
