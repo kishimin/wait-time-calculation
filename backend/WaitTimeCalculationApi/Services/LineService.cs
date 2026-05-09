@@ -20,10 +20,10 @@ namespace WaitTimeCalculationApi.Services
             return lineModel.ToLineResponseDto();
         }
 
-        public async Task<List<LineResponseDto>> GetAllAsync()
+        public async Task<List<LinesResponseDto>> GetAllAsync()
         {
             var lines = await _lineRepo.GetAllAsync();
-            return lines.Select(l => l.ToLineResponseDto()).ToList();
+            return [.. lines.Select(l => l.ToLinesResponseDto())];
         }
 
         public async Task<LineResponseDto?> GetByIdAsync(Guid id)
