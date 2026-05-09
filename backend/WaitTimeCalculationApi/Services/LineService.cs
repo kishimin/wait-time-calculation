@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Mappers;
-using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Services
 {
