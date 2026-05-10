@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WaitTimeCalculationApi.Data;
 
@@ -11,9 +12,11 @@ using WaitTimeCalculationApi.Data;
 namespace WaitTimeCalculationApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260508123415_LineEntry")]
+    partial class LineEntry
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,9 +177,6 @@ namespace WaitTimeCalculationApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetime(6)");
-
                     b.Property<string>("Explanation")
                         .IsRequired()
                         .HasMaxLength(400)
@@ -186,9 +186,6 @@ namespace WaitTimeCalculationApi.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
-
-                    b.Property<DateTimeOffset>("UpdatedAt")
-                        .HasColumnType("datetime(6)");
 
                     b.HasKey("Id");
 
@@ -202,12 +199,6 @@ namespace WaitTimeCalculationApi.Migrations
 
                     b.Property<Guid>("LineId")
                         .HasColumnType("char(36)");
-
-                    b.Property<DateTimeOffset?>("EnteredAt")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTimeOffset?>("ExitedAt")
-                        .HasColumnType("datetime(6)");
 
                     b.HasKey("UserId", "LineId");
 

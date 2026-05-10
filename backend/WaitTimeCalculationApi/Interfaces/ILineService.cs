@@ -8,7 +8,7 @@ namespace WaitTimeCalculationApi.Interfaces
 {
     public interface ILineService
     {
-        Task<List<LineResponseDto>> GetAllAsync();
+        Task<List<LinesResponseDto>> GetAllAsync();
 
         Task<LineResponseDto?> GetByIdAsync(Guid id);
 
