@@ -9,6 +9,15 @@ namespace WaitTimeCalculationApi.Mappers
 {
     public static class LineMappers
     {
+        public static LinesResponseDto ToLinesResponseDto(this Line lineModel)
+        {
+            return new LinesResponseDto
+            {
+                Id = lineModel.Id,
+                Title = lineModel.Title
+            };
+        }
+
         public static LineResponseDto ToLineResponseDto(this Line lineModel)
         {
             return new LineResponseDto

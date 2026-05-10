@@ -9,14 +9,9 @@ using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Repositories
 {
-    public class LineRepository : ILineRepository
+    public class LineRepository(ApplicationDbContext context) : ILineRepository
     {
-        private readonly ApplicationDbContext _context;
-
-        public LineRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+        private readonly ApplicationDbContext _context = context;
 
         public async Task<Line> CreateAsync(Line lineModel)
         {
