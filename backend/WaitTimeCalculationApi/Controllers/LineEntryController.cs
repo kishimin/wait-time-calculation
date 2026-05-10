@@ -34,5 +34,14 @@ namespace WaitTimeCalculationApi.Controllers
 
             return Ok(lineEntryResponseDto);
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        [Authorize]
+        public async Task<IActionResult> Exit([FromRoute] Guid id)
+        {
+            
+            return Ok();
+        }
     }
 }
