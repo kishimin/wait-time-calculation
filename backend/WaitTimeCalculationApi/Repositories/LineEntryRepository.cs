@@ -12,7 +12,7 @@ namespace WaitTimeCalculationApi.Repositories
     {
         private readonly ApplicationDbContext _context = context;
 
-        public async Task<LineEntry> EnterAsync(LineEntry lineEntryModel)
+        public async Task<LineEntry> CreateAsync(LineEntry lineEntryModel)
         {
             await _context.LineEntries.AddAsync(lineEntryModel);
             await _context.SaveChangesAsync();
