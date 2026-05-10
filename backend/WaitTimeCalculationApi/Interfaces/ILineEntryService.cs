@@ -9,5 +9,7 @@ namespace WaitTimeCalculationApi.Interfaces
     public interface ILineEntryService
     {
         Task<LineEntry> EnterAsync(Line line, User user);
+
+        Task<LineEntry> ExitAsync(Guid id);
     }
 }

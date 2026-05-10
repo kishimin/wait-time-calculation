@@ -26,5 +26,16 @@ namespace WaitTimeCalculationApi.Services
             await _lineEntryRepo.CreateAsync(lineEntryModel);
             return lineEntryModel;
         }
+
+        public async Task<LineEntry> ExitAsync(Guid id)
+        {
+            var lineEntryModel = new LineEntry
+            {
+                ExitedAt = DateTimeOffset.UtcNow,
+                UpdatedAt = DateTimeOffset.UtcNow
+            };
+            await _lineEntryRepo.UpdateAsync(id, lineEntryModel);
+            return lineEntryModel;
+        }
     }
 }

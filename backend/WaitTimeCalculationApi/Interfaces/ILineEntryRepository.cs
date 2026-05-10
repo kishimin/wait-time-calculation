@@ -9,5 +9,7 @@ namespace WaitTimeCalculationApi.Interfaces
     public interface ILineEntryRepository
     {
         Task<LineEntry> CreateAsync(LineEntry lineEntryModel);
+
+        Task<LineEntry?> UpdateAsync(Guid id, LineEntry lineEntryModel);
     }
 }

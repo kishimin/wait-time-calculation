@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WaitTimeCalculationApi.Extensions;
 using WaitTimeCalculationApi.Interfaces;
+using WaitTimeCalculationApi.Mappers;
 using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Controllers
@@ -40,8 +41,14 @@ namespace WaitTimeCalculationApi.Controllers
         [Authorize]
         public async Task<IActionResult> Exit([FromRoute] Guid id)
         {
-            
-            return Ok();
+            var lineEntryModel = await _lineEntryService.ExitAsync(id);
+
+            if (lineEntryModel == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(lineEntryModel.ToExitResponseDto());
         }
     }
 }
