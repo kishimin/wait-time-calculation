@@ -18,5 +18,21 @@ namespace WaitTimeCalculationApi.Repositories
             await _context.SaveChangesAsync();
             return lineEntryModel;
         }
+
+        public async Task<LineEntry?> UpdateAsync(Guid id, LineEntry lineEntryModel)
+        {
+            var existingLineEntry = await _context.LineEntries.FindAsync(id);
+
+            if (existingLineEntry == null)
+            {
+                return null;
+            }
+
+            existingLineEntry.ExitedAt = lineEntryModel.ExitedAt;
+            existingLineEntry.UpdatedAt = lineEntryModel.UpdatedAt;
+
+            await _context.SaveChangesAsync();
+            return existingLineEntry;
+        }
     }
 }

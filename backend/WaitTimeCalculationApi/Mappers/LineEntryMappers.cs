@@ -14,7 +14,18 @@ namespace WaitTimeCalculationApi.Mappers
         {
             return new EnterResponseDto
             {
-                EnteredAt = lineEntryModel.EnteredAt
+                Id = lineEntryModel.Id,
+                EnteredAt = lineEntryModel.EnteredAt,
+            };
+        }
+
+        public static ExitResponseDto ToExitResponseDto(this LineEntry lineEntryModel)
+        {
+            return new ExitResponseDto
+            {
+                Id = lineEntryModel.Id,
+                EnteredAt = lineEntryModel.EnteredAt,
+                ExitedAt = lineEntryModel.ExitedAt ?? DateTimeOffset.UtcNow,
             };
         }
     }
