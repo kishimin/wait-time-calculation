@@ -15,7 +15,7 @@ namespace WaitTimeCalculationApi.Models
 
         public Guid LineId { get; set; }
 
-        public DateTimeOffset? EnteredAt { get; set; }
+        public DateTimeOffset EnteredAt { get; set; } = DateTimeOffset.UtcNow;
 
         public DateTimeOffset? ExitedAt { get; set; }
 
