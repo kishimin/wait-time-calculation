@@ -24,6 +24,8 @@ namespace WaitTimeCalculationApi.Controllers
         [Authorize]
         public async Task<IActionResult> Enter([FromBody] Guid LineId)
         {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             if (appUser == null) return Unauthorized();
@@ -41,8 +43,9 @@ namespace WaitTimeCalculationApi.Controllers
         [Authorize]
         public async Task<IActionResult> Exit([FromRoute] Guid id)
         {
-            var lineEntryModel = await _lineEntryService.ExitAsync(id);
+            if (!ModelState.IsValid) return BadRequest(ModelState);
 
+            var lineEntryModel = await _lineEntryService.ExitAsync(id);
             if (lineEntryModel == null)
             {
                 return NotFound();
