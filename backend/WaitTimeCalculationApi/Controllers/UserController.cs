@@ -51,17 +51,17 @@ namespace WaitTimeCalculationApi.Controllers
                     }
                     else
                     {
-                        return StatusCode(500, roleResult.Errors);
+                        return StatusCode(401, roleResult.Errors);
                     }
                 }
                 else
                 {
-                    return StatusCode(500, createUser.Errors);
+                    return StatusCode(401, createUser.Errors);
                 }
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(401, e);
             }
         }
 
@@ -70,7 +70,7 @@ namespace WaitTimeCalculationApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username);
+            var user = await _userManager.FindByNameAsync(loginDto.Username);
 
             if (user == null) return Unauthorized("Invalid username!");
 
