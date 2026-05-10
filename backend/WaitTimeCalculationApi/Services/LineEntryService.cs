@@ -23,7 +23,7 @@ namespace WaitTimeCalculationApi.Services
                 User = user,
                 UserId = user.Id,
             };
-            await _lineEntryRepo.EnterAsync(lineEntryModel);
+            await _lineEntryRepo.CreateAsync(lineEntryModel);
             return lineEntryModel;
         }
     }
