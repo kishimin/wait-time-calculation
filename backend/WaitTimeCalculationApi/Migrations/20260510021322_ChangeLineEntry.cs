@@ -26,9 +26,6 @@ namespace WaitTimeCalculationApi.Migrations
                 defaultValue: new Guid("00000000-0000-0000-0000-000000000000"),
                 collation: "ascii_general_ci");
 
-            // Assign unique UUIDs to any existing rows that received the all-zeros default
-            migrationBuilder.Sql("UPDATE LineEntries SET Id = UUID() WHERE Id = '00000000-0000-0000-0000-000000000000'");
-
             migrationBuilder.AddColumn<DateTimeOffset>(
                 name: "UpdatedAt",
                 table: "LineEntries",
