@@ -20,11 +20,7 @@ namespace WaitTimeCalculationApi.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            // userManagerからuserIdを取得
-
-
-            // userIdを渡す
-            var linesResult = await _lineService.GetAllAsync("");
+            var linesResult = await _lineService.GetAllAsync();
 
             var linesResponse = linesResult.Select(l => l.ToLinesResponseDtoFromLinesResult()).ToList();
 
