@@ -10,6 +10,6 @@ namespace WaitTimeCalculationApi.Interfaces
     {
         Task<LineEntry> EnterAsync(Line line, User user);
 
-        Task<LineEntry> ExitAsync(Guid id);
+        Task<LineEntry?> ExitAsync(Guid id);
     }
 }
