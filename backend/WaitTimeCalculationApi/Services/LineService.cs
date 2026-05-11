@@ -26,17 +26,17 @@ namespace WaitTimeCalculationApi.Services
             var lines = await _lineRepo.GetAllAsync();
 
             var linesResult = lines
-            // 平均待ち時間を算出
-            .Select(line =>
-                line.LineEntries.Select(lineEntry =>
-                    (lineEntry.ExitedAt - lineEntry.EnteredAt)
-            ).Average()
-            // IsEntryを算出
-            .Select(line =>
-            line
-            // RepositoryでuserIdから、LineEntryの中で、UpdatedAtが最新のもののみ取得
-            )
-            )
+            .Select(line => new LinesResult
+            {
+                Id = line.Id,
+                Title = line.Title,
+                AverageWaitTime = line.LineEntries.Select(lineEntry =>
+                {
+                    TimeSpan? timeSpan = lineEntry.ExitedAt - lineEntry.EnteredAt;
+                    return timeSpan?.TotalSeconds ?? 0;
+                }).Average()
+                // IsEntryを算出
+            })
             .ToList();
             return linesResult;
         }

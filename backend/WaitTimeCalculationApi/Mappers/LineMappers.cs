@@ -17,7 +17,7 @@ namespace WaitTimeCalculationApi.Mappers
                 Id = linesResult.Id,
                 Title = linesResult.Title,
                 AverageWaitTime = linesResult.AverageWaitTime,
-                IsEntry = linesResult.IsEntry,
+                // IsEntry = linesResult.IsEntry,
             };
         }
 
