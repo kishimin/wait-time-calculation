@@ -45,7 +45,11 @@ namespace WaitTimeCalculationApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var lineEntryModel = await _lineEntryService.ExitAsync(id);
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            if (appUser == null) return Unauthorized();
+
+            var lineEntryModel = await _lineEntryService.ExitAsync(id, appUser.Id);
             if (lineEntryModel == null)
             {
                 return NotFound();
