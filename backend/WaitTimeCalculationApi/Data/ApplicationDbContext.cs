@@ -18,8 +18,6 @@ namespace WaitTimeCalculationApi.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<LineEntry>(x => x.HasKey(p => new { p.UserId, p.LineId }));
-
             builder.Entity<LineEntry>()
             .HasOne(u => u.User)
             .WithMany(u => u.LineEntries)
