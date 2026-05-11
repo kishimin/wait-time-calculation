@@ -23,7 +23,7 @@ namespace WaitTimeCalculationApi.Repositories
 
         public Task<List<Line>> GetAllAsync()
         {
-            return _context.Lines.ToListAsync();
+            return _context.Lines.Include(l => l.LineEntries).ToListAsync();
         }
 
         public async Task<Line?> GetByIdAsync(Guid id)

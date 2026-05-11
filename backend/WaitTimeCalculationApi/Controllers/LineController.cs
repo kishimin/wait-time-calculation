@@ -18,11 +18,15 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Index()
         {
-            var lines = await _lineService.GetAllAsync();
+            // userManagerからuserIdを取得
 
-            var linesResponse = lines.Select(l => l.ToLinesResponseDto()).ToList();
+
+            // userIdを渡す
+            var linesResult = await _lineService.GetAllAsync("");
+
+            var linesResponse = linesResult.Select(l => l.ToLinesResponseDtoFromLinesResult()).ToList();
 
             return Ok(linesResponse);
         }

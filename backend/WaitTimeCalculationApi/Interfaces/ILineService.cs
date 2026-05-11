@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Models;
+using WaitTimeCalculationApi.Results;
 
 namespace WaitTimeCalculationApi.Interfaces
 {
     public interface ILineService
     {
-        Task<List<Line>> GetAllAsync();
+        Task<List<LinesResult>> GetAllAsync(string userId);
 
         Task<Line?> GetByIdAsync(Guid id);
 
