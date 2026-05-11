@@ -27,14 +27,14 @@ namespace WaitTimeCalculationApi.Services
             return lineEntryModel;
         }
 
-        public async Task<LineEntry?> ExitAsync(Guid id)
+        public async Task<LineEntry?> ExitAsync(Guid id, string userId)
         {
             var exitUpdate = new LineEntry
             {
                 ExitedAt = DateTimeOffset.UtcNow,
                 UpdatedAt = DateTimeOffset.UtcNow
             };
-            return await _lineEntryRepo.UpdateAsync(id, exitUpdate);
+            return await _lineEntryRepo.UpdateAsync(id, userId, exitUpdate);
         }
     }
 }

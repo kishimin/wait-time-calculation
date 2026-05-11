@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using WaitTimeCalculationApi.Data;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Models;
@@ -19,9 +20,10 @@ namespace WaitTimeCalculationApi.Repositories
             return lineEntryModel;
         }
 
-        public async Task<LineEntry?> UpdateAsync(Guid id, LineEntry lineEntryModel)
+        public async Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel)
         {
-            var existingLineEntry = await _context.LineEntries.FindAsync(id);
+            var existingLineEntry = await _context.LineEntries
+                .FirstOrDefaultAsync(e => e.Id == id && e.UserId == userId);
 
             if (existingLineEntry == null)
             {
