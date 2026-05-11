@@ -34,8 +34,8 @@ namespace WaitTimeCalculationApi.Services
                 ExitedAt = DateTimeOffset.UtcNow,
                 UpdatedAt = DateTimeOffset.UtcNow
             };
-            await _lineEntryRepo.UpdateAsync(id, lineEntryModel);
-            return lineEntryModel;
+            var updatedLineEntry = await _lineEntryRepo.UpdateAsync(id, lineEntryModel);
+            return updatedLineEntry;
         }
     }
 }
