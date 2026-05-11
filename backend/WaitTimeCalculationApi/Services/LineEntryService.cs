@@ -27,7 +27,7 @@ namespace WaitTimeCalculationApi.Services
             return lineEntryModel;
         }
 
-        public async Task<LineEntry> ExitAsync(Guid id)
+        public async Task<LineEntry?> ExitAsync(Guid id)
         {
             var lineEntryModel = new LineEntry
             {
