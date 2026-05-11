@@ -6,6 +6,7 @@ using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Mappers;
 using WaitTimeCalculationApi.Models;
+using WaitTimeCalculationApi.Results;
 
 namespace WaitTimeCalculationApi.Services
 {
@@ -20,10 +21,24 @@ namespace WaitTimeCalculationApi.Services
             return lineModel;
         }
 
-        public async Task<List<Line>> GetAllAsync()
+        public async Task<List<LinesResult>> GetAllAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
-            return lines;
+
+            var linesResult = lines
+            // 平均待ち時間を算出
+            .Select(line =>
+                line.LineEntries.Select(lineEntry =>
+                    (lineEntry.ExitedAt - lineEntry.EnteredAt)
+            ).Average()
+            // IsEntryを算出
+            .Select(line =>
+            line
+            // RepositoryでuserIdから、LineEntryの中で、UpdatedAtが最新のもののみ取得
+            )
+            )
+            .ToList();
+            return linesResult;
         }
 
         public async Task<Line?> GetByIdAsync(Guid id)
