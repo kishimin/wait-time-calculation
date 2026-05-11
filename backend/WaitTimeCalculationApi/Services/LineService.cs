@@ -30,11 +30,11 @@ namespace WaitTimeCalculationApi.Services
             {
                 Id = line.Id,
                 Title = line.Title,
-                AverageWaitTime = line.LineEntries.Select(lineEntry =>
-                {
-                    TimeSpan? timeSpan = lineEntry.ExitedAt - lineEntry.EnteredAt;
-                    return timeSpan?.TotalSeconds ?? 0;
-                }).Average()
+                AverageWaitTime = line.LineEntries
+                    .Where(lineEntry => lineEntry.ExitedAt != null)
+                    .Select(lineEntry => (lineEntry.ExitedAt!.Value - lineEntry.EnteredAt).TotalSeconds)
+                    .DefaultIfEmpty(0)
+                    .Average()
                 // IsEntryを算出
             })
             .ToList();
