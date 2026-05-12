@@ -20,6 +20,14 @@ namespace WaitTimeCalculationApi.Repositories
             return lineEntryModel;
         }
 
+        public async Task<LineEntry?> GetLatestUpdatedAsync(string userId)
+        {
+            return await _context.LineEntries
+            .Where(lineEntry => lineEntry.UserId == userId)
+            .OrderByDescending(lineEntry => lineEntry.UpdatedAt)
+            .FirstOrDefaultAsync();
+        }
+
         public async Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel)
         {
             var existingLineEntry = await _context.LineEntries
