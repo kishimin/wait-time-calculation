@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Interfaces;
+using WaitTimeCalculationApi.Mappers;
 
 namespace WaitTimeCalculationApi.Controllers
 {
@@ -17,11 +18,13 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpGet]
         [Authorize]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Index()
         {
-            var lines = await _lineService.GetAllAsync();
+            var linesResult = await _lineService.GetAllAsync();
 
-            return Ok(lines);
+            var linesResponse = linesResult.Select(l => l.ToLinesResponseDtoFromLinesResult()).ToList();
+
+            return Ok(linesResponse);
         }
 
         [HttpGet("{id:guid}")]
@@ -30,14 +33,14 @@ namespace WaitTimeCalculationApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var lineResponseDto = await _lineService.GetByIdAsync(id);
+            var line = await _lineService.GetByIdAsync(id);
 
-            if (lineResponseDto == null)
+            if (line == null)
             {
                 return NotFound();
             }
 
-            return Ok(lineResponseDto);
+            return Ok(line.ToLineResponseDto());
         }
 
         [HttpPost]
@@ -46,9 +49,9 @@ namespace WaitTimeCalculationApi.Controllers
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
-            var lineResponseDto = await _lineService.CreateAsync(lineRequestDto);
+            var line = await _lineService.CreateAsync(lineRequestDto);
 
-            return CreatedAtAction(nameof(GetById), new { id = lineResponseDto.Id }, lineResponseDto);
+            return CreatedAtAction(nameof(GetById), new { id = line.Id }, line.ToLineResponseDto());
         }
     }
 }

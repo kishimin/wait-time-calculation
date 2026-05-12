@@ -4,17 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using WaitTimeCalculationApi.Dtos.Line;
 using WaitTimeCalculationApi.Models;
+using WaitTimeCalculationApi.Results;
 
 namespace WaitTimeCalculationApi.Mappers
 {
     public static class LineMappers
     {
-        public static LinesResponseDto ToLinesResponseDto(this Line lineModel)
+        public static LinesResponseDto ToLinesResponseDtoFromLinesResult(this LinesResult linesResult)
         {
             return new LinesResponseDto
             {
-                Id = lineModel.Id,
-                Title = lineModel.Title
+                Id = linesResult.Id,
+                Title = linesResult.Title,
+                AverageWaitTime = linesResult.AverageWaitTime,
+                // IsEntry = linesResult.IsEntry,
             };
         }
 

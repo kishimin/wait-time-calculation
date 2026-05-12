@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WaitTimeCalculationApi.Data;
 
@@ -11,9 +12,11 @@ using WaitTimeCalculationApi.Data;
 namespace WaitTimeCalculationApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260510073717_ChangeLineEntry2")]
+    partial class ChangeLineEntry2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,8 +200,10 @@ namespace WaitTimeCalculationApi.Migrations
 
             modelBuilder.Entity("WaitTimeCalculationApi.Models.LineEntry", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<Guid>("LineId")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -210,21 +215,15 @@ namespace WaitTimeCalculationApi.Migrations
                     b.Property<DateTimeOffset?>("ExitedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("LineId")
+                    b.Property<Guid>("Id")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "LineId");
 
                     b.HasIndex("LineId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("LineEntries");
                 });
