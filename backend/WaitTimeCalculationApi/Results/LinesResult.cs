@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WaitTimeCalculationApi.Dtos.Line
+namespace WaitTimeCalculationApi.Results
 {
-    public class LinesResponseDto
+    public class LinesResult
     {
         public Guid Id { get; set; }
 

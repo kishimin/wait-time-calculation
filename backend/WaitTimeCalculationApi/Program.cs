@@ -97,6 +97,8 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<ILineRepository, LineRepository>();
 builder.Services.AddScoped<ILineService, LineService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ILineEntryRepository, LineEntryRepository>();
+builder.Services.AddScoped<ILineEntryService, LineEntryService>();
 
 var app = builder.Build();
 
