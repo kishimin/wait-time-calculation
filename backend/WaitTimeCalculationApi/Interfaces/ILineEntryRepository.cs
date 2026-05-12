@@ -10,8 +10,10 @@ namespace WaitTimeCalculationApi.Interfaces
     {
         Task<LineEntry> CreateAsync(LineEntry lineEntryModel);
 
+        // userIdから、LineEntryの中で、UpdatedAtが最新のもののみ取得
+        Task<LineEntry?> GetLatestUpdatedAsync(string userId);
+
         Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel);
 
-        // userIdから、LineEntryの中で、UpdatedAtが最新のもののみ取得
     }
 }
