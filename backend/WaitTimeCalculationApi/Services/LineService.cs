@@ -37,7 +37,7 @@ namespace WaitTimeCalculationApi.Services
                     .Select(lineEntry => (lineEntry.ExitedAt!.Value - lineEntry.EnteredAt).TotalSeconds)
                     .DefaultIfEmpty(0)
                     .Average(),
-                IsEntry = userLineEntry?.EnteredAt == null,
+                IsEntry = userLineEntry != null && userLineEntry.LineId == line.Id && userLineEntry.ExitedAt == null,
             })
             .ToList();
             return linesResult;
