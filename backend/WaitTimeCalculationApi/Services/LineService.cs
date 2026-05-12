@@ -10,9 +10,10 @@ using WaitTimeCalculationApi.Results;
 
 namespace WaitTimeCalculationApi.Services
 {
-    public class LineService(ILineRepository lineRepo) : ILineService
+    public class LineService(ILineRepository lineRepo, ILineEntryRepository lineEntryRepo) : ILineService
     {
         private readonly ILineRepository _lineRepo = lineRepo;
+        private readonly ILineEntryRepository _lineEntryRepo = lineEntryRepo;
 
         public async Task<Line> CreateAsync(LineRequestDto lineRequestDto)
         {
@@ -21,9 +22,10 @@ namespace WaitTimeCalculationApi.Services
             return lineModel;
         }
 
-        public async Task<List<LinesResult>> GetAllAsync()
+        public async Task<List<LinesResult>> GetAllAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
+            var userLineEntry = await _lineEntryRepo.GetLatestUpdatedAsync(userId);
 
             var linesResult = lines
             .Select(line => new LinesResult
@@ -34,8 +36,8 @@ namespace WaitTimeCalculationApi.Services
                     .Where(lineEntry => lineEntry.ExitedAt != null)
                     .Select(lineEntry => (lineEntry.ExitedAt!.Value - lineEntry.EnteredAt).TotalSeconds)
                     .DefaultIfEmpty(0)
-                    .Average()
-                // IsEntryを算出
+                    .Average(),
+                IsEntry = userLineEntry?.EnteredAt == null,
             })
             .ToList();
             return linesResult;
