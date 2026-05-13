@@ -33,6 +33,8 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
+      "no-console": "warn",
+      "@typescript-eslint/no-explicit-any": "warn",
       "import/order": [
         "error",
         {
