@@ -25,7 +25,7 @@ namespace WaitTimeCalculationApi.Services
         public async Task<List<LinesResult>> GetAllAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
-            var userLineEntry = await _lineEntryRepo.GetLatestUpdatedAsync(userId);
+            var userLineEntry = await _lineEntryRepo.GetCurrentEntryAsync(userId);
 
             var linesResult = lines
             .Select(line => new LinesResult
