@@ -10,9 +10,28 @@ import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 import { testingLibrary } from "eslint-plugin-testing-library";
 import vitest from "@vitest/eslint-plugin";
+import unusedImports from "eslint-plugin-unused-imports";
 
 export default defineConfig([
   globalIgnores(["dist"]),
+  {
+    plugins: {
+      "unused-imports": unusedImports,
+    },
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "unused-imports/no-unused-imports": "error",
+      "unused-imports/no-unused-vars": [
+        "warn",
+        {
+          vars: "all",
+          varsIgnorePattern: "^_",
+          args: "after-used",
+          argsIgnorePattern: "^_",
+        },
+      ],
+    },
+  },
   {
     files: ["**/*.{ts,tsx}"],
     extends: [
