@@ -5,6 +5,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-config-prettier";
+import importPlugin from "eslint-plugin-import";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -15,10 +16,29 @@ export default defineConfig([
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      importPlugin.flatConfigs.recommended,
+      importPlugin.flatConfigs.typescript,
     ],
+    settings: {
+      "import/resolver": {
+        typescript: true,
+        node: true,
+      },
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+    },
+    rules: {
+      "import/order": [
+        "error",
+        {
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
   },
   prettier,
