@@ -25,8 +25,6 @@ namespace WaitTimeCalculationApi.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            if (!ModelState.IsValid) return BadRequest(ModelState);
-
             var username = User.GetUsername();
             var appUser = await _userManager.FindByNameAsync(username);
             if (appUser == null) return Unauthorized();
