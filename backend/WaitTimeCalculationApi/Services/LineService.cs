@@ -22,7 +22,7 @@ namespace WaitTimeCalculationApi.Services
             return lineModel;
         }
 
-        public async Task<List<LinesResult>> GetAllAsync(string userId)
+        public async Task<List<LinesResult>> GetAllForUserAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
             var userLineEntry = await _lineEntryRepo.GetCurrentEntryAsync(userId);

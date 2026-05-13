@@ -29,7 +29,7 @@ namespace WaitTimeCalculationApi.Controllers
             var appUser = await _userManager.FindByNameAsync(username);
             if (appUser == null) return Unauthorized();
 
-            var linesResult = await _lineService.GetAllAsync(appUser.Id);
+            var linesResult = await _lineService.GetAllForUserAsync(appUser.Id);
 
             var linesResponse = linesResult.Select(l => l.ToLinesResponseDtoFromLinesResult()).ToList();
 
