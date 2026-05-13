@@ -7,6 +7,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import { jsdoc } from "eslint-plugin-jsdoc";
+import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -19,6 +20,7 @@ export default defineConfig([
       reactRefresh.configs.vite,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
+      eslintPluginJsxA11y.flatConfigs.recommended,
     ],
     settings: {
       "import/resolver": {
