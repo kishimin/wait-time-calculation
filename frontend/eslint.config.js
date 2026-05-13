@@ -8,6 +8,8 @@ import prettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
+import { testingLibrary } from "eslint-plugin-testing-library";
+import vitest from "@vitest/eslint-plugin";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -45,6 +47,26 @@ export default defineConfig([
         },
       ],
     },
+  },
+  {
+    files: [
+      "**/*.test.{ts,tsx}",
+      "**/*.spec.{ts,tsx}",
+      "**/__tests__/**/*.{ts,tsx}",
+      "**/tests/**/**/*.{ts,tsx}",
+    ],
+    ...testingLibrary.configs["flat/react"],
+    rules: {
+      ...vitest.configs.recommended.rules,
+      "@typescript-eslint/no-unsafe-call": "off",
+      "vitest/max-nested-describe": ["error", { max: 3 }],
+      "vitest/no-focused-tests": "error",
+      "vitest/no-disabled-tests": "warn",
+    },
+    settings: {
+      vitest: { typecheck: true },
+    },
+    languageOptions: { globals: { ...vitest.environments.env.globals } },
   },
   prettier,
   jsdoc({
