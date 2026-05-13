@@ -15,6 +15,6 @@ namespace WaitTimeCalculationApi.Dtos.Line
         public double? AverageWaitTime { get; set; }
 
         // userが入場しているか
-        // public bool IsEntry { get; set; } = false;
+        public bool IsEntry { get; set; } = false;
     }
 }
