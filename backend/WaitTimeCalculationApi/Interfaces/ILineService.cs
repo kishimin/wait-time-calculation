@@ -10,7 +10,7 @@ namespace WaitTimeCalculationApi.Interfaces
 {
     public interface ILineService
     {
-        Task<List<LinesResult>> GetAllAsync(string userId);
+        Task<List<LinesResult>> GetAllForUserAsync(string userId);
 
         Task<Line?> GetByIdAsync(Guid id);
 
