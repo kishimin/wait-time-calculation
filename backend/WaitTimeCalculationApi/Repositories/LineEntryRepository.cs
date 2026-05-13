@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using WaitTimeCalculationApi.Data;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Models;
+using WaitTimeCalculationApi.Projections;
 
 namespace WaitTimeCalculationApi.Repositories
 {
@@ -18,6 +19,20 @@ namespace WaitTimeCalculationApi.Repositories
             await _context.LineEntries.AddAsync(lineEntryModel);
             await _context.SaveChangesAsync();
             return lineEntryModel;
+        }
+
+        public async Task<CurrentEntryInfo?> GetCurrentEntryAsync(string userId)
+        {
+            return await _context.LineEntries
+            .AsNoTracking()
+            .Where(lineEntry => lineEntry.UserId == userId)
+            .OrderByDescending(lineEntry => lineEntry.UpdatedAt)
+            .Select(lineEntry => new CurrentEntryInfo
+            {
+                ExitedAt = lineEntry.ExitedAt,
+                LineId = lineEntry.LineId
+            })
+            .FirstOrDefaultAsync();
         }
 
         public async Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel)

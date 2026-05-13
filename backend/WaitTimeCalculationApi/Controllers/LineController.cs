@@ -3,24 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WaitTimeCalculationApi.Dtos.Line;
+using WaitTimeCalculationApi.Extensions;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Mappers;
+using WaitTimeCalculationApi.Models;
 
 namespace WaitTimeCalculationApi.Controllers
 {
     [ApiController]
     [Route("api/line")]
-    public class LineController(ILineService lineService) : ControllerBase
+    public class LineController(UserManager<User> userManager, ILineService lineService) : ControllerBase
     {
+        private readonly UserManager<User> _userManager = userManager;
+
         private readonly ILineService _lineService = lineService;
 
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var linesResult = await _lineService.GetAllAsync();
+            var username = User.GetUsername();
+            var appUser = await _userManager.FindByNameAsync(username);
+            if (appUser == null) return Unauthorized();
+
+            var linesResult = await _lineService.GetAllForUserAsync(appUser.Id);
 
             var linesResponse = linesResult.Select(l => l.ToLinesResponseDtoFromLinesResult()).ToList();
 
