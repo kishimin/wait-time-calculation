@@ -1,3 +1,6 @@
+// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
+import storybook from "eslint-plugin-storybook";
+
 import js from "@eslint/js";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -12,114 +15,107 @@ import { testingLibrary } from "eslint-plugin-testing-library";
 import vitest from "@vitest/eslint-plugin";
 import unusedImports from "eslint-plugin-unused-imports";
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    plugins: {
-      "unused-imports": unusedImports,
-    },
-    rules: {
-      "@typescript-eslint/no-unused-vars": "off",
-      "unused-imports/no-unused-imports": "error",
-      "unused-imports/no-unused-vars": [
-        "warn",
-        {
-          vars: "all",
-          varsIgnorePattern: "^_",
-          args: "after-used",
-          argsIgnorePattern: "^_",
-        },
-      ],
-    },
+export default defineConfig([globalIgnores(["dist"]), {
+  plugins: {
+    "unused-imports": unusedImports,
   },
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-      tseslint.configs.recommendedTypeChecked,
-      importPlugin.flatConfigs.recommended,
-      importPlugin.flatConfigs.typescript,
-      eslintPluginJsxA11y.flatConfigs.recommended,
-    ],
-    settings: {
-      "import/resolver": {
-        typescript: true,
-        node: true,
+  rules: {
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      {
+        vars: "all",
+        varsIgnorePattern: "^_",
+        args: "after-used",
+        argsIgnorePattern: "^_",
       },
-    },
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
-      parserOptions: { projectService: true },
-    },
-    rules: {
-      "no-console": "warn",
-      camelcase: ["warn", { properties: "never" }],
-      "@typescript-eslint/switch-exhaustiveness-check": "warn",
-      "@typescript-eslint/no-explicit-any": "warn",
-      "import/order": [
-        "error",
-        {
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
-        },
-      ],
-    },
-  },
-  {
-    files: [
-      "**/*.test.{ts,tsx}",
-      "**/*.spec.{ts,tsx}",
-      "**/__tests__/**/*.{ts,tsx}",
-      "**/tests/**/**/*.{ts,tsx}",
     ],
-    ...testingLibrary.configs["flat/react"],
-    extends: [...vitest.configs.recommended.rules],
-    rules: {
-      "@typescript-eslint/no-unsafe-call": "off",
-      "vitest/max-nested-describe": ["error", { max: 3 }],
-      "vitest/no-focused-tests": "error",
-      "vitest/no-disabled-tests": "warn",
-    },
-    settings: {
-      vitest: { typecheck: true },
-    },
-    languageOptions: { globals: { ...vitest.environments.env.globals } },
   },
-  prettier,
-  jsdoc({
-    config: "flat/recommended",
-    rules: {
-      "jsdoc/check-values": [
-        "error",
-        {
-          allowedLicenses: ["MIT", "ISC"],
-        },
-      ],
-      "jsdoc/require-jsdoc": [
-        "error",
-        {
-          publicOnly: true,
-          require: {
-            FunctionDeclaration: true,
-            MethodDefinition: true,
-            ClassDeclaration: true,
-          },
-        },
-      ],
+}, {
+  files: ["**/*.{ts,tsx}"],
+  extends: [
+    js.configs.recommended,
+    tseslint.configs.recommended,
+    reactHooks.configs.flat.recommended,
+    reactRefresh.configs.vite,
+    tseslint.configs.recommendedTypeChecked,
+    importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.typescript,
+    eslintPluginJsxA11y.flatConfigs.recommended,
+  ],
+  settings: {
+    "import/resolver": {
+      typescript: true,
+      node: true,
     },
-    settings: {
-      structuredTags: {
-        see: {
-          name: "namepath-referencing",
-          required: ["name"],
+  },
+  languageOptions: {
+    ecmaVersion: 2020,
+    globals: globals.browser,
+    parserOptions: { projectService: true },
+  },
+  rules: {
+    "no-console": "warn",
+    camelcase: ["warn", { properties: "never" }],
+    "@typescript-eslint/switch-exhaustiveness-check": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "import/order": [
+      "error",
+      {
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
         },
       },
+    ],
+  },
+}, {
+  files: [
+    "**/*.test.{ts,tsx}",
+    "**/*.spec.{ts,tsx}",
+    "**/__tests__/**/*.{ts,tsx}",
+    "**/tests/**/**/*.{ts,tsx}",
+  ],
+  ...testingLibrary.configs["flat/react"],
+  extends: [...vitest.configs.recommended.rules],
+  rules: {
+    "@typescript-eslint/no-unsafe-call": "off",
+    "vitest/max-nested-describe": ["error", { max: 3 }],
+    "vitest/no-focused-tests": "error",
+    "vitest/no-disabled-tests": "warn",
+  },
+  settings: {
+    vitest: { typecheck: true },
+  },
+  languageOptions: { globals: { ...vitest.environments.env.globals } },
+}, prettier, jsdoc({
+  config: "flat/recommended",
+  rules: {
+    "jsdoc/check-values": [
+      "error",
+      {
+        allowedLicenses: ["MIT", "ISC"],
+      },
+    ],
+    "jsdoc/require-jsdoc": [
+      "error",
+      {
+        publicOnly: true,
+        require: {
+          FunctionDeclaration: true,
+          MethodDefinition: true,
+          ClassDeclaration: true,
+        },
+      },
+    ],
+  },
+  settings: {
+    structuredTags: {
+      see: {
+        name: "namepath-referencing",
+        required: ["name"],
+      },
     },
-  }),
-]);
+  },
+}), ...storybook.configs["flat/recommended"]]);
