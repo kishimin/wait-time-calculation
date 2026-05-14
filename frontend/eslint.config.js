@@ -39,6 +39,7 @@ export default defineConfig([
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      tseslint.configs.recommendedTypeChecked,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
       eslintPluginJsxA11y.flatConfigs.recommended,
@@ -55,6 +56,8 @@ export default defineConfig([
     },
     rules: {
       "no-console": "warn",
+      camelcase: ["warn", { properties: "never" }],
+      "@typescript-eslint/switch-exhaustiveness-check": "warn",
       "@typescript-eslint/no-explicit-any": "warn",
       "import/order": [
         "error",
