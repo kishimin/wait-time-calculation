@@ -82,8 +82,8 @@ export default defineConfig([
       "**/tests/**/**/*.{ts,tsx}",
     ],
     ...testingLibrary.configs["flat/react"],
-    extends: [...vitest.configs.recommended.rules],
     rules: {
+      ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-unsafe-call": "off",
       "vitest/max-nested-describe": ["error", { max: 3 }],
       "vitest/no-focused-tests": "error",
@@ -98,6 +98,9 @@ export default defineConfig([
   jsdoc({
     config: "flat/recommended",
     rules: {
+      "jsdoc/require-param": "off",
+      "jsdoc/require-returns": "off",
+      "jsdoc/require-description": "off",
       "jsdoc/check-values": [
         "error",
         {
