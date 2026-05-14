@@ -80,6 +80,9 @@ export default defineConfig([
       "**/tests/**/**/*.{ts,tsx}",
     ],
     ...testingLibrary.configs["flat/react"],
+    plugins: {
+      vitest,
+    },
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-unsafe-call": "off",
