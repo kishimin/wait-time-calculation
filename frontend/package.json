@@ -34,6 +34,8 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "globals": "^17.4.0",
     "msw": "^2.14.6",
+    "orval": "^8.10.0",
+    "react-hook-form": "^7.75.0",
     "typecheck": "^0.1.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.57.0",
