@@ -53,6 +53,7 @@ export default defineConfig([
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
+      parserOptions: { projectService: true },
     },
     rules: {
       "no-console": "warn",
@@ -78,8 +79,8 @@ export default defineConfig([
       "**/tests/**/**/*.{ts,tsx}",
     ],
     ...testingLibrary.configs["flat/react"],
+    extends: [...vitest.configs.recommended.rules],
     rules: {
-      ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-unsafe-call": "off",
       "vitest/max-nested-describe": ["error", { max: 3 }],
       "vitest/no-focused-tests": "error",
@@ -108,7 +109,6 @@ export default defineConfig([
             FunctionDeclaration: true,
             MethodDefinition: true,
             ClassDeclaration: true,
-            ArrowFunctionExpression: true,
           },
         },
       ],
