@@ -7,7 +7,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: ["./setupTests.ts"],
+    setupFiles: ["./src/tests/setup.ts"],
     reporters: process.env.GITHUB_ACTIONS
       ? ["dot", "github-actions", "json"]
       : ["dot"],
