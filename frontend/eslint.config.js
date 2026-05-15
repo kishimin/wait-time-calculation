@@ -1,16 +1,16 @@
 import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import vitest from "@vitest/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 import testingLibrary from "eslint-plugin-testing-library";
-import vitest from "@vitest/eslint-plugin";
 import unusedImports from "eslint-plugin-unused-imports";
+import globals from "globals";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -130,7 +130,13 @@ export default defineConfig([
     },
   }),
   {
-    files: ["!src/**/*"],
+    files: [
+      "!src/**/*",
+      "**/*.test.{ts,tsx}",
+      "**/*.spec.{ts,tsx}",
+      "**/__tests__/**/*.{ts,tsx}",
+      "**/tests/**/**/*.{ts,tsx}",
+    ],
     ...tseslint.configs.disableTypeChecked,
   },
 ]);
