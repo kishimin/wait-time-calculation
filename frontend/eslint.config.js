@@ -130,13 +130,7 @@ export default defineConfig([
     },
   }),
   {
-    files: [
-      "!src/**/*",
-      "**/*.test.{ts,tsx}",
-      "**/*.spec.{ts,tsx}",
-      "**/__tests__/**/*.{ts,tsx}",
-      "**/tests/**/**/*.{ts,tsx}",
-    ],
+    files: ["!src/**/*"],
     ...tseslint.configs.disableTypeChecked,
   },
 ]);
