@@ -86,6 +86,7 @@ export default defineConfig([
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "vitest/max-nested-describe": ["error", { max: 3 }],
       "vitest/no-focused-tests": "error",
       "vitest/no-disabled-tests": "warn",
