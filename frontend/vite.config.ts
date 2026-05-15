@@ -4,7 +4,6 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-
   test: {
     reporters: ["default", "json"],
     outputFile: "test-result.json",
