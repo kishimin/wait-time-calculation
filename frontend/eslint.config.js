@@ -129,4 +129,8 @@ export default defineConfig([
       },
     },
   }),
+  {
+    files: ["!src/**/*"],
+    ...tseslint.configs.disableTypeChecked,
+  },
 ]);
