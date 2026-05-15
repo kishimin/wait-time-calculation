@@ -16,5 +16,5 @@ test("タイトルが表示される", () => {
 
   const lines = screen.getAllByRole("listitem");
 
-  expect(lines[0]).toHaveValue("タイトル");
+  expect(lines[0]).toHaveTextContent("タイトル");
 });
