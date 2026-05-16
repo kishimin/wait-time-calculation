@@ -1,9 +1,11 @@
-import { Button, List, ListItem } from "@mui/material";
+import { Button, CircularProgress, List, ListItem } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useGetApiLine } from "../../../api/endpoints/line/line";
 import type { Line } from "../types/lines";
 
 const Lines = () => {
   const [lines, setLines] = useState<Line[]>([]);
+  const { isLoading } = useGetApiLine();
 
   const handleClickEntryButton = (id: string) => {
     setLines((prevLine) =>
@@ -27,6 +29,7 @@ const Lines = () => {
 
   return (
     <>
+    {isLoading && <CircularProgress />}
       <List>
         {lines.map((line) => (
           <ListItem
