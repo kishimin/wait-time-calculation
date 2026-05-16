@@ -20,6 +20,9 @@ namespace WaitTimeCalculationApi.Controllers
         private readonly SignInManager<User> _signinManager = signInManager;
 
         [HttpPost("register")]
+        [ProducesResponseType<NewUserDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             try
@@ -66,6 +69,9 @@ namespace WaitTimeCalculationApi.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType<NewUserDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using WaitTimeCalculationApi.Dtos.LineEntry;
 using WaitTimeCalculationApi.Extensions;
 using WaitTimeCalculationApi.Interfaces;
 using WaitTimeCalculationApi.Mappers;
@@ -22,6 +23,9 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpPost]
         [Authorize]
+        [ProducesResponseType<EnterResponseDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Enter([FromBody] Guid LineId)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -41,6 +45,10 @@ namespace WaitTimeCalculationApi.Controllers
         [HttpPut]
         [Route("{id:guid}")]
         [Authorize]
+        [ProducesResponseType<ExitResponseDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Exit([FromRoute] Guid id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
