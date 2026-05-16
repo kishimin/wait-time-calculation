@@ -1,13 +1,31 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
+import { server } from "../../../api/mocks/server";
 import Lines from "../views/lines";
 
 const setup = () => {
   const user = userEvent.setup();
-  render(<Lines />);
+  const queryClient = new QueryClient();
+  server.use(getGetApiLineMockHandler());
+
+  render(
+    <QueryClientProvider client={queryClient}>
+      <Lines />
+    </QueryClientProvider>,
+  );
 
   return { user };
 };
+
+describe("初期表示", () => {
+  test("ローディングが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("progressbar")).toBeVisible();
+  });
+});
 
 test("一覧がリストで表示される", () => {
   setup();
