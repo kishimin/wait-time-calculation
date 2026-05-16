@@ -3,7 +3,10 @@ import Lines from "../views/lines";
 import userEvent from "@testing-library/user-event";
 
 const setup = () => {
+  const user = userEvent.setup();
   render(<Lines />);
+
+  return { user };
 };
 
 test("一覧がリストで表示される", () => {
@@ -43,8 +46,7 @@ test("入場中の時、退場ボタンが表示される", () => {
 });
 
 test("入場ボタンをクリックすると、退場に切り替わる", async () => {
-  const user = userEvent.setup();
-  setup();
+  const { user } = setup();
   const lines = screen.getAllByRole("listitem");
   const entryButton = within(lines[0]).getByRole("button");
 

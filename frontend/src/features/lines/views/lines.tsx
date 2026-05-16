@@ -5,6 +5,18 @@ import type { Line } from "../types/lines";
 const Lines = () => {
   const [lines, setLines] = useState<Line[]>([]);
 
+  const handleClickEntryButton = (id: string) => {
+    setLines((prevLine) =>
+      prevLine.map((line) => {
+        if (line.id === id) {
+          return { ...line, isEntry: !line.isEntry };
+        }
+
+        return line;
+      }),
+    );
+  };
+
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLines([
@@ -20,19 +32,7 @@ const Lines = () => {
           <ListItem
             key={line.id}
             secondaryAction={
-              <Button
-                onClick={() => {
-                  setLines((prev) =>
-                    prev.map((l) => {
-                      if (l.id === "1") {
-                        return { ...l, isEntry: !l.isEntry };
-                      }
-
-                      return l;
-                    }),
-                  );
-                }}
-              >
+              <Button onClick={() => handleClickEntryButton(line.id)}>
                 {line.isEntry ? "退場" : "入場"}
               </Button>
             }
