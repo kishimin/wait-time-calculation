@@ -32,9 +32,9 @@ test("平均待ち時間が表示される", () => {
 test("入場、退場ボタンが表示される", () => {
   setup();
   const lines = screen.getAllByRole("listitem");
-  const entryButton = within(lines[0]).getByRole("button", { name: "入場" });
+  const enterButton = within(lines[0]).getByRole("button", { name: "入場" });
 
-  expect(entryButton).toBeVisible();
+  expect(enterButton).toBeVisible();
 });
 
 test("入場中の時、退場ボタンが表示される", () => {
