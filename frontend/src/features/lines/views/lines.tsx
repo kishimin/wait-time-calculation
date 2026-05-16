@@ -4,7 +4,10 @@ const Lines = () => {
   return (
     <>
       <List>
-        <ListItem>{"タイトル"}</ListItem>
+        <ListItem>
+          {"タイトル"}
+          {"1"}
+        </ListItem>
       </List>
     </>
   );
