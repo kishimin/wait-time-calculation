@@ -1,4 +1,4 @@
-import { List, ListItem } from "@mui/material";
+import { Button, List, ListItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import type { Line } from "../types/lines";
 
@@ -14,7 +14,7 @@ const Lines = () => {
     <>
       <List>
         {lines.map((line) => (
-          <ListItem key={line.id}>
+          <ListItem key={line.id} secondaryAction={<Button>{"入場"}</Button>}>
             {line.title}
             {line.averageWaitTime}
           </ListItem>
