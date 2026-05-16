@@ -13,7 +13,6 @@ test("一覧がリストで表示される", () => {
 
 test("タイトルが表示される", () => {
   setup();
-
   const lines = screen.getAllByRole("listitem");
 
   expect(lines[0]).toHaveTextContent("タイトル");
@@ -21,7 +20,6 @@ test("タイトルが表示される", () => {
 
 test("平均待ち時間が表示される", () => {
   setup();
-
   const lines = screen.getAllByRole("listitem");
 
   expect(lines[0]).toHaveTextContent("1");
