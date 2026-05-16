@@ -1,50 +1,46 @@
 import { Button, CircularProgress, List, ListItem } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useGetApiLine } from "../../../api/endpoints/line/line";
-import type { Line } from "../types/lines";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  getGetApiLineQueryKey,
+  useGetApiLine,
+} from "../../../api/endpoints/line/line";
+import type { LinesResponseDto } from "../../../models";
 
 const Lines = () => {
-  const [lines, setLines] = useState<Line[]>([]);
-  const { isLoading } = useGetApiLine();
+  const queryClient = useQueryClient();
+  const { isLoading, data = [] } = useGetApiLine();
 
-  const handleClickEntryButton = (id: string) => {
-    setLines((prevLine) =>
-      prevLine.map((line) => {
-        if (line.id === id) {
-          return { ...line, isEntry: !line.isEntry };
-        }
-
-        return line;
-      }),
+  const handleClickEntryButton = (id?: string) => {
+    queryClient.setQueryData(
+      getGetApiLineQueryKey(),
+      (prev: LinesResponseDto[] = []) =>
+        prev.map((line) =>
+          line.id === id ? { ...line, isEntry: !line.isEntry } : line,
+        ),
     );
   };
 
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLines([
-      { id: "1", averageWaitTime: 1, title: "タイトル", isEntry: false },
-      { id: "2", averageWaitTime: 1, title: "タイトル2", isEntry: true },
-    ]);
-  }, []);
-
   return (
     <>
-    {isLoading && <CircularProgress />}
-      <List>
-        {lines.map((line) => (
-          <ListItem
-            key={line.id}
-            secondaryAction={
-              <Button onClick={() => handleClickEntryButton(line.id)}>
-                {line.isEntry ? "退場" : "入場"}
-              </Button>
-            }
-          >
-            {line.title}
-            {line.averageWaitTime}
-          </ListItem>
-        ))}
-      </List>
+      {isLoading ? (
+        <CircularProgress />
+      ) : (
+        <List>
+          {data.map((line) => (
+            <ListItem
+              key={line.id}
+              secondaryAction={
+                <Button onClick={() => handleClickEntryButton(line.id)}>
+                  {line.isEntry ? "退場" : "入場"}
+                </Button>
+              }
+            >
+              {line.title}
+              {line.averageWaitTime}
+            </ListItem>
+          ))}
+        </List>
+      )}
     </>
   );
 };
