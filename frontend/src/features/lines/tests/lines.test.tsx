@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
-import Lines from "../views/lines";
 import userEvent from "@testing-library/user-event";
+import Lines from "../views/lines";
 
 const setup = () => {
   const user = userEvent.setup();
