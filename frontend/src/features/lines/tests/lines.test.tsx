@@ -54,3 +54,13 @@ test("入場ボタンをクリックすると、退場に切り替わる", async
 
   expect(entryButton).toHaveTextContent("退場");
 });
+
+test("退場ボタンをクリックすると、入場に切り替わる", async () => {
+  const { user } = setup();
+  const lines = screen.getAllByRole("listitem");
+  const entryButton = within(lines[1]).getByRole("button", { name: "退場" });
+
+  await user.click(entryButton);
+
+  expect(entryButton).toHaveTextContent("入場");
+});
