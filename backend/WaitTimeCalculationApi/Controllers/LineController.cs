@@ -60,7 +60,7 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpPost]
         [Authorize]
-        [ProducesResponseType<LineResponseDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType<LineResponseDto>(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] LineRequestDto lineRequestDto)
         {
