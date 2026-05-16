@@ -32,3 +32,11 @@ test("入場、退場ボタンが表示される", () => {
 
   expect(entryButton).toBeVisible();
 });
+
+test("入場中の時、退場ボタンが表示される", () => {
+  setup();
+  const lines = screen.getAllByRole("listitem");
+  const exitButton = within(lines[1]).getByRole("button", { name: "退場" });
+
+  expect(exitButton).toBeVisible();
+});
