@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import Lines from "../views/lines";
+import userEvent from "@testing-library/user-event";
 
 const setup = () => {
   render(<Lines />);
@@ -39,4 +40,15 @@ test("入場中の時、退場ボタンが表示される", () => {
   const exitButton = within(lines[1]).getByRole("button", { name: "退場" });
 
   expect(exitButton).toBeVisible();
+});
+
+test("入場ボタンをクリックすると、退場に切り替わる", async () => {
+  const user = userEvent.setup();
+  setup();
+  const lines = screen.getAllByRole("listitem");
+  const entryButton = within(lines[0]).getByRole("button");
+
+  await user.click(entryButton);
+
+  expect(entryButton).toHaveTextContent("退場");
 });

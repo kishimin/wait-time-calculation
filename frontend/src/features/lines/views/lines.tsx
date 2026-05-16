@@ -19,7 +19,23 @@ const Lines = () => {
         {lines.map((line) => (
           <ListItem
             key={line.id}
-            secondaryAction={<Button>{line.isEntry ? "退場" : "入場"}</Button>}
+            secondaryAction={
+              <Button
+                onClick={() => {
+                  setLines((prev) =>
+                    prev.map((l) => {
+                      if (l.id === "1") {
+                        return { ...l, isEntry: !l.isEntry };
+                      }
+
+                      return l;
+                    }),
+                  );
+                }}
+              >
+                {line.isEntry ? "退場" : "入場"}
+              </Button>
+            }
           >
             {line.title}
             {line.averageWaitTime}
