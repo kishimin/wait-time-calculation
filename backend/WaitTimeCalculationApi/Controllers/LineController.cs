@@ -23,6 +23,9 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpGet]
         [Authorize]
+        [ProducesResponseType<List<LinesResponseDto>>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Index()
         {
             var username = User.GetUsername();
@@ -38,6 +41,9 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpGet("{id:guid}")]
         [Authorize]
+        [ProducesResponseType<LineResponseDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -54,6 +60,8 @@ namespace WaitTimeCalculationApi.Controllers
 
         [HttpPost]
         [Authorize]
+        [ProducesResponseType<LineResponseDto>(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Create([FromBody] LineRequestDto lineRequestDto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
