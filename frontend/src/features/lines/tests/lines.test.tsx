@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import Lines from "../views/lines";
 
 const setup = () => {
@@ -25,4 +25,12 @@ test("平均待ち時間が表示される", () => {
   const lines = screen.getAllByRole("listitem");
 
   expect(lines[0]).toHaveTextContent("1");
+});
+
+test("入場、退場ボタンが表示される", () => {
+  setup();
+  const lines = screen.getAllByRole("listitem");
+  const entryButton = within(lines[0]).getByRole("button");
+
+  expect(entryButton).toBeVisible();
 });
