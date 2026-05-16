@@ -12,7 +12,19 @@ export const PostApiUserRegisterBody = zod.object({
   password: zod.string(),
 });
 
+export const PostApiUserRegisterResponse = zod.object({
+  userName: zod.string().optional(),
+  email: zod.string().optional(),
+  token: zod.string().optional(),
+});
+
 export const PostApiUserLoginBody = zod.object({
   username: zod.string(),
   password: zod.string(),
+});
+
+export const PostApiUserLoginResponse = zod.object({
+  userName: zod.string().optional(),
+  email: zod.string().optional(),
+  token: zod.string().optional(),
 });

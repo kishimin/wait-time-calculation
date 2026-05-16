@@ -4,25 +4,104 @@
  * WaitTimeCalculationApi | v1
  * OpenAPI spec version: 1.0.0
  */
+import { faker } from "@faker-js/faker";
+
 import { HttpResponse, http } from "msw";
 import type { RequestHandlerOptions } from "msw";
 
+import type { EnterResponseDto, ExitResponseDto } from "../../../models";
+
+export const getPostApiLineEntryResponseMock = (
+  overrideResponse: Partial<Extract<EnterResponseDto, object>> = {},
+): EnterResponseDto =>
+  faker.helpers.arrayElement([
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+  ]);
+
+export const getPutApiLineEntryIdResponseMock = (
+  overrideResponse: Partial<Extract<ExitResponseDto, object>> = {},
+): ExitResponseDto =>
+  faker.helpers.arrayElement([
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      exitedAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      exitedAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      enteredAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      exitedAt: faker.helpers.arrayElement([
+        faker.date.past().toISOString().slice(0, 19) + "Z",
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+  ]);
+
 export const getPostApiLineEntryMockHandler = (
   overrideResponse?:
-    | void
+    | EnterResponseDto
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<EnterResponseDto> | EnterResponseDto),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
     "*/api/lineEntry",
     async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getPostApiLineEntryResponseMock(),
+        { status: 200 },
+      );
     },
     options,
   );
@@ -30,20 +109,23 @@ export const getPostApiLineEntryMockHandler = (
 
 export const getPutApiLineEntryIdMockHandler = (
   overrideResponse?:
-    | void
+    | ExitResponseDto
     | ((
         info: Parameters<Parameters<typeof http.put>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<ExitResponseDto> | ExitResponseDto),
   options?: RequestHandlerOptions,
 ) => {
   return http.put(
     "*/api/lineEntry/:id",
     async (info: Parameters<Parameters<typeof http.put>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getPutApiLineEntryIdResponseMock(),
+        { status: 200 },
+      );
     },
     options,
   );

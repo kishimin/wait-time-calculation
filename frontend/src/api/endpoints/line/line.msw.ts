@@ -4,25 +4,183 @@
  * WaitTimeCalculationApi | v1
  * OpenAPI spec version: 1.0.0
  */
+import { faker } from "@faker-js/faker";
+
 import { HttpResponse, http } from "msw";
 import type { RequestHandlerOptions } from "msw";
 
+import type { LineResponseDto, LinesResponseDto } from "../../../models";
+
+export const getGetApiLineResponseMock = (): LinesResponseDto[] =>
+  faker.helpers.arrayElement([
+    Array.from(
+      { length: faker.number.int({ min: 1, max: 10 }) },
+      (_, i) => i + 1,
+    ).map(() => ({
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      averageWaitTime: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([
+          faker.number.float({ fractionDigits: 2 }),
+          null,
+        ]),
+        undefined,
+      ]),
+      isEntry: faker.helpers.arrayElement([
+        faker.datatype.boolean(),
+        undefined,
+      ]),
+    })),
+    Array.from(
+      { length: faker.number.int({ min: 1, max: 10 }) },
+      (_, i) => i + 1,
+    ).map(() => ({
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      averageWaitTime: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([
+          faker.number.float({ fractionDigits: 2 }),
+          null,
+        ]),
+        undefined,
+      ]),
+      isEntry: faker.helpers.arrayElement([
+        faker.datatype.boolean(),
+        undefined,
+      ]),
+    })),
+    Array.from(
+      { length: faker.number.int({ min: 1, max: 10 }) },
+      (_, i) => i + 1,
+    ).map(() => ({
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      averageWaitTime: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([
+          faker.number.float({ fractionDigits: 2 }),
+          null,
+        ]),
+        undefined,
+      ]),
+      isEntry: faker.helpers.arrayElement([
+        faker.datatype.boolean(),
+        undefined,
+      ]),
+    })),
+  ]);
+
+export const getPostApiLineResponseMock = (
+  overrideResponse: Partial<Extract<LineResponseDto, object>> = {},
+): LineResponseDto =>
+  faker.helpers.arrayElement([
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+  ]);
+
+export const getGetApiLineIdResponseMock = (
+  overrideResponse: Partial<Extract<LineResponseDto, object>> = {},
+): LineResponseDto =>
+  faker.helpers.arrayElement([
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+    {
+      id: faker.helpers.arrayElement([faker.string.uuid(), undefined]),
+      title: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      explanation: faker.helpers.arrayElement([
+        faker.string.alpha({ length: { min: 10, max: 20 } }),
+        undefined,
+      ]),
+      ...overrideResponse,
+    },
+  ]);
+
 export const getGetApiLineMockHandler = (
   overrideResponse?:
-    | void
+    | LinesResponseDto[]
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<LinesResponseDto[]> | LinesResponseDto[]),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
     "*/api/line",
     async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getGetApiLineResponseMock(),
+        { status: 200 },
+      );
     },
     options,
   );
@@ -30,20 +188,23 @@ export const getGetApiLineMockHandler = (
 
 export const getPostApiLineMockHandler = (
   overrideResponse?:
-    | void
+    | LineResponseDto
     | ((
         info: Parameters<Parameters<typeof http.post>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<LineResponseDto> | LineResponseDto),
   options?: RequestHandlerOptions,
 ) => {
   return http.post(
     "*/api/line",
     async (info: Parameters<Parameters<typeof http.post>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getPostApiLineResponseMock(),
+        { status: 201 },
+      );
     },
     options,
   );
@@ -51,20 +212,23 @@ export const getPostApiLineMockHandler = (
 
 export const getGetApiLineIdMockHandler = (
   overrideResponse?:
-    | void
+    | LineResponseDto
     | ((
         info: Parameters<Parameters<typeof http.get>[1]>[0],
-      ) => Promise<void> | void),
+      ) => Promise<LineResponseDto> | LineResponseDto),
   options?: RequestHandlerOptions,
 ) => {
   return http.get(
     "*/api/line/:id",
     async (info: Parameters<Parameters<typeof http.get>[1]>[0]) => {
-      if (typeof overrideResponse === "function") {
-        await overrideResponse(info);
-      }
-
-      return new HttpResponse(null, { status: 200 });
+      return HttpResponse.json(
+        overrideResponse !== undefined
+          ? typeof overrideResponse === "function"
+            ? await overrideResponse(info)
+            : overrideResponse
+          : getGetApiLineIdResponseMock(),
+        { status: 200 },
+      );
     },
     options,
   );
