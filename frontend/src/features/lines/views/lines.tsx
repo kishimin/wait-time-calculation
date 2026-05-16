@@ -7,14 +7,20 @@ const Lines = () => {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setLines([{ id: "", averageWaitTime: 1, title: "タイトル" }]);
+    setLines([
+      { id: "1", averageWaitTime: 1, title: "タイトル", isEntry: false },
+      { id: "2", averageWaitTime: 1, title: "タイトル2", isEntry: true },
+    ]);
   }, []);
 
   return (
     <>
       <List>
         {lines.map((line) => (
-          <ListItem key={line.id} secondaryAction={<Button>{"入場"}</Button>}>
+          <ListItem
+            key={line.id}
+            secondaryAction={<Button>{line.isEntry ? "退場" : "入場"}</Button>}
+          >
             {line.title}
             {line.averageWaitTime}
           </ListItem>
