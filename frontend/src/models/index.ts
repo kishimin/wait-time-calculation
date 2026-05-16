@@ -5,6 +5,12 @@
  * OpenAPI spec version: 1.0.0
  */
 
+export * from "./enterResponseDto";
+export * from "./exitResponseDto";
 export * from "./lineRequestDto";
+export * from "./lineResponseDto";
+export * from "./linesResponseDto";
 export * from "./loginDto";
+export * from "./newUserDto";
+export * from "./problemDetails";
 export * from "./registerDto";

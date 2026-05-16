@@ -20,13 +20,22 @@ import type {
   UseQueryResult,
 } from "@tanstack/react-query";
 
-import type { LineRequestDto } from "../../../models";
+import type {
+  LineRequestDto,
+  LineResponseDto,
+  LinesResponseDto,
+  ProblemDetails,
+} from "../../../models";
 
 import { customInstance } from "../../mutator/custom-instance";
 import type { ErrorType } from "../../mutator/custom-instance";
 
 export const getApiLine = (signal?: AbortSignal) => {
-  return customInstance<void>({ url: `/api/line`, method: "GET", signal });
+  return customInstance<LinesResponseDto[]>({
+    url: `/api/line`,
+    method: "GET",
+    signal,
+  });
 };
 
 export const getGetApiLineQueryKey = () => {
@@ -35,7 +44,7 @@ export const getGetApiLineQueryKey = () => {
 
 export const getGetApiLineQueryOptions = <
   TData = Awaited<ReturnType<typeof getApiLine>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(options?: {
   query?: Partial<
     UseQueryOptions<Awaited<ReturnType<typeof getApiLine>>, TError, TData>
@@ -59,11 +68,11 @@ export const getGetApiLineQueryOptions = <
 export type GetApiLineQueryResult = NonNullable<
   Awaited<ReturnType<typeof getApiLine>>
 >;
-export type GetApiLineQueryError = ErrorType<unknown>;
+export type GetApiLineQueryError = ErrorType<ProblemDetails>;
 
 export function useGetApiLine<
   TData = Awaited<ReturnType<typeof getApiLine>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   options: {
     query: Partial<
@@ -84,7 +93,7 @@ export function useGetApiLine<
 };
 export function useGetApiLine<
   TData = Awaited<ReturnType<typeof getApiLine>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   options?: {
     query?: Partial<
@@ -105,7 +114,7 @@ export function useGetApiLine<
 };
 export function useGetApiLine<
   TData = Awaited<ReturnType<typeof getApiLine>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   options?: {
     query?: Partial<
@@ -119,7 +128,7 @@ export function useGetApiLine<
 
 export function useGetApiLine<
   TData = Awaited<ReturnType<typeof getApiLine>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   options?: {
     query?: Partial<
@@ -144,7 +153,7 @@ export const postApiLine = (
   lineRequestDto: LineRequestDto,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({
+  return customInstance<LineResponseDto>({
     url: `/api/line`,
     method: "POST",
     headers: { "Content-Type": "application/json-patch+json" },
@@ -154,7 +163,7 @@ export const postApiLine = (
 };
 
 export const getPostApiLineMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -194,9 +203,12 @@ export type PostApiLineMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiLine>>
 >;
 export type PostApiLineMutationBody = LineRequestDto;
-export type PostApiLineMutationError = ErrorType<unknown>;
+export type PostApiLineMutationError = ErrorType<ProblemDetails>;
 
-export const usePostApiLine = <TError = ErrorType<unknown>, TContext = unknown>(
+export const usePostApiLine = <
+  TError = ErrorType<ProblemDetails>,
+  TContext = unknown,
+>(
   options?: {
     mutation?: UseMutationOptions<
       Awaited<ReturnType<typeof postApiLine>>,
@@ -215,7 +227,7 @@ export const usePostApiLine = <TError = ErrorType<unknown>, TContext = unknown>(
   return useMutation(getPostApiLineMutationOptions(options), queryClient);
 };
 export const getApiLineId = (id: string, signal?: AbortSignal) => {
-  return customInstance<void>({
+  return customInstance<LineResponseDto>({
     url: `/api/line/${id}`,
     method: "GET",
     signal,
@@ -228,7 +240,7 @@ export const getGetApiLineIdQueryKey = (id: string) => {
 
 export const getGetApiLineIdQueryOptions = <
   TData = Awaited<ReturnType<typeof getApiLineId>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   id: string,
   options?: {
@@ -260,11 +272,11 @@ export const getGetApiLineIdQueryOptions = <
 export type GetApiLineIdQueryResult = NonNullable<
   Awaited<ReturnType<typeof getApiLineId>>
 >;
-export type GetApiLineIdQueryError = ErrorType<unknown>;
+export type GetApiLineIdQueryError = ErrorType<ProblemDetails>;
 
 export function useGetApiLineId<
   TData = Awaited<ReturnType<typeof getApiLineId>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   id: string,
   options: {
@@ -286,7 +298,7 @@ export function useGetApiLineId<
 };
 export function useGetApiLineId<
   TData = Awaited<ReturnType<typeof getApiLineId>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   id: string,
   options?: {
@@ -308,7 +320,7 @@ export function useGetApiLineId<
 };
 export function useGetApiLineId<
   TData = Awaited<ReturnType<typeof getApiLineId>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   id: string,
   options?: {
@@ -323,7 +335,7 @@ export function useGetApiLineId<
 
 export function useGetApiLineId<
   TData = Awaited<ReturnType<typeof getApiLineId>>,
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
 >(
   id: string,
   options?: {

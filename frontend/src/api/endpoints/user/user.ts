@@ -12,7 +12,12 @@ import type {
   UseMutationResult,
 } from "@tanstack/react-query";
 
-import type { LoginDto, RegisterDto } from "../../../models";
+import type {
+  LoginDto,
+  NewUserDto,
+  ProblemDetails,
+  RegisterDto,
+} from "../../../models";
 
 import { customInstance } from "../../mutator/custom-instance";
 import type { ErrorType } from "../../mutator/custom-instance";
@@ -21,7 +26,7 @@ export const postApiUserRegister = (
   registerDto: RegisterDto,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({
+  return customInstance<NewUserDto>({
     url: `/api/user/register`,
     method: "POST",
     headers: { "Content-Type": "application/json-patch+json" },
@@ -31,7 +36,7 @@ export const postApiUserRegister = (
 };
 
 export const getPostApiUserRegisterMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -71,10 +76,10 @@ export type PostApiUserRegisterMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiUserRegister>>
 >;
 export type PostApiUserRegisterMutationBody = RegisterDto;
-export type PostApiUserRegisterMutationError = ErrorType<unknown>;
+export type PostApiUserRegisterMutationError = ErrorType<ProblemDetails>;
 
 export const usePostApiUserRegister = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(
   options?: {
@@ -98,7 +103,7 @@ export const usePostApiUserRegister = <
   );
 };
 export const postApiUserLogin = (loginDto: LoginDto, signal?: AbortSignal) => {
-  return customInstance<void>({
+  return customInstance<NewUserDto>({
     url: `/api/user/login`,
     method: "POST",
     headers: { "Content-Type": "application/json-patch+json" },
@@ -108,7 +113,7 @@ export const postApiUserLogin = (loginDto: LoginDto, signal?: AbortSignal) => {
 };
 
 export const getPostApiUserLoginMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -148,10 +153,10 @@ export type PostApiUserLoginMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiUserLogin>>
 >;
 export type PostApiUserLoginMutationBody = LoginDto;
-export type PostApiUserLoginMutationError = ErrorType<unknown>;
+export type PostApiUserLoginMutationError = ErrorType<ProblemDetails>;
 
 export const usePostApiUserLogin = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(
   options?: {

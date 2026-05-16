@@ -12,6 +12,12 @@ import type {
   UseMutationResult,
 } from "@tanstack/react-query";
 
+import type {
+  EnterResponseDto,
+  ExitResponseDto,
+  ProblemDetails,
+} from "../../../models";
+
 import { customInstance } from "../../mutator/custom-instance";
 import type { ErrorType } from "../../mutator/custom-instance";
 
@@ -19,7 +25,7 @@ export const postApiLineEntry = (
   postApiLineEntryBody: string,
   signal?: AbortSignal,
 ) => {
-  return customInstance<void>({
+  return customInstance<EnterResponseDto>({
     url: `/api/lineEntry`,
     method: "POST",
     headers: { "Content-Type": "application/json-patch+json" },
@@ -29,7 +35,7 @@ export const postApiLineEntry = (
 };
 
 export const getPostApiLineEntryMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -69,10 +75,10 @@ export type PostApiLineEntryMutationResult = NonNullable<
   Awaited<ReturnType<typeof postApiLineEntry>>
 >;
 export type PostApiLineEntryMutationBody = string;
-export type PostApiLineEntryMutationError = ErrorType<unknown>;
+export type PostApiLineEntryMutationError = ErrorType<ProblemDetails>;
 
 export const usePostApiLineEntry = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(
   options?: {
@@ -93,7 +99,7 @@ export const usePostApiLineEntry = <
   return useMutation(getPostApiLineEntryMutationOptions(options), queryClient);
 };
 export const putApiLineEntryId = (id: string, signal?: AbortSignal) => {
-  return customInstance<void>({
+  return customInstance<ExitResponseDto>({
     url: `/api/lineEntry/${id}`,
     method: "PUT",
     signal,
@@ -101,7 +107,7 @@ export const putApiLineEntryId = (id: string, signal?: AbortSignal) => {
 };
 
 export const getPutApiLineEntryIdMutationOptions = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(options?: {
   mutation?: UseMutationOptions<
@@ -141,10 +147,10 @@ export type PutApiLineEntryIdMutationResult = NonNullable<
   Awaited<ReturnType<typeof putApiLineEntryId>>
 >;
 
-export type PutApiLineEntryIdMutationError = ErrorType<unknown>;
+export type PutApiLineEntryIdMutationError = ErrorType<ProblemDetails>;
 
 export const usePutApiLineEntryId = <
-  TError = ErrorType<unknown>,
+  TError = ErrorType<ProblemDetails>,
   TContext = unknown,
 >(
   options?: {

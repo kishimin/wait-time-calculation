@@ -8,6 +8,17 @@ import * as zod from "zod";
 
 export const PostApiLineEntryBody = zod.uuid();
 
+export const PostApiLineEntryResponse = zod.object({
+  id: zod.uuid().optional(),
+  enteredAt: zod.iso.datetime({ offset: true }).optional(),
+});
+
 export const PutApiLineEntryIdParams = zod.object({
   id: zod.uuid(),
+});
+
+export const PutApiLineEntryIdResponse = zod.object({
+  id: zod.uuid().optional(),
+  enteredAt: zod.iso.datetime({ offset: true }).optional(),
+  exitedAt: zod.iso.datetime({ offset: true }).optional(),
 });

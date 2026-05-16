@@ -6,6 +6,14 @@
  */
 import * as zod from "zod";
 
+export const GetApiLineResponseItem = zod.object({
+  id: zod.uuid().optional(),
+  title: zod.string().optional(),
+  averageWaitTime: zod.number().nullish(),
+  isEntry: zod.boolean().optional(),
+});
+export const GetApiLineResponse = zod.array(GetApiLineResponseItem);
+
 export const postApiLineBodyTitleMax = 100;
 
 export const postApiLineBodyExplanationMax = 400;
@@ -17,4 +25,10 @@ export const PostApiLineBody = zod.object({
 
 export const GetApiLineIdParams = zod.object({
   id: zod.uuid(),
+});
+
+export const GetApiLineIdResponse = zod.object({
+  id: zod.uuid().optional(),
+  title: zod.string().optional(),
+  explanation: zod.string().optional(),
 });
