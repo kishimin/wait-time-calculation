@@ -3,12 +3,34 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
+import type { LinesResponseDto } from "../../../models";
 import Lines from "../views/lines";
 
-const setup = () => {
+type LinesResponse = {
+  id: string;
+  title: string;
+  averageWaitTime: number;
+  isEntry: boolean;
+};
+
+const defaultLines: LinesResponse[] = [
+  { id: "", averageWaitTime: 1, title: "タイトル", isEntry: false },
+];
+
+const entryLines: LinesResponse[] = [
+  { id: "", averageWaitTime: 1, title: "タイトル", isEntry: true },
+];
+
+type Props = {
+  lines: LinesResponseDto[];
+};
+
+const setup = (props: Props = { lines: defaultLines }) => {
+  const { lines } = props;
+
   const user = userEvent.setup();
   const queryClient = new QueryClient();
-  server.use(getGetApiLineMockHandler());
+  server.use(getGetApiLineMockHandler(lines));
 
   render(
     <QueryClientProvider client={queryClient}>
@@ -27,58 +49,66 @@ describe("初期表示", () => {
   });
 });
 
-test("一覧がリストで表示される", () => {
-  setup();
+describe("初期ローディング後の表示", () => {
+  test("一覧がリストで表示される", async () => {
+    setup();
 
-  expect(screen.getByRole("list")).toBeVisible();
-});
+    expect(await screen.findByRole("list")).toBeVisible();
+  });
 
-test("タイトルが表示される", () => {
-  setup();
-  const lines = screen.getAllByRole("listitem");
+  test("タイトルが表示される", async () => {
+    setup();
+    const lines = await screen.findAllByRole("listitem");
 
-  expect(lines[0]).toHaveTextContent("タイトル");
-});
+    expect(lines[0]).toHaveTextContent(defaultLines[0].title);
+  });
 
-test("平均待ち時間が表示される", () => {
-  setup();
-  const lines = screen.getAllByRole("listitem");
+  test("平均待ち時間が表示される", async () => {
+    setup();
+    const lines = await screen.findAllByRole("listitem");
 
-  expect(lines[0]).toHaveTextContent("1");
-});
+    expect(lines[0]).toHaveTextContent(
+      defaultLines[0].averageWaitTime.toString(),
+    );
+  });
 
-test("入場、退場ボタンが表示される", () => {
-  setup();
-  const lines = screen.getAllByRole("listitem");
-  const enterButton = within(lines[0]).getByRole("button", { name: "入場" });
+  test("入場、退場ボタンが表示される", async () => {
+    setup();
+    const lines = await screen.findAllByRole("listitem");
+    const enterButton = within(lines[0]).getByRole("button", { name: "入場" });
 
-  expect(enterButton).toBeVisible();
-});
+    expect(enterButton).toBeVisible();
+  });
 
-test("入場中の時、退場ボタンが表示される", () => {
-  setup();
-  const lines = screen.getAllByRole("listitem");
-  const exitButton = within(lines[1]).getByRole("button", { name: "退場" });
+  test("入場ボタンをクリックすると、退場に切り替わる", async () => {
+    const { user } = setup();
+    const lines = await screen.findAllByRole("listitem");
+    const entryButton = within(lines[0]).getByRole("button");
 
-  expect(exitButton).toBeVisible();
-});
+    await user.click(entryButton);
 
-test("入場ボタンをクリックすると、退場に切り替わる", async () => {
-  const { user } = setup();
-  const lines = screen.getAllByRole("listitem");
-  const entryButton = within(lines[0]).getByRole("button");
+    expect(entryButton).toHaveTextContent("退場");
+  });
 
-  await user.click(entryButton);
+  describe("入場中の時", () => {
+    test("退場ボタンが表示される", async () => {
+      setup({ lines: entryLines });
+      const lines = await screen.findAllByRole("listitem");
+      const exitButton = within(lines[0]).getByRole("button", { name: "退場" });
 
-  expect(entryButton).toHaveTextContent("退場");
-});
+      expect(exitButton).toBeVisible();
+    });
 
-test("退場ボタンをクリックすると、入場に切り替わる", async () => {
-  const { user } = setup();
-  const lines = screen.getAllByRole("listitem");
-  const entryButton = within(lines[1]).getByRole("button", { name: "退場" });
+    test("退場ボタンをクリックすると、入場に切り替わる", async () => {
+      const { user } = setup({ lines: entryLines });
+      const lines = await screen.findAllByRole("listitem");
+      const entryButton = within(lines[0]).getByRole("button", {
+        name: "退場",
+      });
 
-  await user.click(entryButton);
+      await user.click(entryButton);
 
-  expect(entryButton).toHaveTextContent("入場");
+      expect(entryButton).toHaveTextContent("入場");
+    });
+  });
 });
