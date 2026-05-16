@@ -11,6 +11,7 @@ import testingLibrary from "eslint-plugin-testing-library";
 import unusedImports from "eslint-plugin-unused-imports";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import react from "eslint-plugin-react";
 
 export default defineConfig([
   globalIgnores(["dist"]),
@@ -40,6 +41,7 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       tseslint.configs.recommendedTypeChecked,
+      react.configs.flat.recommended,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
       eslintPluginJsxA11y.flatConfigs.recommended,
@@ -70,6 +72,19 @@ export default defineConfig([
           },
         },
       ],
+      "jsx-runtime": {
+        plugins: ["react"],
+        parserOptions: {
+          ecmaFeatures: {
+            jsx: true,
+          },
+          jsxPragma: null,
+        },
+        rules: {
+          "react/react-in-jsx-scope": 0,
+          "react/jsx-uses-react": 0,
+        },
+      },
     },
   },
   {
