@@ -14,7 +14,7 @@ namespace WaitTimeCalculationApi.Dtos.Line
         // Lineの平均待ち時間
         public double? AverageWaitTime { get; set; }
 
-        // userが入場しているか
-        public bool IsEntry { get; set; } = false;
+        // userの最新のLineEntryId
+        public Guid? CurrentLineEntryId { get; set; }
     }
 }
