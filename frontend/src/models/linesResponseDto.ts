@@ -10,5 +10,6 @@ export interface LinesResponseDto {
   title?: string;
   /** @nullable */
   averageWaitTime?: number | null;
-  isEntry?: boolean;
+  /** @nullable */
+  currentLineEntryId?: string | null;
 }

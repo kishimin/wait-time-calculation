@@ -29,8 +29,8 @@ export const getGetApiLineResponseMock = (): LinesResponseDto[] =>
         ]),
         undefined,
       ]),
-      isEntry: faker.helpers.arrayElement([
-        faker.datatype.boolean(),
+      currentLineEntryId: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([faker.string.uuid(), null]),
         undefined,
       ]),
     })),
@@ -50,8 +50,8 @@ export const getGetApiLineResponseMock = (): LinesResponseDto[] =>
         ]),
         undefined,
       ]),
-      isEntry: faker.helpers.arrayElement([
-        faker.datatype.boolean(),
+      currentLineEntryId: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([faker.string.uuid(), null]),
         undefined,
       ]),
     })),
@@ -71,8 +71,8 @@ export const getGetApiLineResponseMock = (): LinesResponseDto[] =>
         ]),
         undefined,
       ]),
-      isEntry: faker.helpers.arrayElement([
-        faker.datatype.boolean(),
+      currentLineEntryId: faker.helpers.arrayElement([
+        faker.helpers.arrayElement([faker.string.uuid(), null]),
         undefined,
       ]),
     })),

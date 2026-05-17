@@ -10,7 +10,7 @@ export const GetApiLineResponseItem = zod.object({
   id: zod.uuid().optional(),
   title: zod.string().optional(),
   averageWaitTime: zod.number().nullish(),
-  isEntry: zod.boolean().optional(),
+  currentLineEntryId: zod.uuid().nullish(),
 });
 export const GetApiLineResponse = zod.array(GetApiLineResponseItem);
 
