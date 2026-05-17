@@ -21,15 +21,14 @@ namespace WaitTimeCalculationApi.Repositories
             return lineEntryModel;
         }
 
-        public async Task<CurrentEntryInfo?> GetCurrentEntryAsync(string userId)
+        public async Task<CurrentEntryInfo?> GetCurrentEntryAsync(Guid lineId, string userId)
         {
             return await _context.LineEntries
             .AsNoTracking()
-            .Where(lineEntry => lineEntry.UserId == userId)
+            .Where(lineEntry => lineEntry.LineId == lineId && lineEntry.UserId == userId)
             .OrderByDescending(lineEntry => lineEntry.UpdatedAt)
             .Select(lineEntry => new CurrentEntryInfo
             {
-                LineId = lineEntry.LineId,
                 LineEntryId = lineEntry.Id,
             })
             .FirstOrDefaultAsync();

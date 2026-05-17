@@ -25,24 +25,30 @@ namespace WaitTimeCalculationApi.Services
         public async Task<List<LinesResult>> GetAllForUserAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
-            var userLineEntry = await _lineEntryRepo.GetCurrentEntryAsync(userId);
 
-            var linesResult = lines
-            .Select(line => new LinesResult
+            var linesResultTasks = lines
+            .Select(async line =>
             {
-                Id = line.Id,
-                Title = line.Title,
-                AverageWaitTime = line.LineEntries
-                    .Where(lineEntry => lineEntry.ExitedAt != null)
-                    .Select(lineEntry => (lineEntry.ExitedAt!.Value - lineEntry.EnteredAt).TotalSeconds)
+                var currentLineEntry = await _lineEntryRepo.GetCurrentEntryAsync(line.Id, userId);
+
+                return new LinesResult
+                {
+                    Id = line.Id,
+                    Title = line.Title,
+                    AverageWaitTime = line.LineEntries
+                    .Where(x => x.ExitedAt != null)
+                    .Select(x =>
+                    {
+                        TimeSpan? timeSpan = x.ExitedAt - x.EnteredAt;
+                        return timeSpan?.TotalSeconds;
+                    })
                     .DefaultIfEmpty(0)
                     .Average(),
-                CurrentLineEntryId = userLineEntry?.LineId == line.Id
-                                    ? userLineEntry.LineEntryId
-                                    : null
-            })
-            .ToList();
-            return linesResult;
+                    CurrentLineEntryId = currentLineEntry?.LineEntryId
+                };
+            });
+
+            return [.. await Task.WhenAll(linesResultTasks)];
         }
 
         public async Task<Line?> GetByIdAsync(Guid id)
