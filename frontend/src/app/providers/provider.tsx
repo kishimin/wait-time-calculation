@@ -3,7 +3,7 @@ import { useState } from "react";
 import { queryConfig } from "../../lib/react-query";
 
 type AppProviderProps = {
-  children?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 export const AppProvider = ({ children }: AppProviderProps) => {
