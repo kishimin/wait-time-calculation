@@ -23,7 +23,7 @@ type LinesResponse = {
   currentLineEntryId: string | null;
 };
 
-const defaultLines: LinesResponse[] = [
+const enterLines: LinesResponse[] = [
   {
     id: "",
     averageWaitTime: 11042,
@@ -45,7 +45,7 @@ type Props = {
   lines: LinesResponseDto[];
 };
 
-const setup = (props: Props = { lines: defaultLines }) => {
+const setup = (props: Props = { lines: enterLines }) => {
   const { lines } = props;
 
   const user = userEvent.setup();
@@ -80,7 +80,7 @@ describe("初期ローディング後の表示", () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
 
-    expect(lines[0]).toHaveTextContent(defaultLines[0].title);
+    expect(lines[0]).toHaveTextContent(enterLines[0].title);
   });
 
   test("平均待ち時間がh時m分s秒で表示される", async () => {
@@ -90,7 +90,7 @@ describe("初期ローディング後の表示", () => {
     expect(lines[0]).toHaveTextContent("3時間4分2秒");
   });
 
-  test("入場、退場ボタンが表示される", async () => {
+  test("入場していない時、入場ボタンが表示される", async () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
     const enterButton = within(lines[0]).getByRole("button", {
@@ -100,7 +100,15 @@ describe("初期ローディング後の表示", () => {
     expect(enterButton).toBeVisible();
   });
 
-  test.todo("入場中の時、退場ボタンが表示される");
+  test("入場中の時、退場ボタンが表示される", async () => {
+    setup({ lines: exitLines });
+    const lines = await screen.findAllByRole("listitem");
+    const enterButton = within(lines[0]).getByRole("button", {
+      name: BUTTONS.EXIT,
+    });
+
+    expect(enterButton).toBeVisible();
+  });
 });
 
 describe("入退場", () => {
