@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WaitTimeCalculationApi.Projections
 {
-    public class CurrentEntryInfo
+    public class UserLatestEntryInfo
     {
         public Guid? LineEntryId { get; set; }
     }
