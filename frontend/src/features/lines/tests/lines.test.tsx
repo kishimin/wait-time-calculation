@@ -14,7 +14,7 @@ type LinesResponse = {
 };
 
 const defaultLines: LinesResponse[] = [
-  { id: "", averageWaitTime: 1, title: "タイトル", isEntry: false },
+  { id: "", averageWaitTime: 11042, title: "タイトル", isEntry: false },
 ];
 
 const entryLines: LinesResponse[] = [
@@ -63,13 +63,11 @@ describe("初期ローディング後の表示", () => {
     expect(lines[0]).toHaveTextContent(defaultLines[0].title);
   });
 
-  test("平均待ち時間が表示される", async () => {
+  test("平均待ち時間がh時m分s秒で表示される", async () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
 
-    expect(lines[0]).toHaveTextContent(
-      defaultLines[0].averageWaitTime.toString(),
-    );
+    expect(lines[0]).toHaveTextContent("3時間4分2秒");
   });
 
   test("入場、退場ボタンが表示される", async () => {

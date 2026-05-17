@@ -5,6 +5,7 @@ import {
   useGetApiLine,
 } from "../../../api/endpoints/line/line";
 import type { LinesResponseDto } from "../../../models";
+import { formatDuration } from "../../../utils/time";
 
 const Lines = () => {
   const queryClient = useQueryClient();
@@ -36,7 +37,7 @@ const Lines = () => {
               }
             >
               {line.title}
-              {line.averageWaitTime}
+              {line.averageWaitTime && formatDuration(line.averageWaitTime)}
             </ListItem>
           ))}
         </List>
