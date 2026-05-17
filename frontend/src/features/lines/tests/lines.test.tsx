@@ -29,6 +29,15 @@ const defaultLines: LinesResponse[] = [
   },
 ];
 
+const exitLines: LinesResponse[] = [
+  {
+    id: "",
+    averageWaitTime: 11042,
+    title: "タイトル",
+    currentLineEntryId: "1",
+  },
+];
+
 type Props = {
   lines: LinesResponseDto[];
 };
@@ -124,5 +133,17 @@ describe("入退場", () => {
     await user.click(enterButton);
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
+
+  test("入場したら、退場ボタンに切り替わる", async () => {
+    const { user } = setup();
+    const lines = await screen.findAllByRole("listitem");
+    const entryButton = within(lines[0]).getByRole("button");
+    server.use(getPostApiLineEntryMockHandler());
+    server.use(getGetApiLineMockHandler(exitLines));
+
+    await user.click(entryButton);
+
+    expect(entryButton).toHaveTextContent(BUTTONS.EXIT);
   });
 });

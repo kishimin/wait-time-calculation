@@ -1,16 +1,23 @@
 import { Button, CircularProgress, List, ListItem } from "@mui/material";
-import { useGetApiLine } from "../../../api/endpoints/line/line";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  getGetApiLineQueryKey,
+  useGetApiLine,
+} from "../../../api/endpoints/line/line";
 import { usePostApiLineEntry } from "../../../api/endpoints/line-entry/line-entry";
 import { formatDuration } from "../../../utils/time";
 
 const Lines = () => {
+  const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine();
   const { isPending, mutate } = usePostApiLineEntry();
 
-  const handleClickEnterButton = (id: string) => {
+  const handleClickEnterButton = async (id: string) => {
     mutate({ data: id });
 
-    // 再取得
+    await queryClient.invalidateQueries({
+      queryKey: getGetApiLineQueryKey(),
+    });
   };
 
   const handleClickExitButton = () => {
@@ -33,7 +40,11 @@ const Lines = () => {
                     {"退場"}
                   </Button>
                 ) : (
-                  <Button onClick={() => handleClickEnterButton(line.id ?? "")}>
+                  <Button
+                    onClick={() => {
+                      void handleClickEnterButton(line.id ?? "");
+                    }}
+                  >
                     {"入場"}
                   </Button>
                 )
