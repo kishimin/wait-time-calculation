@@ -7,8 +7,6 @@ namespace WaitTimeCalculationApi.Projections
 {
     public class CurrentEntryInfo
     {
-        public Guid LineId { get; set; }
-
         public Guid? LineEntryId { get; set; }
     }
 }
