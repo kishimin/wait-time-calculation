@@ -9,6 +9,6 @@ namespace WaitTimeCalculationApi.Projections
     {
         public Guid LineId { get; set; }
 
-        public DateTimeOffset? ExitedAt { get; set; }
+        public Guid? LineEntryId { get; set; }
     }
 }
