@@ -178,5 +178,17 @@ describe("入退場", () => {
 
       expect(screen.getByRole("progressbar")).toBeVisible();
     });
+
+    test("退場したら、入場ボタンに切り替わる", async () => {
+      const { user } = setup({ lines: exitLines });
+      const lines = await screen.findAllByRole("listitem");
+      const entryButton = within(lines[0]).getByRole("button");
+      server.use(getPostApiLineEntryMockHandler());
+      server.use(getGetApiLineMockHandler(enterLines));
+
+      await user.click(entryButton);
+
+      expect(entryButton).toHaveTextContent(BUTTONS.ENTER);
+    });
   });
 });
