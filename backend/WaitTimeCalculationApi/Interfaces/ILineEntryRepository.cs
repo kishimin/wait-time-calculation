@@ -15,5 +15,6 @@ namespace WaitTimeCalculationApi.Interfaces
 
         Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel);
 
+        Task<bool> ExistsCurrentEntryAsync(Guid lineId, string userId);
     }
 }
