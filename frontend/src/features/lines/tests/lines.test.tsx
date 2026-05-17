@@ -8,6 +8,11 @@ import { server } from "../../../api/mocks/server";
 import type { LinesResponseDto } from "../../../models";
 import Lines from "../views/lines";
 
+const BUTTONS = {
+  ENTER: "入場",
+  EXIT: "退場",
+} as const;
+
 type LinesResponse = {
   id: string;
   title: string;
@@ -76,7 +81,9 @@ describe("初期ローディング後の表示", () => {
   test("入場、退場ボタンが表示される", async () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
-    const enterButton = within(lines[0]).getByRole("button", { name: "入場" });
+    const enterButton = within(lines[0]).getByRole("button", {
+      name: BUTTONS.ENTER,
+    });
 
     expect(enterButton).toBeVisible();
   });
@@ -86,7 +93,9 @@ describe("入退場", () => {
   test("入場ボタンをクリックすると、ローディングが表示される", async () => {
     const { user } = setup();
     const lines = await screen.findAllByRole("listitem");
-    const entryButton = within(lines[0]).getByRole("button");
+    const enterButton = within(lines[0]).getByRole("button", {
+      name: BUTTONS.ENTER,
+    });
     server.use(
       getPostApiLineEntryMockHandler(async () => {
         await delay(1000);
@@ -94,7 +103,7 @@ describe("入退場", () => {
       }),
     );
 
-    await user.click(entryButton);
+    await user.click(enterButton);
 
     expect(screen.getByRole("progressbar")).toBeVisible();
   });
@@ -102,7 +111,9 @@ describe("入退場", () => {
   test("入場ボタンをクリックすると、リストが表示されない", async () => {
     const { user } = setup();
     const lines = await screen.findAllByRole("listitem");
-    const entryButton = within(lines[0]).getByRole("button");
+    const enterButton = within(lines[0]).getByRole("button", {
+      name: BUTTONS.ENTER,
+    });
     server.use(
       getPostApiLineEntryMockHandler(async () => {
         await delay(1000);
@@ -110,7 +121,7 @@ describe("入退場", () => {
       }),
     );
 
-    await user.click(entryButton);
+    await user.click(enterButton);
 
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
