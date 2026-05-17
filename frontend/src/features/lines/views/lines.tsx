@@ -20,7 +20,7 @@ const Lines = () => {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || isPending ? (
         <CircularProgress />
       ) : (
         <List>
@@ -28,9 +28,7 @@ const Lines = () => {
             <ListItem
               key={line.id}
               secondaryAction={
-                isPending ? (
-                  <CircularProgress />
-                ) : line.currentLineEntryId ? (
+                line.currentLineEntryId ? (
                   <Button onClick={() => handleClickExitButton()}>
                     {"退場"}
                   </Button>
