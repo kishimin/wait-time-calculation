@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { delay } from "msw";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
+import { getPostApiLineEntryMockHandler } from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
 import type { LinesResponseDto } from "../../../models";
 import Lines from "../views/lines";
@@ -78,6 +80,32 @@ describe("初期ローディング後の表示", () => {
     expect(enterButton).toBeVisible();
   });
 
+  test("入場中の時、退場ボタンが表示される", async () => {
+    setup({ lines: entryLines });
+    const lines = await screen.findAllByRole("listitem");
+    const exitButton = within(lines[0]).getByRole("button", { name: "退場" });
+
+    expect(exitButton).toBeVisible();
+  });
+});
+
+describe("入退場", () => {
+  test("入場ボタンをクリックすると、ローディングが表示される", async () => {
+    const { user } = setup();
+    const lines = await screen.findAllByRole("listitem");
+    const entryButton = within(lines[0]).getByRole("button");
+    server.use(
+      getPostApiLineEntryMockHandler(async () => {
+        await delay(1000);
+        return { enteredAt: "", id: "1" };
+      }),
+    );
+
+    await user.click(entryButton);
+
+    expect(screen.getByRole("progressbar")).toBeVisible();
+  });
+
   test("入場ボタンをクリックすると、退場に切り替わる", async () => {
     const { user } = setup();
     const lines = await screen.findAllByRole("listitem");
@@ -89,14 +117,6 @@ describe("初期ローディング後の表示", () => {
   });
 
   describe("入場中の時", () => {
-    test("退場ボタンが表示される", async () => {
-      setup({ lines: entryLines });
-      const lines = await screen.findAllByRole("listitem");
-      const exitButton = within(lines[0]).getByRole("button", { name: "退場" });
-
-      expect(exitButton).toBeVisible();
-    });
-
     test("退場ボタンをクリックすると、入場に切り替わる", async () => {
       const { user } = setup({ lines: entryLines });
       const lines = await screen.findAllByRole("listitem");
