@@ -25,11 +25,11 @@ namespace WaitTimeCalculationApi.Repositories
         {
             return await _context.LineEntries
             .AsNoTracking()
-            .Where(lineEntry => lineEntry.LineId == lineId && lineEntry.UserId == userId)
-            .OrderByDescending(lineEntry => lineEntry.UpdatedAt)
-            .Select(lineEntry => new CurrentEntryInfo
+            .Where(x => x.LineId == lineId && x.UserId == userId)
+            .OrderByDescending(x => x.UpdatedAt)
+            .Select(x => new CurrentEntryInfo
             {
-                LineEntryId = lineEntry.Id,
+                LineEntryId = x.Id,
             })
             .FirstOrDefaultAsync();
         }
