@@ -11,9 +11,10 @@ namespace WaitTimeCalculationApi.Interfaces
     {
         Task<LineEntry> CreateAsync(LineEntry lineEntryModel);
 
-        Task<CurrentEntryInfo?> GetCurrentEntryAsync(Guid lineId, string userId);
+        Task<UserLatestEntryInfo?> GetCurrentEntryAsync(Guid lineId, string userId);
 
         Task<LineEntry?> UpdateAsync(Guid id, string userId, LineEntry lineEntryModel);
 
+        Task<bool> ExistsCurrentEntryAsync(Guid lineId, string userId);
     }
 }
