@@ -1,0 +1,9 @@
+{
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/coverage/**": true
+  },
+  "cSpell.words": ["petstore", "vite"]
+}

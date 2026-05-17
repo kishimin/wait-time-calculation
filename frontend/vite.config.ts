@@ -4,9 +4,13 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-
   test: {
-    reporters: ["default", "json"],
+    globals: true,
+    environment: "jsdom",
+    setupFiles: ["./src/tests/setup.ts"],
+    reporters: process.env.GITHUB_ACTIONS
+      ? ["dot", "github-actions", "json"]
+      : ["dot"],
     outputFile: "test-result.json",
   },
 });

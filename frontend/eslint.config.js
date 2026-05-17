@@ -1,19 +1,20 @@
 import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import vitest from "@vitest/eslint-plugin";
 import { defineConfig, globalIgnores } from "eslint/config";
 import prettier from "eslint-config-prettier";
 import importPlugin from "eslint-plugin-import";
 import { jsdoc } from "eslint-plugin-jsdoc";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 import testingLibrary from "eslint-plugin-testing-library";
-import vitest from "@vitest/eslint-plugin";
 import unusedImports from "eslint-plugin-unused-imports";
+import globals from "globals";
+import tseslint from "typescript-eslint";
+import react from "eslint-plugin-react";
 
 export default defineConfig([
-  globalIgnores(["dist"]),
+  globalIgnores(["dist", "**/endpoints", "src/models"]),
   {
     plugins: {
       "unused-imports": unusedImports,
@@ -40,11 +41,15 @@ export default defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
       tseslint.configs.recommendedTypeChecked,
+      react.configs.flat.recommended,
       importPlugin.flatConfigs.recommended,
       importPlugin.flatConfigs.typescript,
       eslintPluginJsxA11y.flatConfigs.recommended,
     ],
     settings: {
+      react: {
+        version: "detect",
+      },
       "import/resolver": {
         typescript: true,
         node: true,
@@ -70,6 +75,9 @@ export default defineConfig([
           },
         },
       ],
+      "react/jsx-key": ["error", { checkFragmentShorthand: true }],
+      "react/react-in-jsx-scope": 0,
+      "react/jsx-uses-react": 0,
     },
   },
   {
@@ -86,6 +94,7 @@ export default defineConfig([
     rules: {
       ...vitest.configs.recommended.rules,
       "@typescript-eslint/no-unsafe-call": "off",
+      "@typescript-eslint/no-unsafe-member-access": "off",
       "vitest/max-nested-describe": ["error", { max: 3 }],
       "vitest/no-focused-tests": "error",
       "vitest/no-disabled-tests": "warn",
@@ -129,4 +138,8 @@ export default defineConfig([
       },
     },
   }),
+  {
+    files: ["!src/**/*"],
+    ...tseslint.configs.disableTypeChecked,
+  },
 ]);
