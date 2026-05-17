@@ -4,30 +4,35 @@ import {
   getGetApiLineQueryKey,
   useGetApiLine,
 } from "../../../api/endpoints/line/line";
-import { usePostApiLineEntry } from "../../../api/endpoints/line-entry/line-entry";
+import {
+  usePostApiLineEntry,
+  usePutApiLineEntryId,
+} from "../../../api/endpoints/line-entry/line-entry";
 import { formatDuration } from "../../../utils/time";
 
 const Lines = () => {
   const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine();
-  const { isPending, mutate } = usePostApiLineEntry();
+  const { isPending: isPendingEnter, mutate: enter } = usePostApiLineEntry();
+  const { isPending: isPendingExit, mutate: exit } = usePutApiLineEntryId();
 
   const handleClickEnterButton = async (id: string) => {
-    mutate({ data: id });
+    enter({ data: id });
 
+    // 一覧を再取得
     await queryClient.invalidateQueries({
       queryKey: getGetApiLineQueryKey(),
     });
   };
 
-  const handleClickExitButton = () => {
-    // 退場する
-    // 再取得
+  const handleClickExitButton = (lineEntryId: string) => {
+    exit({ id: lineEntryId });
+    // 一覧を再取得
   };
 
   return (
     <>
-      {isLoading || isPending ? (
+      {isLoading || isPendingEnter || isPendingExit ? (
         <CircularProgress />
       ) : (
         <List>
@@ -36,7 +41,11 @@ const Lines = () => {
               key={line.id}
               secondaryAction={
                 line.currentLineEntryId ? (
-                  <Button onClick={() => handleClickExitButton()}>
+                  <Button
+                    onClick={() =>
+                      handleClickExitButton(line.currentLineEntryId ?? "")
+                    }
+                  >
                     {"退場"}
                   </Button>
                 ) : (

@@ -3,7 +3,10 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay } from "msw";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
-import { getPostApiLineEntryMockHandler } from "../../../api/endpoints/line-entry/line-entry.msw";
+import {
+  getPostApiLineEntryMockHandler,
+  getPutApiLineEntryIdMockHandler,
+} from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
 import type { LinesResponseDto } from "../../../models";
 import Lines from "../views/lines";
@@ -96,6 +99,8 @@ describe("初期ローディング後の表示", () => {
 
     expect(enterButton).toBeVisible();
   });
+
+  test.todo("入場中の時、退場ボタンが表示される");
 });
 
 describe("入退場", () => {
@@ -145,5 +150,25 @@ describe("入退場", () => {
     await user.click(entryButton);
 
     expect(entryButton).toHaveTextContent(BUTTONS.EXIT);
+  });
+
+  describe("入場中", () => {
+    test("退場ボタンをクリックすると、ローディングが表示される", async () => {
+      const { user } = setup({ lines: exitLines });
+      const lines = await screen.findAllByRole("listitem");
+      const exitButton = within(lines[0]).getByRole("button", {
+        name: BUTTONS.EXIT,
+      });
+      server.use(
+        getPutApiLineEntryIdMockHandler(async () => {
+          await delay(1000);
+          return {};
+        }),
+      );
+
+      await user.click(exitButton);
+
+      expect(screen.getByRole("progressbar")).toBeVisible();
+    });
   });
 });
