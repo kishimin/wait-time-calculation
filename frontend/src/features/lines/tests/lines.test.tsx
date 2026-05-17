@@ -12,15 +12,16 @@ type LinesResponse = {
   id: string;
   title: string;
   averageWaitTime: number;
-  isEntry: boolean;
+  currentLineEntryId: string | null;
 };
 
 const defaultLines: LinesResponse[] = [
-  { id: "", averageWaitTime: 11042, title: "タイトル", isEntry: false },
-];
-
-const entryLines: LinesResponse[] = [
-  { id: "", averageWaitTime: 1, title: "タイトル", isEntry: true },
+  {
+    id: "",
+    averageWaitTime: 11042,
+    title: "タイトル",
+    currentLineEntryId: null,
+  },
 ];
 
 type Props = {
@@ -79,14 +80,6 @@ describe("初期ローディング後の表示", () => {
 
     expect(enterButton).toBeVisible();
   });
-
-  test("入場中の時、退場ボタンが表示される", async () => {
-    setup({ lines: entryLines });
-    const lines = await screen.findAllByRole("listitem");
-    const exitButton = within(lines[0]).getByRole("button", { name: "退場" });
-
-    expect(exitButton).toBeVisible();
-  });
 });
 
 describe("入退場", () => {
@@ -104,29 +97,5 @@ describe("入退場", () => {
     await user.click(entryButton);
 
     expect(screen.getByRole("progressbar")).toBeVisible();
-  });
-
-  test("入場ボタンをクリックすると、退場に切り替わる", async () => {
-    const { user } = setup();
-    const lines = await screen.findAllByRole("listitem");
-    const entryButton = within(lines[0]).getByRole("button");
-
-    await user.click(entryButton);
-
-    expect(entryButton).toHaveTextContent("退場");
-  });
-
-  describe("入場中の時", () => {
-    test("退場ボタンをクリックすると、入場に切り替わる", async () => {
-      const { user } = setup({ lines: entryLines });
-      const lines = await screen.findAllByRole("listitem");
-      const entryButton = within(lines[0]).getByRole("button", {
-        name: "退場",
-      });
-
-      await user.click(entryButton);
-
-      expect(entryButton).toHaveTextContent("入場");
-    });
   });
 });

@@ -1,28 +1,21 @@
 import { Button, CircularProgress, List, ListItem } from "@mui/material";
-import { useQueryClient } from "@tanstack/react-query";
-import {
-  getGetApiLineQueryKey,
-  useGetApiLine,
-} from "../../../api/endpoints/line/line";
+import { useGetApiLine } from "../../../api/endpoints/line/line";
 import { usePostApiLineEntry } from "../../../api/endpoints/line-entry/line-entry";
-import type { LinesResponseDto } from "../../../models";
 import { formatDuration } from "../../../utils/time";
 
 const Lines = () => {
-  const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine();
   const { isPending, mutate } = usePostApiLineEntry();
 
-  const handleClickEntryButton = (id?: string) => {
-    mutate({ data: id ?? "" });
+  const handleClickEnterButton = (id: string) => {
+    mutate({ data: id });
 
-    queryClient.setQueryData(
-      getGetApiLineQueryKey(),
-      (prev: LinesResponseDto[] = []) =>
-        prev.map((line) =>
-          line.id === id ? { ...line, isEntry: !line.isEntry } : line,
-        ),
-    );
+    // 再取得
+  };
+
+  const handleClickExitButton = () => {
+    // 退場する
+    // 再取得
   };
 
   return (
@@ -37,9 +30,13 @@ const Lines = () => {
               secondaryAction={
                 isPending ? (
                   <CircularProgress />
+                ) : line.currentLineEntryId ? (
+                  <Button onClick={() => handleClickExitButton()}>
+                    {"退場"}
+                  </Button>
                 ) : (
-                  <Button onClick={() => handleClickEntryButton(line.id)}>
-                    {line.isEntry ? "退場" : "入場"}
+                  <Button onClick={() => handleClickEnterButton(line.id ?? "")}>
+                    {"入場"}
                   </Button>
                 )
               }
