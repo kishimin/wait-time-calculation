@@ -25,9 +25,13 @@ const Lines = () => {
     });
   };
 
-  const handleClickExitButton = (lineEntryId: string) => {
+  const handleClickExitButton = async (lineEntryId: string) => {
     exit({ id: lineEntryId });
+
     // 一覧を再取得
+    await queryClient.invalidateQueries({
+      queryKey: getGetApiLineQueryKey(),
+    });
   };
 
   return (
@@ -42,9 +46,9 @@ const Lines = () => {
               secondaryAction={
                 line.currentLineEntryId ? (
                   <Button
-                    onClick={() =>
-                      handleClickExitButton(line.currentLineEntryId ?? "")
-                    }
+                    onClick={() => {
+                      void handleClickExitButton(line.currentLineEntryId ?? "");
+                    }}
                   >
                     {"退場"}
                   </Button>
