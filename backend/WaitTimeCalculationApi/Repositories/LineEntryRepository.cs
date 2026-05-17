@@ -29,8 +29,8 @@ namespace WaitTimeCalculationApi.Repositories
             .OrderByDescending(lineEntry => lineEntry.UpdatedAt)
             .Select(lineEntry => new CurrentEntryInfo
             {
-                ExitedAt = lineEntry.ExitedAt,
-                LineId = lineEntry.LineId
+                LineId = lineEntry.LineId,
+                LineEntryId = lineEntry.Id,
             })
             .FirstOrDefaultAsync();
         }
