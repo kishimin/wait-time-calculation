@@ -13,30 +13,38 @@ import { formatDuration } from "../../../utils/time";
 const Lines = () => {
   const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine();
-  const { isPending: isPendingEnter, mutate: enter } = usePostApiLineEntry();
-  const { isPending: isPendingExit, mutate: exit } = usePutApiLineEntryId();
+  const { isPending: isEnterPending, mutate: enter } = usePostApiLineEntry({
+    mutation: {
+      onSuccess: async () => {
+        // 一覧を再取得
+        await queryClient.invalidateQueries({
+          queryKey: getGetApiLineQueryKey(),
+        });
+      },
+    },
+  });
+  const { isPending: isExitPending, mutate: exit } = usePutApiLineEntryId({
+    mutation: {
+      onSuccess: async () => {
+        // 一覧を再取得
+        await queryClient.invalidateQueries({
+          queryKey: getGetApiLineQueryKey(),
+        });
+      },
+    },
+  });
 
-  const handleClickEnterButton = async (id: string) => {
+  const handleClickEnterButton = (id: string) => {
     enter({ data: id });
-
-    // 一覧を再取得
-    await queryClient.invalidateQueries({
-      queryKey: getGetApiLineQueryKey(),
-    });
   };
 
-  const handleClickExitButton = async (lineEntryId: string) => {
+  const handleClickExitButton = (lineEntryId: string) => {
     exit({ id: lineEntryId });
-
-    // 一覧を再取得
-    await queryClient.invalidateQueries({
-      queryKey: getGetApiLineQueryKey(),
-    });
   };
 
   return (
     <>
-      {isLoading || isPendingEnter || isPendingExit ? (
+      {isLoading || isEnterPending || isExitPending ? (
         <CircularProgress />
       ) : (
         <List>
@@ -46,18 +54,14 @@ const Lines = () => {
               secondaryAction={
                 line.currentLineEntryId ? (
                   <Button
-                    onClick={() => {
-                      void handleClickExitButton(line.currentLineEntryId ?? "");
-                    }}
+                    onClick={() =>
+                      handleClickExitButton(line.currentLineEntryId ?? "")
+                    }
                   >
                     {"退場"}
                   </Button>
                 ) : (
-                  <Button
-                    onClick={() => {
-                      void handleClickEnterButton(line.id ?? "");
-                    }}
-                  >
+                  <Button onClick={() => handleClickEnterButton(line.id ?? "")}>
                     {"入場"}
                   </Button>
                 )
