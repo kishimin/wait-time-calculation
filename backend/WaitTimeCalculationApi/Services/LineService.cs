@@ -25,24 +25,34 @@ namespace WaitTimeCalculationApi.Services
         public async Task<List<LinesResult>> GetAllForUserAsync(string userId)
         {
             var lines = await _lineRepo.GetAllAsync();
-            var userLineEntry = await _lineEntryRepo.GetCurrentEntryAsync(userId);
 
-            var linesResult = lines
-            .Select(line => new LinesResult
+            var results = new List<LinesResult>();
+
+            foreach (var line in lines)
             {
-                Id = line.Id,
-                Title = line.Title,
-                AverageWaitTime = line.LineEntries
-                    .Where(lineEntry => lineEntry.ExitedAt != null)
-                    .Select(lineEntry => (lineEntry.ExitedAt!.Value - lineEntry.EnteredAt).TotalSeconds)
-                    .DefaultIfEmpty(0)
-                    .Average(),
-                CurrentLineEntryId = userLineEntry?.LineId == line.Id
-                                    ? userLineEntry.LineEntryId
-                                    : null
-            })
-            .ToList();
-            return linesResult;
+                var currentLineEntry =
+                    await _lineEntryRepo.GetCurrentEntryAsync(
+                        line.Id,
+                        userId);
+
+                results.Add(new LinesResult
+                {
+                    Id = line.Id,
+                    Title = line.Title,
+                    AverageWaitTime = line.LineEntries
+                        .Where(x => x.ExitedAt != null)
+                        .Select(x =>
+                            {
+                                TimeSpan? timeSpan = x.ExitedAt - x.EnteredAt;
+                                return timeSpan?.TotalSeconds;
+                            })
+                        .DefaultIfEmpty(0)
+                        .Average(),
+                    CurrentLineEntryId = currentLineEntry?.LineEntryId
+                });
+            }
+
+            return results;
         }
 
         public async Task<Line?> GetByIdAsync(Guid id)
