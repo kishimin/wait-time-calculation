@@ -37,9 +37,17 @@ namespace WaitTimeCalculationApi.Controllers
             var line = await _lineService.GetByIdAsync(LineId);
             if (line == null) return BadRequest("Line not found");
 
-            var lineEntry = await _lineEntryService.EnterAsync(line, appUser);
+            try
+            {
+                var lineEntry = await _lineEntryService.EnterAsync(line, appUser);
 
-            return Ok(lineEntry.ToEnterResponseDto());
+                return Ok(lineEntry.ToEnterResponseDto());
+            }
+            catch (InvalidOperationException ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
