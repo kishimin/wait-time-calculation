@@ -98,4 +98,20 @@ describe("入退場", () => {
 
     expect(screen.getByRole("progressbar")).toBeVisible();
   });
+
+  test("入場ボタンをクリックすると、リストが表示されない", async () => {
+    const { user } = setup();
+    const lines = await screen.findAllByRole("listitem");
+    const entryButton = within(lines[0]).getByRole("button");
+    server.use(
+      getPostApiLineEntryMockHandler(async () => {
+        await delay(1000);
+        return { enteredAt: "", id: "1" };
+      }),
+    );
+
+    await user.click(entryButton);
+
+    expect(screen.queryByRole("list")).not.toBeInTheDocument();
+  });
 });
