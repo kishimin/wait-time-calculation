@@ -21,6 +21,16 @@ namespace WaitTimeCalculationApi.Repositories
             return lineEntryModel;
         }
 
+        public Task<bool> ExistsCurrentEntryAsync(Guid lineId, string userId)
+        {
+            return _context.LineEntries
+                .AnyAsync(x =>
+                    x.LineId == lineId
+                    && x.UserId == userId
+                    && x.ExitedAt == null
+            );
+        }
+
         public async Task<UserLatestEntryInfo?> GetCurrentEntryAsync(Guid lineId, string userId)
         {
             return await _context.LineEntries

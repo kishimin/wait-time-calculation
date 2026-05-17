@@ -15,6 +15,12 @@ namespace WaitTimeCalculationApi.Services
 
         public async Task<LineEntry> EnterAsync(Line line, User user)
         {
+            var exists = await _lineEntryRepo.ExistsCurrentEntryAsync(line.Id, user.Id);
+            if (exists)
+            {
+                throw new InvalidOperationException("Already entered");
+            }
+
             var lineEntryModel = new LineEntry
             {
                 EnteredAt = DateTimeOffset.UtcNow,
