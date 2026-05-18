@@ -1,18 +1,26 @@
 import { render, screen } from "@testing-library/react";
 import CreateLine from "../views/create-line";
 
+const LABELS = {
+  TITLE: "タイトル",
+} as const;
+
+const setup = () => {
+  render(<CreateLine />);
+};
+
 describe("タイトルのテキスト入力", () => {
   test("タイトルのテキスト入力が表示される", () => {
-    render(<CreateLine />);
+    setup();
 
-    expect(screen.getByRole("textbox", { name: "タイトル" })).toBeVisible();
+    expect(screen.getByRole("textbox", { name: LABELS.TITLE })).toBeVisible();
   });
 
   test("初期値は空である", () => {
-    render(<CreateLine />);
+    setup();
 
-    expect(screen.getByRole("textbox", { name: "タイトル" })).toHaveTextContent(
-      "",
-    );
+    expect(
+      screen.getByRole("textbox", { name: LABELS.TITLE }),
+    ).toHaveTextContent("");
   });
 });
