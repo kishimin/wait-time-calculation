@@ -23,4 +23,10 @@ describe("タイトルのテキスト入力", () => {
       screen.getByRole("textbox", { name: LABELS.TITLE }),
     ).toHaveTextContent("");
   });
+
+  test("必須マークが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("textbox", { name: LABELS.TITLE })).toBeRequired();
+  });
 });
