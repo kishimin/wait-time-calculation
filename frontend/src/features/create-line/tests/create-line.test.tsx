@@ -7,4 +7,12 @@ describe("タイトルのテキスト入力", () => {
 
     expect(screen.getByRole("textbox", { name: "タイトル" })).toBeVisible();
   });
+
+  test("初期値は空である", () => {
+    render(<CreateLine />);
+
+    expect(screen.getByRole("textbox", { name: "タイトル" })).toHaveTextContent(
+      "",
+    );
+  });
 });
