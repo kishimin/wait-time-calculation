@@ -24,7 +24,7 @@ describe("タイトルのテキスト入力", () => {
     ).toHaveTextContent("");
   });
 
-  test("必須マークが表示される", () => {
+  test("必須である", () => {
     setup();
 
     expect(screen.getByRole("textbox", { name: LABELS.TITLE })).toBeRequired();
