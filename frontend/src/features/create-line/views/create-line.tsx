@@ -22,6 +22,8 @@ const CreateLine = () => {
         error={!!errors.title}
         helperText={errors.title?.message}
       />
+
+      <TextField label={"説明"} />
     </>
   );
 };
