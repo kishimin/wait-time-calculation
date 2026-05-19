@@ -46,4 +46,15 @@ describe("タイトルのテキスト入力", () => {
 
     expect(screen.getByText("タイトルは必須です")).toBeVisible();
   });
+
+  test("101文字以上の時、エラーが表示される", async () => {
+    const { user } = setup();
+    const titleInput = getTitleInput();
+
+    await user.type(titleInput, "あ".repeat(101));
+
+    expect(
+      screen.getByText("タイトルは100文字以内で入力してください"),
+    ).toBeVisible();
+  });
 });
