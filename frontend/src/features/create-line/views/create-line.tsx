@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
@@ -29,6 +29,8 @@ const CreateLine = () => {
         error={!!errors.explanation}
         helperText={errors.explanation?.message}
       />
+
+      <Button>{"作成"}</Button>
     </>
   );
 };
