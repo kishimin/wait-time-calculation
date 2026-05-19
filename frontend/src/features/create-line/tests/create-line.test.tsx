@@ -14,6 +14,10 @@ const setup = () => {
   return { user };
 };
 
+const getTitleInput = () => {
+  return screen.getByRole("textbox", { name: LABELS.TITLE });
+};
+
 describe("タイトルのテキスト入力", () => {
   test("タイトルのテキスト入力が表示される", () => {
     setup();
@@ -24,20 +28,18 @@ describe("タイトルのテキスト入力", () => {
   test("初期値は空である", () => {
     setup();
 
-    expect(
-      screen.getByRole("textbox", { name: LABELS.TITLE }),
-    ).toHaveTextContent("");
+    expect(getTitleInput()).toHaveTextContent("");
   });
 
   test("必須である", () => {
     setup();
 
-    expect(screen.getByRole("textbox", { name: LABELS.TITLE })).toBeRequired();
+    expect(getTitleInput()).toBeRequired();
   });
 
   test("空の時、エラーが表示される", async () => {
     const { user } = setup();
-    const titleInput = screen.getByRole("textbox", { name: LABELS.TITLE });
+    const titleInput = getTitleInput();
 
     await user.type(titleInput, "あ");
     await user.clear(titleInput);
