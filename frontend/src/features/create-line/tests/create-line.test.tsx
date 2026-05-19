@@ -4,6 +4,7 @@ import CreateLine from "../views/create-line";
 
 const LABELS = {
   TITLE: "タイトル",
+  EXPLANATION: "説明",
 } as const;
 
 const setup = () => {
@@ -16,6 +17,10 @@ const setup = () => {
 
 const getTitleInput = () => {
   return screen.getByRole("textbox", { name: LABELS.TITLE });
+};
+
+const getExplanationInput = () => {
+  return screen.getByRole("textbox", { name: LABELS.EXPLANATION });
 };
 
 describe("タイトルのテキスト入力", () => {
@@ -69,6 +74,6 @@ describe("説明のテキスト入力", () => {
   test("初期値は空である", () => {
     setup();
 
-    expect(screen.getByRole("textbox", { name: "説明" })).toHaveTextContent("");
+    expect(getExplanationInput()).toHaveTextContent("");
   });
 });
