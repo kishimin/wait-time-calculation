@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import CreateLine from "../views/create-line";
 
@@ -68,7 +68,9 @@ describe("説明のテキスト入力", () => {
   test("説明のテキスト入力が表示される", () => {
     setup();
 
-    expect(screen.getByRole("textbox", { name: "説明" })).toBeVisible();
+    expect(
+      screen.getByRole("textbox", { name: LABELS.EXPLANATION }),
+    ).toBeVisible();
   });
 
   test("初期値は空である", () => {
@@ -78,13 +80,15 @@ describe("説明のテキスト入力", () => {
   });
 
   test("401文字以上の時、エラーが表示される", async () => {
-    const { user } = setup();
+    setup();
     const explanationInput = getExplanationInput();
 
-    await user.type(explanationInput, "あ".repeat(401));
+    // userEventを使用すると、テスト実行時間が長くなるため
+    fireEvent.change(explanationInput, { target: { value: "あ".repeat(401) } });
 
+    // エラーが非同期的に表示されるため(userEventの時は、入力から非同期なため必要ない)
     expect(
-      screen.getByText("説明は400文字以内で入力してください"),
+      await screen.findByText("説明は400文字以内で入力してください"),
     ).toBeVisible();
   });
 });
