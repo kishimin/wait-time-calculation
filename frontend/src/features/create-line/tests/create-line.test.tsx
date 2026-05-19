@@ -65,4 +65,10 @@ describe("説明のテキスト入力", () => {
 
     expect(screen.getByRole("textbox", { name: "説明" })).toBeVisible();
   });
+
+  test("初期値は空である", () => {
+    setup();
+
+    expect(screen.getByRole("textbox", { name: "説明" })).toHaveTextContent("");
+  });
 });
