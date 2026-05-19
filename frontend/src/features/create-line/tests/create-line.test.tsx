@@ -92,3 +92,11 @@ describe("説明のテキスト入力", () => {
     ).toBeVisible();
   });
 });
+
+describe("作成", () => {
+  test("作成ボタンが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
+  });
+});
