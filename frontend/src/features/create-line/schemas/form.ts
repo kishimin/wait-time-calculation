@@ -1,7 +1,8 @@
 import { z } from "zod";
 
 export const formSchema = z.object({
-  title: z.string().min(1, "タイトルは必須です"),
+  title: z
+    .string()
+    .min(1, "タイトルは必須です")
+    .max(100, "タイトルは100文字以内で入力してください"),
 });
-
-export type FormSchema = z.infer<typeof formSchema>;
