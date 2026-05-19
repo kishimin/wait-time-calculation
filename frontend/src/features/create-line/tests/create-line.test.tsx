@@ -58,3 +58,11 @@ describe("タイトルのテキスト入力", () => {
     ).toBeVisible();
   });
 });
+
+describe("説明のテキスト入力", () => {
+  test("説明のテキスト入力が表示される", () => {
+    setup();
+
+    expect(screen.getByRole("textbox", { name: "説明" })).toBeVisible();
+  });
+});
