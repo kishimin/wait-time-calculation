@@ -1,5 +1,8 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { delay } from "msw";
+import { getPostApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
+import { server } from "../../../api/mocks/server";
 import CreateLine from "../views/create-line";
 
 const LABELS = {
@@ -98,5 +101,20 @@ describe("作成", () => {
     setup();
 
     expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
+  });
+
+  test("作成ボタンをクリックするとローディングが表示される", async () => {
+    const { user } = setup();
+    const createButton = screen.getByRole("button", { name: "作成" });
+    server.use(
+      getPostApiLineMockHandler(async () => {
+        await delay(1000);
+        return {};
+      }),
+    );
+
+    await user.click(createButton);
+
+    expect(screen.getByRole("progressbar")).toBeVisible();
   });
 });
