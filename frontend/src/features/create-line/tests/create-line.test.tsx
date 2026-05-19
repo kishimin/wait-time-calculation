@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import CreateLine from "../views/create-line";
 
 const LABELS = {
@@ -6,7 +7,11 @@ const LABELS = {
 } as const;
 
 const setup = () => {
+  const user = userEvent.setup();
+
   render(<CreateLine />);
+
+  return { user };
 };
 
 describe("タイトルのテキスト入力", () => {
@@ -28,5 +33,15 @@ describe("タイトルのテキスト入力", () => {
     setup();
 
     expect(screen.getByRole("textbox", { name: LABELS.TITLE })).toBeRequired();
+  });
+
+  test("空の時、エラーが表示される", async () => {
+    const { user } = setup();
+    const titleInput = screen.getByRole("textbox", { name: LABELS.TITLE });
+
+    await user.type(titleInput, "あ");
+    await user.clear(titleInput);
+
+    expect(screen.getByText("タイトルは必須です")).toBeVisible();
   });
 });
