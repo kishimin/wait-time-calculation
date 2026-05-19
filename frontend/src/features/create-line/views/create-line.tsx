@@ -23,7 +23,12 @@ const CreateLine = () => {
         helperText={errors.title?.message}
       />
 
-      <TextField label={"説明"} />
+      <TextField
+        {...register("explanation")}
+        label={"説明"}
+        error={!!errors.explanation}
+        helperText={errors.explanation?.message}
+      />
     </>
   );
 };
