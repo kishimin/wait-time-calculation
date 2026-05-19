@@ -76,4 +76,15 @@ describe("説明のテキスト入力", () => {
 
     expect(getExplanationInput()).toHaveTextContent("");
   });
+
+  test("401文字以上の時、エラーが表示される", async () => {
+    const { user } = setup();
+    const explanationInput = getExplanationInput();
+
+    await user.type(explanationInput, "あ".repeat(401));
+
+    expect(
+      screen.getByText("説明は400文字以内で入力してください"),
+    ).toBeVisible();
+  });
 });
