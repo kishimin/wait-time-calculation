@@ -3,14 +3,18 @@ import {
   Button,
   CircularProgress,
   FormControl,
+  Snackbar,
   TextField,
 } from "@mui/material";
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
 const CreateLine = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
   const {
     register,
     formState: { errors },
@@ -20,7 +24,13 @@ const CreateLine = () => {
     mode: "onChange",
   });
 
-  const { isPending, mutate } = usePostApiLine();
+  const { isPending, mutate } = usePostApiLine({
+    mutation: {
+      onSuccess: () => {
+        setOpen(true);
+      },
+    },
+  });
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
     mutate({ data });
@@ -31,30 +41,34 @@ const CreateLine = () => {
       {isPending ? (
         <CircularProgress />
       ) : (
-        <FormControl
-          component={"form"}
-          onSubmit={(e) => {
-            return void handleSubmit(onSubmit)(e);
-          }}
-          noValidate
-        >
-          <TextField
-            {...register("title")}
-            label={"タイトル"}
-            required
-            error={!!errors.title}
-            helperText={errors.title?.message}
-          />
+        <>
+          <FormControl
+            component={"form"}
+            onSubmit={(e) => {
+              return void handleSubmit(onSubmit)(e);
+            }}
+            noValidate
+          >
+            <TextField
+              {...register("title")}
+              label={"タイトル"}
+              required
+              error={!!errors.title}
+              helperText={errors.title?.message}
+            />
 
-          <TextField
-            {...register("explanation")}
-            label={"説明"}
-            error={!!errors.explanation}
-            helperText={errors.explanation?.message}
-          />
+            <TextField
+              {...register("explanation")}
+              label={"説明"}
+              error={!!errors.explanation}
+              helperText={errors.explanation?.message}
+            />
 
-          <Button type={"submit"}>{"作成"}</Button>
-        </FormControl>
+            <Button type={"submit"}>{"作成"}</Button>
+          </FormControl>
+
+          <Snackbar message={"作成しました"} open={open} />
+        </>
       )}
     </>
   );
