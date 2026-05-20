@@ -133,4 +133,21 @@ describe("作成", () => {
       expect(screen.queryByRole("form")).not.toBeInTheDocument();
     });
   });
+
+  test("入力がエラーの時に、作成ボタンをクリックすると、ローディングが表示されない", async () => {
+    const { user } = setup();
+    const createButton = getCreateButton();
+    server.use(
+      getPostApiLineMockHandler(async () => {
+        await delay(1000);
+        return {};
+      }),
+    );
+
+    await user.click(createButton);
+
+    await waitFor(() => {
+      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
+    });
+  });
 });
