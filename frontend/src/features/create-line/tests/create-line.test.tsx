@@ -5,11 +5,8 @@ import { delay } from "msw";
 import { getPostApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
 import CreateLine from "../views/create-line";
-
-const LABELS = {
-  TITLE: "タイトル",
-  EXPLANATION: "説明",
-} as const;
+import { BUTTONS, LABELS } from "./constants";
+import { getCreateButton, getExplanationInput, getTitleInput } from "./helper";
 
 const setup = () => {
   const user = userEvent.setup();
@@ -22,14 +19,6 @@ const setup = () => {
   );
 
   return { user };
-};
-
-const getTitleInput = () => {
-  return screen.getByRole("textbox", { name: LABELS.TITLE });
-};
-
-const getExplanationInput = () => {
-  return screen.getByRole("textbox", { name: LABELS.EXPLANATION });
 };
 
 describe("タイトルのテキスト入力", () => {
@@ -106,13 +95,13 @@ describe("作成", () => {
   test("作成ボタンが表示される", () => {
     setup();
 
-    expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
+    expect(screen.getByRole("button", { name: BUTTONS.CREATE })).toBeVisible();
   });
 
   test("タイトルを入力して、作成ボタンをクリックするとローディングが表示される", async () => {
     const { user } = setup();
     const titleInput = getTitleInput();
-    const createButton = screen.getByRole("button", { name: "作成" });
+    const createButton = getCreateButton();
     server.use(
       getPostApiLineMockHandler(async () => {
         await delay(1000);
