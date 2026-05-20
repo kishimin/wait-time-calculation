@@ -150,4 +150,19 @@ describe("作成", () => {
       expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
     });
   });
+
+  test("タイトルが空の時に、作成ボタンをクリックすると、エラーが表示される", async () => {
+    const { user } = setup();
+    const createButton = getCreateButton();
+    server.use(
+      getPostApiLineMockHandler(async () => {
+        await delay(1000);
+        return {};
+      }),
+    );
+
+    await user.click(createButton);
+
+    expect(screen.getByText("タイトルは必須です")).toBeVisible();
+  });
 });
