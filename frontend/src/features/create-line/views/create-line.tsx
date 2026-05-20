@@ -36,6 +36,7 @@ const CreateLine = () => {
           onSubmit={(e) => {
             return void handleSubmit(onSubmit)(e);
           }}
+          noValidate
         >
           <TextField
             {...register("title")}
