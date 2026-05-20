@@ -1,3 +1,4 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay } from "msw";
@@ -12,8 +13,13 @@ const LABELS = {
 
 const setup = () => {
   const user = userEvent.setup();
+  const queryClient = new QueryClient();
 
-  render(<CreateLine />);
+  render(
+    <QueryClientProvider client={queryClient}>
+      <CreateLine />
+    </QueryClientProvider>,
+  );
 
   return { user };
 };
@@ -103,8 +109,9 @@ describe("作成", () => {
     expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
   });
 
-  test("作成ボタンをクリックするとローディングが表示される", async () => {
+  test("タイトルを入力して、作成ボタンをクリックするとローディングが表示される", async () => {
     const { user } = setup();
+    const titleInput = getTitleInput();
     const createButton = screen.getByRole("button", { name: "作成" });
     server.use(
       getPostApiLineMockHandler(async () => {
@@ -113,6 +120,7 @@ describe("作成", () => {
       }),
     );
 
+    await user.type(titleInput, "あ");
     await user.click(createButton);
 
     expect(screen.getByRole("progressbar")).toBeVisible();
