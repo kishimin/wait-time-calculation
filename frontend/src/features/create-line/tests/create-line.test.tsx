@@ -165,4 +165,18 @@ describe("作成", () => {
 
     expect(screen.getByText("タイトルは必須です")).toBeVisible();
   });
+
+  test("作成が成功すると、トーストが表示される", async () => {
+    const { user } = setup();
+    const titleInput = getTitleInput();
+    const createButton = getCreateButton();
+    server.use(getPostApiLineMockHandler());
+
+    await user.type(titleInput, "あ");
+    await user.click(createButton);
+
+    screen.debug();
+
+    expect(await screen.findByRole("presentation")).toBeVisible();
+  });
 });
