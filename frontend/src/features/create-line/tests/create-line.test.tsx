@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay } from "msw";
+import { MemoryRouter } from "react-router";
 import { getPostApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
 import CreateLine from "../views/create-line";
@@ -13,9 +14,11 @@ const setup = () => {
   const queryClient = new QueryClient();
 
   render(
-    <QueryClientProvider client={queryClient}>
-      <CreateLine />
-    </QueryClientProvider>,
+    <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <CreateLine />
+      </QueryClientProvider>
+    </MemoryRouter>,
   );
 
   return { user };
@@ -174,8 +177,6 @@ describe("作成", () => {
 
     await user.type(titleInput, "あ");
     await user.click(createButton);
-
-    screen.debug();
 
     expect(await screen.findByRole("presentation")).toBeVisible();
   });
