@@ -8,12 +8,15 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
 const CreateLine = () => {
   const [open, setOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -26,8 +29,10 @@ const CreateLine = () => {
 
   const { isPending, mutate } = usePostApiLine({
     mutation: {
-      onSuccess: () => {
+      onSuccess: async () => {
         setOpen(true);
+
+        await navigate("/");
       },
     },
   });
