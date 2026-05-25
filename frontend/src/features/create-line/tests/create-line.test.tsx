@@ -34,7 +34,7 @@ describe("タイトルのテキスト入力", () => {
   test("初期値は空である", () => {
     setup();
 
-    expect(getTitleInput()).toHaveTextContent("");
+    expect(getTitleInput()).toHaveValue("");
   });
 
   test("必須である", () => {
@@ -77,7 +77,7 @@ describe("説明のテキスト入力", () => {
   test("初期値は空である", () => {
     setup();
 
-    expect(getExplanationInput()).toHaveTextContent("");
+    expect(getExplanationInput()).toHaveValue("");
   });
 
   test("401文字以上の時、エラーが表示される", async () => {
