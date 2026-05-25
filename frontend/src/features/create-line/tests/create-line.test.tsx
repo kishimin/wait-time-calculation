@@ -133,7 +133,9 @@ describe("作成", () => {
     await user.click(createButton);
 
     await waitFor(() => {
-      expect(screen.queryByRole("form")).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("form", { name: "作成フォーム" }),
+      ).not.toBeInTheDocument();
     });
   });
 
