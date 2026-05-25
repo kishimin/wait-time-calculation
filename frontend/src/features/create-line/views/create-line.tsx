@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
+import { PATHS } from "../../../constants/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
@@ -32,7 +33,7 @@ const CreateLine = () => {
       onSuccess: async () => {
         setOpen(true);
 
-        await navigate("/");
+        await navigate(PATHS.index);
       },
     },
   });
