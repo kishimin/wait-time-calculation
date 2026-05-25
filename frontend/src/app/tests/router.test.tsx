@@ -19,13 +19,13 @@ const setup = (path = "/") => {
   return { user };
 };
 
-test("一覧画面のurlが/である", () => {
+test("一覧画面のルートが/である", () => {
   setup();
 
   expect(screen.getByRole("progressbar")).toBeVisible();
 });
 
-test("作成画面のurlは、/createである", () => {
+test("作成画面のルートは、/createである", () => {
   setup("/create");
 
   expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
