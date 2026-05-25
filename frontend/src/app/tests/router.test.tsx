@@ -19,10 +19,10 @@ const setup = (path = "/") => {
   return { user };
 };
 
-test("一覧画面のルートが/である", () => {
+test("一覧画面のルートが/である", async () => {
   setup();
 
-  expect(screen.getByRole("progressbar")).toBeVisible();
+  expect(await screen.findByRole("list")).toBeVisible();
 });
 
 test("作成画面のルートは、/createである", () => {
@@ -37,5 +37,5 @@ test("作成が成功すると、一覧画面に遷移する", async () => {
   await user.type(screen.getByRole("textbox", { name: "タイトル" }), "あ");
   await user.click(screen.getByRole("button", { name: "作成" }));
 
-  expect(await screen.findByRole("progressbar")).toBeVisible();
+  expect(await screen.findByRole("list")).toBeVisible();
 });
