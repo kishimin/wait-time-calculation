@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { PATHS } from "../../types/paths";
 import CreateLine from "../../features/create-line/views/create-line";
 import Lines from "../../features/lines/views/lines";
+import { PATHS } from "../../types/paths";
 
 export const AppRouter = () => {
   return (

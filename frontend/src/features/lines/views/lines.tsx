@@ -9,10 +9,21 @@ import {
   usePutApiLineEntryId,
 } from "../../../api/endpoints/line-entry/line-entry";
 import { formatDuration } from "../../../utils/time";
+import type { Line } from "../types/lines";
 
 const Lines = () => {
   const queryClient = useQueryClient();
-  const { isLoading, data = [] } = useGetApiLine();
+  const { isLoading, data = [] } = useGetApiLine({
+    query: {
+      select: (data): Line[] =>
+        data.map((line) => ({
+          id: line.id ?? crypto.randomUUID(),
+          title: line.title ?? "",
+          averageWaitTime: line.averageWaitTime ?? null,
+          currentLineEntryId: line.currentLineEntryId ?? null,
+        })),
+    },
+  });
   const { isPending: isEnterPending, mutate: enter } = usePostApiLineEntry({
     mutation: {
       onSuccess: async () => {

@@ -3,19 +3,18 @@ import {
   Button,
   CircularProgress,
   FormControl,
-  Snackbar,
   TextField,
 } from "@mui/material";
-import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
 import { PATHS } from "../../../types/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
+import { useSnackbar } from "../../../hooks/use-snackbar";
 
 const CreateLine = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const { toggleSnack } = useSnackbar();
 
   const navigate = useNavigate();
 
@@ -31,7 +30,7 @@ const CreateLine = () => {
   const { isPending, mutate } = usePostApiLine({
     mutation: {
       onSuccess: async () => {
-        setOpen(true);
+        toggleSnack({ message: "作成しました" });
 
         await navigate(PATHS.index);
       },
@@ -73,8 +72,6 @@ const CreateLine = () => {
 
             <Button type={"submit"}>{"作成"}</Button>
           </FormControl>
-
-          <Snackbar message={"作成しました"} open={open} />
         </>
       )}
     </>
