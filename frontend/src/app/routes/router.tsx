@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-import { PATHS } from "../../constants/paths";
+import { PATHS } from "../../types/paths";
 import CreateLine from "../../features/create-line/views/create-line";
 import Lines from "../../features/lines/views/lines";
 

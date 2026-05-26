@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
-import { PATHS } from "../../../constants/paths";
+import { PATHS } from "../../../types/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
