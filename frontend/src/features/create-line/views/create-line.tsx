@@ -8,10 +8,10 @@ import {
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
+import { useSnackbar } from "../../../hooks/use-snackbar";
 import { PATHS } from "../../../types/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
-import { useSnackbar } from "../../../hooks/use-snackbar";
 
 const CreateLine = () => {
   const { toggleSnack } = useSnackbar();
