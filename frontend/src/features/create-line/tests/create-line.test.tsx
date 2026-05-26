@@ -5,6 +5,7 @@ import { delay } from "msw";
 import { MemoryRouter } from "react-router";
 import { getPostApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
+import { SnackbarContextProvider } from "../../../providers/snackbar";
 import CreateLine from "../views/create-line";
 import { BUTTONS, LABELS } from "./constants";
 import { getCreateButton, getExplanationInput, getTitleInput } from "./helper";
@@ -16,7 +17,9 @@ const setup = () => {
   render(
     <MemoryRouter>
       <QueryClientProvider client={queryClient}>
-        <CreateLine />
+        <SnackbarContextProvider>
+          <CreateLine />
+        </SnackbarContextProvider>
       </QueryClientProvider>
     </MemoryRouter>,
   );

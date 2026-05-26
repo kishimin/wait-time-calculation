@@ -5,5 +5,5 @@
     "**/dist/**": true,
     "**/coverage/**": true
   },
-  "cSpell.words": ["petstore", "vite"]
+  "cSpell.words": ["clickaway", "petstore", "vite"]
 }

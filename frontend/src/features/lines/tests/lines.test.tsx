@@ -42,7 +42,7 @@ const exitLines: LinesResponse[] = [
 ];
 
 type Props = {
-  lines: LinesResponseDto[];
+  lines: Required<LinesResponseDto>[];
 };
 
 const setup = (props: Props = { lines: enterLines }) => {
