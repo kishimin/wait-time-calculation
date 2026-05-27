@@ -8,7 +8,7 @@ import {
   getPutApiLineEntryIdMockHandler,
 } from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
-import type { LinesResponseDto } from "../../../models";
+import type { Line } from "../types/lines";
 import Lines from "../views/lines";
 
 const BUTTONS = {
@@ -42,7 +42,7 @@ const exitLines: LinesResponse[] = [
 ];
 
 type Props = {
-  lines: LinesResponseDto[];
+  lines: Line[];
 };
 
 const setup = (props: Props = { lines: enterLines }) => {
