@@ -9,6 +9,7 @@ namespace WaitTimeCalculationApi.Dtos.User
     public class RegisterDto
     {
         [Required]
+        [MaxLength(50, ErrorMessage = "ユーザー名は50文字以下です")]
         public string Username { get; set; } = string.Empty;
 
         [Required]
@@ -16,6 +17,7 @@ namespace WaitTimeCalculationApi.Dtos.User
         public string Email { get; set; } = string.Empty;
 
         [Required]
+        [MaxLength(100, ErrorMessage = "パスワードは100文字以下です")]
         public string Password { get; set; } = string.Empty;
     }
 }
