@@ -6,10 +6,14 @@
  */
 import * as zod from "zod";
 
+export const postApiUserRegisterBodyUsernameMax = 50;
+
+export const postApiUserRegisterBodyPasswordMax = 100;
+
 export const PostApiUserRegisterBody = zod.object({
-  username: zod.string(),
+  username: zod.string().max(postApiUserRegisterBodyUsernameMax),
   email: zod.string(),
-  password: zod.string(),
+  password: zod.string().max(postApiUserRegisterBodyPasswordMax),
 });
 
 export const PostApiUserRegisterResponse = zod.object({
@@ -18,9 +22,13 @@ export const PostApiUserRegisterResponse = zod.object({
   token: zod.string().optional(),
 });
 
+export const postApiUserLoginBodyUsernameMax = 50;
+
+export const postApiUserLoginBodyPasswordMax = 100;
+
 export const PostApiUserLoginBody = zod.object({
-  username: zod.string(),
-  password: zod.string(),
+  username: zod.string().max(postApiUserLoginBodyUsernameMax),
+  password: zod.string().max(postApiUserLoginBodyPasswordMax),
 });
 
 export const PostApiUserLoginResponse = zod.object({

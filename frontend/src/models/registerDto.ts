@@ -6,7 +6,9 @@
  */
 
 export interface RegisterDto {
+  /** @maxLength 50 */
   username: string;
   email: string;
+  /** @maxLength 100 */
   password: string;
 }
