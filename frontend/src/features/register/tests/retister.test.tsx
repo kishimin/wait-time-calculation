@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
 import { LABELS } from "./constants";
-import { getUserNameInput } from "./helper";
+import { getPasswordInput, getUserNameInput } from "./helper";
 
 const setup = () => {
   const user = userEvent.setup();
@@ -59,12 +59,18 @@ describe("パスワードのパスワード入力", () => {
   test("パスワードのパスワード入力が表示される", () => {
     setup();
 
-    expect(screen.getByLabelText("パスワード")).toBeVisible();
+    expect(screen.getByLabelText(LABELS.password)).toBeVisible();
   });
 
   test("初期値は空である", () => {
     setup();
 
-    expect(screen.getByLabelText("パスワード")).toHaveValue("");
+    expect(getPasswordInput()).toHaveValue("");
+  });
+
+  test("必須である", () => {
+    setup();
+
+    expect(getPasswordInput()).toBeRequired();
   });
 });
