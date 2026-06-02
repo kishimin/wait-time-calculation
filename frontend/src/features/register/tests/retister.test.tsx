@@ -91,10 +91,9 @@ describe("パスワードのパスワード入力", () => {
     const input = getPasswordInput();
 
     await user.type(input, "a".repeat(101));
-    await user.clear(input);
 
     expect(getPasswordInput()).toHaveAccessibleDescription(
-      "パスワードは100文字以内です",
+      "パスワードは100文字以内で入力してください",
     );
   });
 });
