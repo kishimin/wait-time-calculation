@@ -42,4 +42,15 @@ describe("ユーザー名のテキスト入力", () => {
 
     expect(input).toHaveAccessibleDescription("ユーザー名は必須です");
   });
+
+  test("51文字以上の時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getUserNameInput();
+
+    await user.type(input, "あ".repeat(51));
+
+    expect(input).toHaveAccessibleDescription(
+      "ユーザー名は50文字以内で入力してください",
+    );
+  });
 });
