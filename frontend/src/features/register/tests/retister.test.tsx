@@ -54,3 +54,11 @@ describe("ユーザー名のテキスト入力", () => {
     );
   });
 });
+
+describe("パスワードのパスワード入力", () => {
+  test("パスワードのパスワード入力が表示される", () => {
+    setup();
+
+    expect(screen.getByLabelText("パスワード")).toBeVisible();
+  });
+});

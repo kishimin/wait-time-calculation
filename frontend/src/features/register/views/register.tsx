@@ -22,6 +22,8 @@ const Register = () => {
         error={!!errors.userName}
         helperText={errors.userName?.message}
       />
+
+      <TextField label={"パスワード"} type={"password"} />
     </>
   );
 };
