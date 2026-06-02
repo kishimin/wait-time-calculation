@@ -23,7 +23,14 @@ const Register = () => {
         helperText={errors.userName?.message}
       />
 
-      <TextField label={"パスワード"} type={"password"} required />
+      <TextField
+        {...register("password")}
+        label={"パスワード"}
+        type={"password"}
+        required
+        error={!!errors.password}
+        helperText={errors.password?.message}
+      />
     </>
   );
 };
