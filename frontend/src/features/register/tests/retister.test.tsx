@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
 import { LABELS } from "./constants";
 import { getUserNameInput } from "./helper";
 
 const setup = () => {
+  const user = userEvent.setup();
+
   render(<Register />);
+
+  return { user };
 };
 
 describe("ユーザー名のテキスト入力", () => {
@@ -26,5 +31,16 @@ describe("ユーザー名のテキスト入力", () => {
     setup();
 
     expect(getUserNameInput()).toBeRequired();
+  });
+
+  test("空の時エラーが表示される", async () => {
+    const { user } = setup();
+
+    const input = getUserNameInput();
+
+    await user.type(input, "あ");
+    await user.clear(input);
+
+    expect(screen.getByText("ユーザー名は必須です")).toBeVisible();
   });
 });
