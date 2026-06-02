@@ -21,4 +21,10 @@ describe("ユーザー名のテキスト入力", () => {
 
     expect(getUserNameInput()).toHaveValue("");
   });
+
+  test("必須である", () => {
+    setup();
+
+    expect(getUserNameInput()).toBeRequired();
+  });
 });
