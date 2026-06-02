@@ -35,7 +35,6 @@ describe("ユーザー名のテキスト入力", () => {
 
   test("空の時エラーが表示される", async () => {
     const { user } = setup();
-
     const input = getUserNameInput();
 
     await user.type(input, "あ");
