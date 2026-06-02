@@ -85,4 +85,16 @@ describe("パスワードのパスワード入力", () => {
       "パスワードは必須です",
     );
   });
+
+  test("101文字以上の時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "a".repeat(101));
+    await user.clear(input);
+
+    expect(getPasswordInput()).toHaveAccessibleDescription(
+      "パスワードは100文字以内です",
+    );
+  });
 });
