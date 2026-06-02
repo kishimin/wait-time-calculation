@@ -41,6 +41,6 @@ describe("ユーザー名のテキスト入力", () => {
     await user.type(input, "あ");
     await user.clear(input);
 
-    expect(screen.getByText("ユーザー名は必須です")).toBeVisible();
+    expect(input).toHaveAccessibleDescription("ユーザー名は必須です");
   });
 });
