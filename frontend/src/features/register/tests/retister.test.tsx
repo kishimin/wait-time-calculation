@@ -61,4 +61,10 @@ describe("パスワードのパスワード入力", () => {
 
     expect(screen.getByLabelText("パスワード")).toBeVisible();
   });
+
+  test("初期値は空である", () => {
+    setup();
+
+    expect(screen.getByLabelText("パスワード")).toHaveValue("");
+  });
 });
