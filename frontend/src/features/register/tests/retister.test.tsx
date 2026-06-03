@@ -104,4 +104,15 @@ describe("パスワードのパスワード入力", () => {
       "数字を含めてください",
     );
   });
+
+  test("小文字のアルファベットを含まない時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "1".repeat(11));
+
+    expect(getPasswordInput()).toHaveAccessibleDescription(
+      "アルファベットを含めてください",
+    );
+  });
 });
