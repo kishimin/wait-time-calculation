@@ -94,25 +94,17 @@ describe("パスワードのパスワード入力", () => {
     );
   });
 
-  test("数字を含まない時エラーが表示される", async () => {
+  test.each([
+    { char: "数字", value: "a".repeat(11) },
+    { char: "小文字のアルファベット", value: "1".repeat(11) },
+  ])("$charを含まない時エラーが表示される", async ({ char, value }) => {
     const { user } = setup();
     const input = getPasswordInput();
 
-    await user.type(input, "a".repeat(11));
+    await user.type(input, value);
 
     expect(getPasswordInput()).toHaveAccessibleDescription(
-      "数字を含めてください",
-    );
-  });
-
-  test("小文字のアルファベットを含まない時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getPasswordInput();
-
-    await user.type(input, "1".repeat(11));
-
-    expect(getPasswordInput()).toHaveAccessibleDescription(
-      "アルファベットを含めてください",
+      `${char}を含めてください`,
     );
   });
 });
