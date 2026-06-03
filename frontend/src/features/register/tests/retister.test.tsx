@@ -40,7 +40,7 @@ describe("ユーザー名のテキスト入力", () => {
     await user.type(input, "あ");
     await user.clear(input);
 
-    expect(input).toHaveAccessibleDescription("ユーザー名は必須です");
+    expect(input).toHaveAccessibleDescription("必須です");
   });
 
   test("51文字以上の時エラーが表示される", async () => {
@@ -49,9 +49,7 @@ describe("ユーザー名のテキスト入力", () => {
 
     await user.type(input, "あ".repeat(51));
 
-    expect(input).toHaveAccessibleDescription(
-      "ユーザー名は50文字以内で入力してください",
-    );
+    expect(input).toHaveAccessibleDescription("50文字以内で入力してください");
   });
 });
 
@@ -81,7 +79,7 @@ describe("パスワードのパスワード入力", () => {
     await user.type(input, "a".repeat(101));
 
     expect(getPasswordInput()).toHaveAccessibleDescription(
-      "パスワードは100文字以内で入力してください",
+      "100文字以内で入力してください",
     );
   });
 
@@ -92,7 +90,18 @@ describe("パスワードのパスワード入力", () => {
     await user.type(input, "a".repeat(10));
 
     expect(getPasswordInput()).toHaveAccessibleDescription(
-      "パスワードは11文字以上で入力してください",
+      "11文字以上で入力してください",
+    );
+  });
+
+  test("数字を含まない時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "a".repeat(11));
+
+    expect(getPasswordInput()).toHaveAccessibleDescription(
+      "数字を含めてください",
     );
   });
 });
