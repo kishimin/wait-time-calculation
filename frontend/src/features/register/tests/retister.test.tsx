@@ -95,8 +95,9 @@ describe("パスワードのパスワード入力", () => {
   });
 
   test.each([
-    { char: "数字", value: "a".repeat(11) },
-    { char: "小文字のアルファベット", value: "1".repeat(11) },
+    { char: "数字", value: "aA".repeat(11) },
+    { char: "小文字のアルファベット", value: "A1".repeat(11) },
+    { char: "大文字のアルファベット", value: "a1".repeat(11) },
   ])("$charを含まない時エラーが表示される", async ({ char, value }) => {
     const { user } = setup();
     const input = getPasswordInput();
