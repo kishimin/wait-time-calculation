@@ -53,7 +53,7 @@ describe("タイトルのテキスト入力", () => {
     await user.type(titleInput, "あ");
     await user.clear(titleInput);
 
-    expect(titleInput).toHaveAccessibleDescription("タイトルは必須です");
+    expect(titleInput).toHaveAccessibleDescription("必須です");
   });
 
   test("101文字以上の時、エラーが表示される", async () => {
@@ -63,7 +63,7 @@ describe("タイトルのテキスト入力", () => {
     await user.type(titleInput, "あ".repeat(101));
 
     expect(titleInput).toHaveAccessibleDescription(
-      "タイトルは100文字以内で入力してください",
+      "100文字以内で入力してください",
     );
   });
 });
@@ -92,7 +92,7 @@ describe("説明のテキスト入力", () => {
 
     // エラーが非同期的に表示されるため(userEventの時は、入力から非同期なため必要ない)
     expect(
-      await screen.findByText("説明は400文字以内で入力してください"),
+      await screen.findByText("400文字以内で入力してください"),
     ).toBeVisible();
   });
 });
@@ -171,7 +171,7 @@ describe("作成", () => {
 
     await user.click(createButton);
 
-    expect(screen.getByText("タイトルは必須です")).toBeVisible();
+    expect(screen.getByText("必須です")).toBeVisible();
   });
 
   test("作成が成功すると、トーストが表示される", async () => {
