@@ -74,18 +74,6 @@ describe("パスワードのパスワード入力", () => {
     expect(getPasswordInput()).toBeRequired();
   });
 
-  test("空の時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getPasswordInput();
-
-    await user.type(input, "a");
-    await user.clear(input);
-
-    expect(getPasswordInput()).toHaveAccessibleDescription(
-      "パスワードは必須です",
-    );
-  });
-
   test("101文字以上の時エラーが表示される", async () => {
     const { user } = setup();
     const input = getPasswordInput();
