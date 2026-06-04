@@ -66,7 +66,13 @@ const Register = () => {
         }}
       />
 
-      <TextField label={"メールアドレス"} required />
+      <TextField
+        {...register("email")}
+        label={"メールアドレス"}
+        required
+        error={!!errors.email}
+        helperText={errors.email?.message}
+      />
     </>
   );
 };
