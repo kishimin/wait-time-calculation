@@ -185,4 +185,13 @@ describe("メールアドレスのテキスト入力", () => {
 
     expect(input).toHaveAccessibleDescription("必須です");
   });
+
+  test("257文字以上の時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getEmailInput();
+
+    await user.type(input, "a".repeat(257));
+
+    expect(input).toHaveAccessibleDescription("256文字以内で入力してください");
+  });
 });
