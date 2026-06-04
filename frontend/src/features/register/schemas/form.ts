@@ -18,7 +18,7 @@ export const formSchema = z.object({
       "半角記号を含めてください",
     ),
   email: z
-    .string()
+    .email("メールアドレスの形式が正しくありません")
     .min(1, "必須です")
     .max(256, "256文字以内で入力してください"),
 });
