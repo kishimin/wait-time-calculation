@@ -123,4 +123,17 @@ describe("パスワードのパスワード入力", () => {
 
     expect(input).toHaveAttribute("type", "password");
   });
+
+  test("Visibilityアイコンをクリックするとtype=textで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+    const visibilityIcon = screen.getByRole("button", {
+      name: "display the password",
+    });
+
+    await user.type(input, "aA1!".repeat(11));
+    await user.click(visibilityIcon);
+
+    expect(input).toHaveAttribute("type", "text");
+  });
 });
