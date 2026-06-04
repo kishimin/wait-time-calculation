@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
 import { LABELS } from "./constants";
-import { getPasswordInput, getUserNameInput } from "./helper";
+import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
 
 const setup = () => {
   const user = userEvent.setup();
@@ -167,6 +167,6 @@ describe("メールアドレスのテキスト入力", () => {
   test("初期値は空である", () => {
     setup();
 
-    expect(screen.getByRole("textbox", { name: LABELS.email })).toHaveValue("");
+    expect(getEmailInput()).toHaveValue("");
   });
 });
