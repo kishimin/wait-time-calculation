@@ -114,4 +114,13 @@ describe("パスワードのパスワード入力", () => {
       "半角英数字記号で入力してください",
     );
   });
+
+  test("初期状態はtype=passwordで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "aA1!".repeat(11));
+
+    expect(input).toHaveAttribute("type", "password");
+  });
 });
