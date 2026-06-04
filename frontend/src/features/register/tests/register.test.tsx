@@ -163,4 +163,10 @@ describe("メールアドレスのテキスト入力", () => {
 
     expect(screen.getByRole("textbox", { name: LABELS.email })).toBeVisible();
   });
+
+  test("初期値は空である", () => {
+    setup();
+
+    expect(screen.getByRole("textbox", { name: LABELS.email })).toHaveValue("");
+  });
 });
