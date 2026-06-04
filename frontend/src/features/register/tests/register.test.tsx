@@ -175,4 +175,14 @@ describe("メールアドレスのテキスト入力", () => {
 
     expect(getEmailInput()).toBeRequired();
   });
+
+  test("空の時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getEmailInput();
+
+    await user.type(input, "a");
+    await user.clear(input);
+
+    expect(input).toHaveAccessibleDescription("必須です");
+  });
 });
