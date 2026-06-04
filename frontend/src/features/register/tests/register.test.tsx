@@ -161,8 +161,6 @@ describe("メールアドレスのテキスト入力", () => {
   test("メールアドレスのテキスト入力が表示される", () => {
     setup();
 
-    expect(
-      screen.getByRole("textbox", { name: "メールアドレス" }),
-    ).toBeVisible();
+    expect(screen.getByRole("textbox", { name: LABELS.email })).toBeVisible();
   });
 });
