@@ -65,6 +65,8 @@ const Register = () => {
           },
         }}
       />
+
+      <TextField label={"メールアドレス"} />
     </>
   );
 };
