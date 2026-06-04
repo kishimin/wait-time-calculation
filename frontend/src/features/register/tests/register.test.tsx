@@ -169,4 +169,10 @@ describe("メールアドレスのテキスト入力", () => {
 
     expect(getEmailInput()).toHaveValue("");
   });
+
+  test("必須である", () => {
+    setup();
+
+    expect(getEmailInput()).toBeRequired();
+  });
 });
