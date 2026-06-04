@@ -148,11 +148,21 @@ describe("パスワードのパスワード入力", () => {
     await user.click(visibilityIcon);
 
     const visibilityOffIcon = screen.getByRole("button", {
-      name: "入力内容を非表示",
+      name: LABELS.visibilityOffIcon,
     });
 
     await user.click(visibilityOffIcon);
 
     expect(input).toHaveAttribute("type", "password");
+  });
+});
+
+describe("メールアドレスのテキスト入力", () => {
+  test("メールアドレスのテキスト入力が表示される", () => {
+    setup();
+
+    expect(
+      screen.getByRole("textbox", { name: "メールアドレス" }),
+    ).toBeVisible();
   });
 });
