@@ -128,7 +128,7 @@ describe("パスワードのパスワード入力", () => {
     const { user } = setup();
     const input = getPasswordInput();
     const visibilityIcon = screen.getByRole("button", {
-      name: "display the password",
+      name: LABELS.visibilityIcon,
     });
 
     await user.type(input, "aA1!".repeat(11));

@@ -52,7 +52,7 @@ const Register = () => {
               <InputAdornment position={"end"}>
                 <IconButton
                   aria-label={
-                    showPassword ? "hide the password" : "display the password"
+                    showPassword ? "パスワードを非表示" : "パスワードを表示"
                   }
                   onClick={handleClickShowPassword}
                   onMouseDown={handleMouseDownPassword}
