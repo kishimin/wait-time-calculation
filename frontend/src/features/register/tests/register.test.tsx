@@ -136,4 +136,23 @@ describe("パスワードのパスワード入力", () => {
 
     expect(input).toHaveAttribute("type", "text");
   });
+
+  test("VisibilityOffアイコンをクリックするとtype=passwordで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+    const visibilityIcon = screen.getByRole("button", {
+      name: LABELS.visibilityIcon,
+    });
+
+    await user.type(input, "aA1!".repeat(11));
+    await user.click(visibilityIcon);
+
+    const visibilityOffIcon = screen.getByRole("button", {
+      name: "入力内容を非表示",
+    });
+
+    await user.click(visibilityOffIcon);
+
+    expect(input).toHaveAttribute("type", "password");
+  });
 });
