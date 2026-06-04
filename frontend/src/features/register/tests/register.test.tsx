@@ -194,4 +194,15 @@ describe("メールアドレスのテキスト入力", () => {
 
     expect(input).toHaveAccessibleDescription("256文字以内で入力してください");
   });
+
+  test("メールアドレスの形式が正しくない時エラーが表示され", async () => {
+    const { user } = setup();
+    const input = getEmailInput();
+
+    await user.type(input, "a");
+
+    expect(input).toHaveAccessibleDescription(
+      "メールアドレスの形式が正しくありません",
+    );
+  });
 });
