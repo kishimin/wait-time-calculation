@@ -1,5 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
@@ -12,6 +14,20 @@ const Register = () => {
     resolver: zodResolver(formSchema),
     mode: "onChange",
   });
+
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const handleClickShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
+
+  const handleMouseDownPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
+
+  const handleMouseUpPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <>
@@ -26,10 +42,28 @@ const Register = () => {
       <TextField
         {...register("password")}
         label={"パスワード"}
-        type={"password"}
+        type={showPassword ? "text" : "password"}
         required
         error={!!errors.password}
         helperText={errors.password?.message}
+        slotProps={{
+          input: {
+            endAdornment: (
+              <InputAdornment position={"end"}>
+                <IconButton
+                  aria-label={
+                    showPassword ? "hide the password" : "display the password"
+                  }
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  onMouseUp={handleMouseUpPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
+        }}
       />
     </>
   );
