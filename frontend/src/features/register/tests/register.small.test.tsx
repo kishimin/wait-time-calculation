@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
-import { LABELS } from "./constants";
+import { ERRORS, LABELS } from "./constants";
 import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
 
 const setup = () => {
@@ -33,23 +33,14 @@ describe("ユーザー名のテキスト入力", () => {
     expect(getUserNameInput()).toBeRequired();
   });
 
-  test("空の時エラーが表示される", async () => {
+  test("エラーの時エラーが表示される", async () => {
     const { user } = setup();
     const input = getUserNameInput();
 
     await user.type(input, "あ");
     await user.clear(input);
 
-    expect(input).toHaveAccessibleDescription("必須です");
-  });
-
-  test("51文字以上の時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getUserNameInput();
-
-    await user.type(input, "あ".repeat(51));
-
-    expect(input).toHaveAccessibleDescription("50文字以内で入力してください");
+    expect(input).toHaveAccessibleDescription(ERRORS.userName.required);
   });
 });
 

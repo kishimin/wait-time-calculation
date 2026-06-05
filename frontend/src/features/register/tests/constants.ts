@@ -5,3 +5,10 @@ export const LABELS = {
   visibilityOffIcon: "入力内容を非表示",
   email: "メールアドレス",
 } as const;
+
+export const ERRORS = {
+  userName: {
+    required: "必須です",
+    max: "50文字以内で入力してください",
+  },
+} as const;

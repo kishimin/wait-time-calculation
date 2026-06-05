@@ -1,10 +1,12 @@
 import * as z from "zod";
 
+export const userNameSchema = z
+  .string()
+  .min(1, "必須です")
+  .max(50, "50文字以内で入力してください");
+
 export const formSchema = z.object({
-  userName: z
-    .string()
-    .min(1, "必須です")
-    .max(50, "50文字以内で入力してください"),
+  userName: userNameSchema,
   password: z
     .string()
     .min(11, "11文字以上で入力してください")
