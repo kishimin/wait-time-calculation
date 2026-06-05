@@ -16,4 +16,9 @@ export const ERRORS = {
     max: "100文字以内で入力してください",
     halfWidth: "半角英数字記号で入力してください",
   },
+  email: {
+    required: "必須です",
+    max: "256文字以内で入力してください",
+    style: "メールアドレスの形式が正しくありません",
+  },
 } as const;

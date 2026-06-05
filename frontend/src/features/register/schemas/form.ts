@@ -18,11 +18,16 @@ export const passwordSchema = z
     "半角記号を含めてください",
   );
 
+export const emailSchema = z
+  .string()
+  .min(1, "必須です")
+  .max(256, "256文字以内で入力してください")
+  .refine((v) => z.email().or(z.literal("")).safeParse(v).success, {
+    error: "メールアドレスの形式が正しくありません",
+  });
+
 export const formSchema = z.object({
   userName: userNameSchema,
   password: passwordSchema,
-  email: z
-    .email("メールアドレスの形式が正しくありません")
-    .min(1, "必須です")
-    .max(256, "256文字以内で入力してください"),
+  email: emailSchema,
 });

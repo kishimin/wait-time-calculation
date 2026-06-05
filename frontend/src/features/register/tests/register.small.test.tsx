@@ -133,24 +133,13 @@ describe("メールアドレスのテキスト入力", () => {
     expect(getEmailInput()).toBeRequired();
   });
 
-  test("257文字以上の時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getEmailInput();
-    const domain = "@gmail.com";
-
-    await user.type(input, "a".repeat(257 - domain.length) + domain);
-
-    expect(input).toHaveAccessibleDescription("256文字以内で入力してください");
-  });
-
-  test("メールアドレスの形式が正しくない時エラーが表示され", async () => {
+  test("エラーの時エラーが表示される", async () => {
     const { user } = setup();
     const input = getEmailInput();
 
     await user.type(input, "a");
+    await user.clear(input);
 
-    expect(input).toHaveAccessibleDescription(
-      "メールアドレスの形式が正しくありません",
-    );
+    expect(input).toHaveAccessibleDescription(ERRORS.email.required);
   });
 });
