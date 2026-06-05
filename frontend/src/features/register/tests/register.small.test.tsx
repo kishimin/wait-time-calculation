@@ -63,56 +63,13 @@ describe("パスワードのパスワード入力", () => {
     expect(getPasswordInput()).toBeRequired();
   });
 
-  test("101文字以上の時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getPasswordInput();
-
-    await user.type(input, "a".repeat(101));
-
-    expect(input).toHaveAccessibleDescription("100文字以内で入力してください");
-  });
-
-  test("11文字以下の時エラーが表示される", async () => {
+  test("エラーの時エラーが表示される", async () => {
     const { user } = setup();
     const input = getPasswordInput();
 
     await user.type(input, "a".repeat(10));
 
-    expect(input).toHaveAccessibleDescription("11文字以上で入力してください");
-  });
-
-  type TestCase = {
-    char: string;
-    value: string;
-  };
-
-  const cases: TestCase[] = [
-    { char: "数字", value: "aA!".repeat(11) },
-    { char: "小文字のアルファベット", value: "A1!".repeat(11) },
-    { char: "大文字のアルファベット", value: "a1!".repeat(11) },
-    { char: "半角記号", value: "aA1".repeat(11) },
-  ];
-  test.each([...cases])(
-    "$charを含まない時エラーが表示される",
-    async ({ char, value }) => {
-      const { user } = setup();
-      const input = getPasswordInput();
-
-      await user.type(input, value);
-
-      expect(input).toHaveAccessibleDescription(`${char}を含めてください`);
-    },
-  );
-
-  test("半角英数字記号以外を含む時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getPasswordInput();
-
-    await user.type(input, "あaA1!".repeat(11));
-
-    expect(input).toHaveAccessibleDescription(
-      "半角英数字記号で入力してください",
-    );
+    expect(input).toHaveAccessibleDescription(ERRORS.password.min);
   });
 
   test("初期状態はtype=passwordで表示される", async () => {

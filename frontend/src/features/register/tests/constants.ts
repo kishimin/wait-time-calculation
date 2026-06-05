@@ -11,4 +11,9 @@ export const ERRORS = {
     required: "必須です",
     max: "50文字以内で入力してください",
   },
+  password: {
+    min: "11文字以上で入力してください",
+    max: "100文字以内で入力してください",
+    halfWidth: "半角英数字記号で入力してください",
+  },
 } as const;
