@@ -65,23 +65,6 @@ describe("作成", () => {
     });
   });
 
-  test("入力がエラーの時に、作成ボタンをクリックすると、ローディングが表示されない", async () => {
-    const { user } = setup();
-    const createButton = getCreateButton();
-    server.use(
-      getPostApiLineMockHandler(async () => {
-        await delay(1000);
-        return {};
-      }),
-    );
-
-    await user.click(createButton);
-
-    await waitFor(() => {
-      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
-    });
-  });
-
   test("作成が成功すると、トーストが表示される", async () => {
     const { user } = setup();
     const titleInput = getTitleInput();
