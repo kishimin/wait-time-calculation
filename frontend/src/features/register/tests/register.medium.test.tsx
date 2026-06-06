@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay } from "msw";
+import { MemoryRouter } from "react-router";
 import { getPostApiUserRegisterMockHandler } from "../../../api/endpoints/user/user.msw";
 import { server } from "../../../api/mocks/server";
 import Register from "../views/register";
@@ -17,9 +18,11 @@ const setup = () => {
   const queryClient = new QueryClient();
 
   render(
-    <QueryClientProvider client={queryClient}>
-      <Register />
-    </QueryClientProvider>,
+    <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <Register />
+      </QueryClientProvider>
+    </MemoryRouter>,
   );
 
   return { user };

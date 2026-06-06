@@ -10,12 +10,16 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { usePostApiUserRegister } from "../../../api/endpoints/user/user";
 import { PostApiUserRegisterBody } from "../../../gen/endpoints/user/user.zod";
+import { PATHS } from "../../../types/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -25,7 +29,13 @@ const Register = () => {
     mode: "onChange",
   });
 
-  const { isPending, mutate } = usePostApiUserRegister();
+  const { isPending, mutate } = usePostApiUserRegister({
+    mutation: {
+      onSuccess: async () => {
+        await navigate(PATHS.index);
+      },
+    },
+  });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
