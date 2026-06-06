@@ -65,6 +65,7 @@ const Register = () => {
           onSubmit={(e) => {
             return void handleSubmit(onSubmit)(e);
           }}
+          aria-label={"新規登録フォーム"}
         >
           <TextField
             {...register("userName")}
