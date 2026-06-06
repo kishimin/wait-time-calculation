@@ -1,6 +1,6 @@
 import type { AlertColor } from "@mui/material";
 
-export type SnackbarContextValue = {
+export type SnackbarContextType = {
   snackState: SnackState;
   toggleSnack: (snackState: SnackState) => void;
 };
