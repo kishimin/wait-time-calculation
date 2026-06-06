@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router";
 import Register from "../views/register";
 import { BUTTONS, ERRORS, LABELS } from "./constants";
 import {
-  getCreateButton,
+  getRegisterButton,
   getEmailInput,
   getPasswordInput,
   getUserNameInput,
@@ -162,13 +162,15 @@ describe("新規登録", () => {
   test("新規登録ボタンが表示される", () => {
     setup();
 
-    expect(screen.getByRole("button", { name: BUTTONS.create })).toBeVisible();
+    expect(
+      screen.getByRole("button", { name: BUTTONS.register }),
+    ).toBeVisible();
   });
 
   test("入力項目がエラーのときにクリックするとエラーが表示される", async () => {
     const { user } = setup();
 
-    await user.click(getCreateButton());
+    await user.click(getRegisterButton());
 
     expect(getUserNameInput()).toHaveAccessibleDescription(
       ERRORS.userName.required,

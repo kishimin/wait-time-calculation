@@ -7,7 +7,7 @@ import { getPostApiUserRegisterMockHandler } from "../../../api/endpoints/user/u
 import { server } from "../../../api/mocks/server";
 import Register from "../views/register";
 import {
-  getCreateButton,
+  getRegisterButton,
   getEmailInput,
   getPasswordInput,
   getUserNameInput,
@@ -41,7 +41,7 @@ describe("新規登録", () => {
     await user.type(getUserNameInput(), "a");
     await user.type(getPasswordInput(), "aA1!".repeat(11));
     await user.type(getEmailInput(), "a@gmail.com");
-    await user.click(getCreateButton());
+    await user.click(getRegisterButton());
 
     expect(screen.getByRole("progressbar")).toBeVisible();
   });
@@ -58,7 +58,7 @@ describe("新規登録", () => {
     await user.type(getUserNameInput(), "a");
     await user.type(getPasswordInput(), "aA1!".repeat(11));
     await user.type(getEmailInput(), "a@gmail.com");
-    await user.click(getCreateButton());
+    await user.click(getRegisterButton());
 
     await waitFor(() => {
       expect(

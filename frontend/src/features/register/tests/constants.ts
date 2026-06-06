@@ -24,5 +24,5 @@ export const ERRORS = {
 } as const;
 
 export const BUTTONS = {
-  create: "新規登録",
+  register: "新規登録",
 } as const;

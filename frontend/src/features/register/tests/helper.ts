@@ -13,6 +13,6 @@ export const getEmailInput = () => {
   return screen.getByRole("textbox", { name: LABELS.email });
 };
 
-export const getCreateButton = () => {
-  return screen.getByRole("button", { name: BUTTONS.create });
+export const getRegisterButton = () => {
+  return screen.getByRole("button", { name: BUTTONS.register });
 };
