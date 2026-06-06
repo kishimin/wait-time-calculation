@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { Button, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { formSchema } from "../schemas/form";
@@ -73,6 +73,8 @@ const Register = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
+
+      <Button>{"新規登録"}</Button>
     </>
   );
 };
