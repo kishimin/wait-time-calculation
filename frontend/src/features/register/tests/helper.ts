@@ -8,3 +8,7 @@ export const getUserNameInput = () => {
 export const getPasswordInput = () => {
   return screen.getByLabelText(LABELS.password);
 };
+
+export const getEmailInput = () => {
+  return screen.getByRole("textbox", { name: LABELS.email });
+};
