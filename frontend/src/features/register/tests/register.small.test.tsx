@@ -3,7 +3,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
 import { BUTTONS, ERRORS, LABELS } from "./constants";
-import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
+import {
+  getCreateButton,
+  getEmailInput,
+  getPasswordInput,
+  getUserNameInput,
+} from "./helper";
 
 const setup = () => {
   const user = userEvent.setup();
@@ -155,5 +160,15 @@ describe("新規登録", () => {
     setup();
 
     expect(screen.getByRole("button", { name: BUTTONS.create })).toBeVisible();
+  });
+
+  test("入力項目がエラーのときにクリックするとエラーが表示される", async () => {
+    const { user } = setup();
+
+    await user.click(getCreateButton());
+
+    expect(getUserNameInput()).toHaveAccessibleDescription(
+      ERRORS.userName.required,
+    );
   });
 });
