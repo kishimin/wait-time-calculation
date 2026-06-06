@@ -23,29 +23,33 @@ const setup = (path = "/") => {
   return { user };
 };
 
-test("一覧画面のルートが/である", async () => {
-  setup();
+describe("ルート", () => {
+  test("一覧画面のルートが/である", async () => {
+    setup();
 
-  expect(await screen.findByRole("list")).toBeVisible();
+    expect(await screen.findByRole("list")).toBeVisible();
+  });
+
+  test("作成画面のルートは、/createである", () => {
+    setup("/create");
+
+    expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
+  });
+
+  test("新規登録画面のルートは/registerである", () => {
+    setup("/register");
+
+    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
+  });
 });
 
-test("作成画面のルートは、/createである", () => {
-  setup("/create");
+describe("まちログ", () => {
+  test("作成が成功すると、一覧画面に遷移する", async () => {
+    const { user } = setup("/create");
 
-  expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
-});
+    await user.type(screen.getByRole("textbox", { name: "タイトル" }), "あ");
+    await user.click(screen.getByRole("button", { name: "作成" }));
 
-test("新規登録画面のルートは/registerである", () => {
-  setup("/register");
-
-  expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
-});
-
-test("作成が成功すると、一覧画面に遷移する", async () => {
-  const { user } = setup("/create");
-
-  await user.type(screen.getByRole("textbox", { name: "タイトル" }), "あ");
-  await user.click(screen.getByRole("button", { name: "作成" }));
-
-  expect(await screen.findByRole("list")).toBeVisible();
+    expect(await screen.findByRole("list")).toBeVisible();
+  });
 });
