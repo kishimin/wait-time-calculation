@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Register from "../views/register";
-import { ERRORS, LABELS } from "./constants";
+import { BUTTONS, ERRORS, LABELS } from "./constants";
 import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
 
 const setup = () => {
@@ -148,6 +148,6 @@ describe("新規登録", () => {
   test("新規登録ボタンが表示される", () => {
     setup();
 
-    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
+    expect(screen.getByRole("button", { name: BUTTONS.create })).toBeVisible();
   });
 });

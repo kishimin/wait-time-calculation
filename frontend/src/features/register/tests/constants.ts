@@ -22,3 +22,7 @@ export const ERRORS = {
     style: "メールアドレスの形式が正しくありません",
   },
 } as const;
+
+export const BUTTONS = {
+  create: "新規登録",
+} as const;

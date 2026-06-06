@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/dom";
-import { LABELS } from "./constants";
+import { BUTTONS, LABELS } from "./constants";
 
 export const getUserNameInput = () => {
   return screen.getByRole("textbox", { name: LABELS.userName });
@@ -11,4 +11,8 @@ export const getPasswordInput = () => {
 
 export const getEmailInput = () => {
   return screen.getByRole("textbox", { name: LABELS.email });
+};
+
+export const getCreateButton = () => {
+  return screen.getByRole("button", { name: BUTTONS.create });
 };

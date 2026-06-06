@@ -5,7 +5,12 @@ import { delay } from "msw";
 import { getPostApiUserRegisterMockHandler } from "../../../api/endpoints/user/user.msw";
 import { server } from "../../../api/mocks/server";
 import Register from "../views/register";
-import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
+import {
+  getCreateButton,
+  getEmailInput,
+  getPasswordInput,
+  getUserNameInput,
+} from "./helper";
 
 const setup = () => {
   const user = userEvent.setup();
@@ -33,7 +38,7 @@ describe("新規登録", () => {
     await user.type(getUserNameInput(), "a");
     await user.type(getPasswordInput(), "aA1!".repeat(11));
     await user.type(getEmailInput(), "a@gmail.com");
-    await user.click(screen.getByRole("button", { name: "新規登録" }));
+    await user.click(getCreateButton());
 
     expect(screen.getByRole("progressbar")).toBeVisible();
   });
