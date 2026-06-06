@@ -35,6 +35,12 @@ test("作成画面のルートは、/createである", () => {
   expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
 });
 
+test("新規登録画面のルートは/registerである", () => {
+  setup("/register");
+
+  expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
+});
+
 test("作成が成功すると、一覧画面に遷移する", async () => {
   const { user } = setup("/create");
 
