@@ -1,4 +1,5 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
+import LogoImage from "../../public/images/QueueLogImage.png";
 import { LOCAL_STORAGE_KEY } from "../types/localstorage";
 
 type Props = {
@@ -17,7 +18,7 @@ export const TopBar = (props: Props) => {
   return (
     <AppBar position={"static"}>
       <Typography variant={"h1"}>{"まちログ"}</Typography>
-      <Box component={"img"} src={"/QueueLogoImage.png"} />
+      <Box component={"img"} src={LogoImage} />
 
       {isLoggedIn ? (
         <>
