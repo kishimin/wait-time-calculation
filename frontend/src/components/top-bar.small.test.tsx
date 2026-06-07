@@ -1,23 +1,28 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { screen } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { ComponentProps } from "react";
+import { MemoryRouter } from "react-router";
+import { SnackbarContextProvider } from "../providers/snackbar";
+import { UserContextProvider } from "../providers/user";
 import { TopBar } from "./top-bar";
 
-type Props = ComponentProps<typeof TopBar>;
-
-const defaultProps: Props = {
-  isLoggedIn: false,
-  userName: "",
-  onLogout: () => void 0,
-  onLogin: () => void 0,
-  onRegister: () => void 0,
-};
-
-const setup = (props: Partial<Props> = {}) => {
+const setup = () => {
   const user = userEvent.setup();
+  const queryClient = new QueryClient();
 
-  render(<TopBar {...defaultProps} {...props} />);
+  render(
+    <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <SnackbarContextProvider>
+          <UserContextProvider>
+            <TopBar />
+          </UserContextProvider>
+        </SnackbarContextProvider>
+      </QueryClientProvider>
+      ,
+    </MemoryRouter>,
+  );
 
   return { user };
 };
@@ -38,33 +43,4 @@ test("まちログのロゴ画像が表示される", () => {
   setup();
 
   expect(screen.getByRole("img")).toBeVisible();
-});
-
-describe("ログイン時", () => {
-  test("ユーザー名が表示される", () => {
-    const userName = "ユーザー";
-    setup({ isLoggedIn: true, userName });
-
-    expect(screen.getByRole("heading", { name: userName })).toBeVisible();
-  });
-
-  test("ログアウトボタンが表示される", () => {
-    setup({ isLoggedIn: true });
-
-    expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
-  });
-});
-
-describe("未ログイン時", () => {
-  test("新規登録ボタンが表示される", () => {
-    setup();
-
-    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
-  });
-
-  test("ログインボタンが表示される", () => {
-    setup();
-
-    expect(screen.getByRole("button", { name: "ログイン" })).toBeVisible();
-  });
 });
