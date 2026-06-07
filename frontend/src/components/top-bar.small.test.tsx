@@ -11,6 +11,7 @@ const defaultProps: Props = {
   isLoggedIn: false,
   userName: "",
 };
+
 const setup = (props: Partial<Props> = {}) => {
   const user = userEvent.setup();
 
