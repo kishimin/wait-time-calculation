@@ -2,12 +2,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { delay } from "msw";
+import { MemoryRouter } from "react-router";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import {
   getPostApiLineEntryMockHandler,
   getPutApiLineEntryIdMockHandler,
 } from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
+import { SnackbarContextProvider } from "../../../providers/snackbar";
+import { UserContextProvider } from "../../../providers/user";
 import type { Line } from "../types/lines";
 import Lines from "../views/lines";
 
@@ -53,9 +56,16 @@ const setup = (props: Props = { lines: enterLines }) => {
   server.use(getGetApiLineMockHandler(lines));
 
   render(
-    <QueryClientProvider client={queryClient}>
-      <Lines />
-    </QueryClientProvider>,
+    <MemoryRouter>
+      <QueryClientProvider client={queryClient}>
+        <SnackbarContextProvider>
+          <UserContextProvider>
+            <Lines />
+          </UserContextProvider>
+        </SnackbarContextProvider>
+      </QueryClientProvider>
+      ,
+    </MemoryRouter>,
   );
 
   return { user };
