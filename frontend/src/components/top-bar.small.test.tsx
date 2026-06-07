@@ -2,6 +2,7 @@ import { screen } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ComponentProps } from "react";
+import { MemoryRouter } from "react-router";
 import { TopBar } from "./top-bar";
 
 type Props = ComponentProps<typeof TopBar>;
@@ -13,7 +14,11 @@ const defaultProps: Props = {
 const setup = (props: Partial<Props> = {}) => {
   const user = userEvent.setup();
 
-  render(<TopBar {...defaultProps} {...props} />);
+  render(
+    <MemoryRouter>
+      <TopBar {...defaultProps} {...props} />
+    </MemoryRouter>,
+  );
 
   return { user };
 };

@@ -1,6 +1,8 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router";
 import LogoImage from "../../public/images/QueueLogImage.png";
 import { LOCAL_STORAGE_KEY } from "../types/localstorage";
+import { PATHS } from "../types/paths";
 
 type Props = {
   isLoggedIn: boolean;
@@ -10,9 +12,21 @@ type Props = {
 export const TopBar = (props: Props) => {
   const { isLoggedIn, userName } = props;
 
-  const handleClickLogout = () => {
+  const navigate = useNavigate();
+
+  const handleClickLogout = async () => {
     localStorage.removeItem(LOCAL_STORAGE_KEY.TOKEN);
     localStorage.removeItem(LOCAL_STORAGE_KEY.USER);
+
+    await navigate(PATHS.index);
+  };
+
+  const handleClickRegister = async () => {
+    await navigate(PATHS.register);
+  };
+
+  const handleClickLogin = async () => {
+    await navigate(PATHS.login);
   };
 
   return (
@@ -23,12 +37,30 @@ export const TopBar = (props: Props) => {
       {isLoggedIn ? (
         <>
           <Typography variant={"h2"}>{userName}</Typography>
-          <Button onClick={handleClickLogout}>{"ログアウト"}</Button>
+          <Button
+            onClick={() => {
+              void handleClickLogout();
+            }}
+          >
+            {"ログアウト"}
+          </Button>
         </>
       ) : (
         <>
-          <Button>{"新規登録"}</Button>
-          <Button>{"ログイン"}</Button>
+          <Button
+            onClick={() => {
+              void handleClickRegister();
+            }}
+          >
+            {"新規登録"}
+          </Button>
+          <Button
+            onClick={() => {
+              void handleClickLogin();
+            }}
+          >
+            {"ログイン"}
+          </Button>
         </>
       )}
     </AppBar>
