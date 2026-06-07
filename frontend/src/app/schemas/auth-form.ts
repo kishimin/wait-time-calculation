@@ -25,9 +25,3 @@ export const emailSchema = z
   .refine((v) => z.email().or(z.literal("")).safeParse(v).success, {
     error: "メールアドレスの形式が正しくありません",
   });
-
-export const formSchema = z.object({
-  userName: userNameSchema,
-  password: passwordSchema,
-  email: emailSchema,
-});

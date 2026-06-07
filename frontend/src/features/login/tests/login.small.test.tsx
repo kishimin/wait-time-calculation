@@ -1,12 +1,7 @@
-import { screen } from "@testing-library/react";
+import { screen } from "@testing-library/dom";
 import { ERRORS } from "../../../app/tests/schemas/constants";
 import { BUTTONS, LABELS } from "./constants";
-import {
-  getRegisterButton,
-  getEmailInput,
-  getPasswordInput,
-  getUserNameInput,
-} from "./helper";
+import { getLoginButton, getPasswordInput, getUserNameInput } from "./helper";
 import { setup } from "./setup";
 
 describe("ユーザー名のテキスト入力", () => {
@@ -111,49 +106,17 @@ describe("パスワードのパスワード入力", () => {
   });
 });
 
-describe("メールアドレスのテキスト入力", () => {
-  test("メールアドレスのテキスト入力が表示される", () => {
+describe("ログイン", () => {
+  test("ログインボタンが表示される", () => {
     setup();
 
-    expect(screen.getByRole("textbox", { name: LABELS.email })).toBeVisible();
+    expect(screen.getByRole("button", { name: BUTTONS.login })).toBeVisible();
   });
 
-  test("初期値は空である", () => {
-    setup();
-
-    expect(getEmailInput()).toHaveValue("");
-  });
-
-  test("必須である", () => {
-    setup();
-
-    expect(getEmailInput()).toBeRequired();
-  });
-
-  test("エラーの時エラーが表示される", async () => {
-    const { user } = setup();
-    const input = getEmailInput();
-
-    await user.type(input, "a");
-    await user.clear(input);
-
-    expect(input).toHaveAccessibleDescription(ERRORS.email.required);
-  });
-});
-
-describe("新規登録", () => {
-  test("新規登録ボタンが表示される", () => {
-    setup();
-
-    expect(
-      screen.getByRole("button", { name: BUTTONS.register }),
-    ).toBeVisible();
-  });
-
-  test("入力項目がエラーのときにクリックするとエラーが表示される", async () => {
+  test("入力項目がエラーの時にクリックするとエラーが表示される", async () => {
     const { user } = setup();
 
-    await user.click(getRegisterButton());
+    await user.click(getLoginButton());
 
     expect(getUserNameInput()).toHaveAccessibleDescription(
       ERRORS.userName.required,

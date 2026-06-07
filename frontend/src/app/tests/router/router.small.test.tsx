@@ -19,4 +19,10 @@ describe("ルート", () => {
 
     expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
   });
+
+  test("ログイン画面のルートは/loginである", () => {
+    setup("/login");
+
+    expect(screen.getByRole("button", { name: "ログイン" })).toBeVisible();
+  });
 });

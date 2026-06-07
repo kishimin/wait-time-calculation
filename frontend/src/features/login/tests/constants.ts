@@ -7,5 +7,5 @@ export const LABELS = {
 } as const;
 
 export const BUTTONS = {
-  register: "新規登録",
+  login: "ログイン",
 } as const;

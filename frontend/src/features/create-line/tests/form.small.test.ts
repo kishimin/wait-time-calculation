@@ -1,4 +1,4 @@
-import { explanationSchema, titleSchema } from "../schemas/form";
+import { explanationSchema, titleSchema } from "../schemas/line-form";
 import { ERRORS } from "./constants";
 
 describe("タイトル", () => {

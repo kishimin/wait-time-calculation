@@ -9,19 +9,19 @@ import {
   TextField,
 } from "@mui/material";
 import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { usePostApiUserRegister } from "../../../api/endpoints/user/user";
+import { usePostApiUserLogin } from "../../../api/endpoints/user/user";
 import { tokenSchema, UserSchema } from "../../../app/schemas/user";
-import { PostApiUserRegisterBody } from "../../../gen/endpoints/user/user.zod";
+import { PostApiUserLoginBody } from "../../../gen/endpoints/user/user.zod";
 import { useSnackbar } from "../../../hooks/use-snackbar";
 import { LOCAL_STORAGE_KEY } from "../../../types/localstorage";
 import { PATHS } from "../../../types/paths";
-import { formSchema } from "../schemas/register-form";
-import type { FormSchema } from "../types/register-form";
+import { formSchema } from "../schemas/login-form";
+import type { FormSchema } from "../types/login-form";
 
-const Register = () => {
+const Login = () => {
   const { toggleSnack } = useSnackbar();
 
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Register = () => {
     mode: "onChange",
   });
 
-  const { isPending, mutate } = usePostApiUserRegister({
+  const { isPending, mutate } = usePostApiUserLogin({
     mutation: {
       onSuccess: async (data) => {
         try {
@@ -62,16 +62,13 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    const result = PostApiUserRegisterBody.safeParse({
+    const result = PostApiUserLoginBody.safeParse({
       username: data.userName,
       password: data.password,
-      email: data.email,
     });
 
     if (result.success) {
-      mutate({
-        data: result.data,
-      });
+      mutate({ data: result.data });
     }
   };
 
@@ -98,7 +95,7 @@ const Register = () => {
             return void handleSubmit(onSubmit)(e);
           }}
           noValidate
-          aria-label={"新規登録フォーム"}
+          aria-label={"ログインフォーム"}
         >
           <TextField
             {...register("userName")}
@@ -135,19 +132,11 @@ const Register = () => {
             }}
           />
 
-          <TextField
-            {...register("email")}
-            label={"メールアドレス"}
-            required
-            error={!!errors.email}
-            helperText={errors.email?.message}
-          />
-
-          <Button type={"submit"}>{"新規登録"}</Button>
+          <Button type={"submit"}>{"ログイン"}</Button>
         </FormControl>
       )}
     </>
   );
 };
 
-export default Register;
+export default Login;
