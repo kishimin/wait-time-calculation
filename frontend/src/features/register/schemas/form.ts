@@ -7,7 +7,7 @@ export const userNameSchema = z
 
 export const passwordSchema = z
   .string()
-  .min(11, "11文字以上で入力してください")
+  .min(12, "12文字以上で入力してください")
   .max(100, "100文字以内で入力してください")
   .regex(/^[\x20-\x7E]+$/, "半角英数字記号で入力してください")
   .regex(/(?=.*\d)/, "数字を含めてください")

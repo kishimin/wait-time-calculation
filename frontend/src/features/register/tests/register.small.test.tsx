@@ -1,16 +1,12 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import Register from "../views/register";
-import { ERRORS, LABELS } from "./constants";
-import { getEmailInput, getPasswordInput, getUserNameInput } from "./helper";
-
-const setup = () => {
-  const user = userEvent.setup();
-
-  render(<Register />);
-
-  return { user };
-};
+import { screen } from "@testing-library/react";
+import { BUTTONS, ERRORS, LABELS } from "./constants";
+import {
+  getRegisterButton,
+  getEmailInput,
+  getPasswordInput,
+  getUserNameInput,
+} from "./helper";
+import { setup } from "./setup";
 
 describe("ユーザー名のテキスト入力", () => {
   test("ユーザー名のテキスト入力が表示される", () => {
@@ -141,5 +137,25 @@ describe("メールアドレスのテキスト入力", () => {
     await user.clear(input);
 
     expect(input).toHaveAccessibleDescription(ERRORS.email.required);
+  });
+});
+
+describe("新規登録", () => {
+  test("新規登録ボタンが表示される", () => {
+    setup();
+
+    expect(
+      screen.getByRole("button", { name: BUTTONS.register }),
+    ).toBeVisible();
+  });
+
+  test("入力項目がエラーのときにクリックするとエラーが表示される", async () => {
+    const { user } = setup();
+
+    await user.click(getRegisterButton());
+
+    expect(getUserNameInput()).toHaveAccessibleDescription(
+      ERRORS.userName.required,
+    );
   });
 });

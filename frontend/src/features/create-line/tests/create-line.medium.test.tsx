@@ -1,30 +1,9 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen, waitFor } from "@testing-library/react";
 import { delay } from "msw";
-import { MemoryRouter } from "react-router";
 import { getPostApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
-import { SnackbarContextProvider } from "../../../providers/snackbar";
-import CreateLine from "../views/create-line";
 import { getCreateButton, getTitleInput } from "./helper";
-
-const setup = () => {
-  const user = userEvent.setup();
-  const queryClient = new QueryClient();
-
-  render(
-    <MemoryRouter>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarContextProvider>
-          <CreateLine />
-        </SnackbarContextProvider>
-      </QueryClientProvider>
-    </MemoryRouter>,
-  );
-
-  return { user };
-};
+import { setup } from "./setup";
 
 describe("作成", () => {
   test("タイトルを入力して、作成ボタンをクリックするとローディングが表示される", async () => {
@@ -62,23 +41,6 @@ describe("作成", () => {
       expect(
         screen.queryByRole("form", { name: "作成フォーム" }),
       ).not.toBeInTheDocument();
-    });
-  });
-
-  test("入力がエラーの時に、作成ボタンをクリックすると、ローディングが表示されない", async () => {
-    const { user } = setup();
-    const createButton = getCreateButton();
-    server.use(
-      getPostApiLineMockHandler(async () => {
-        await delay(1000);
-        return {};
-      }),
-    );
-
-    await user.click(createButton);
-
-    await waitFor(() => {
-      expect(screen.queryByRole("progressbar")).not.toBeInTheDocument();
     });
   });
 

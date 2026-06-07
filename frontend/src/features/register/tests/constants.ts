@@ -12,7 +12,7 @@ export const ERRORS = {
     max: "50文字以内で入力してください",
   },
   password: {
-    min: "11文字以上で入力してください",
+    min: "12文字以上で入力してください",
     max: "100文字以内で入力してください",
     halfWidth: "半角英数字記号で入力してください",
   },
@@ -21,4 +21,8 @@ export const ERRORS = {
     max: "256文字以内で入力してください",
     style: "メールアドレスの形式が正しくありません",
   },
+} as const;
+
+export const BUTTONS = {
+  register: "新規登録",
 } as const;
