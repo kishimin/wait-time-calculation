@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useNavigate } from "react-router";
 import {
   usePostApiUserLogin,
@@ -43,12 +42,6 @@ export const UserContextProvider = (props: Props) => {
 
     return result.data;
   });
-
-  useEffect(() => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-    }
-  }, [token]);
 
   const { isPending: isPendingRegister, mutate: mutateRegister } =
     usePostApiUserRegister({
