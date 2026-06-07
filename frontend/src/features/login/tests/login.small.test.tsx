@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/dom";
 import { ERRORS } from "../../../app/tests/schemas/constants";
 import { LABELS } from "./constants";
-import { getUserNameInput } from "./helper";
+import { getPasswordInput, getUserNameInput } from "./helper";
 import { setup } from "./setup";
 
 describe("ユーザー名のテキスト入力", () => {
@@ -33,5 +33,75 @@ describe("ユーザー名のテキスト入力", () => {
     await user.clear(input);
 
     expect(input).toHaveAccessibleDescription(ERRORS.userName.required);
+  });
+});
+
+describe("パスワードのパスワード入力", () => {
+  test("パスワードのパスワード入力が表示される", () => {
+    setup();
+
+    expect(screen.getByLabelText(LABELS.password)).toBeVisible();
+  });
+
+  test("初期値は空である", () => {
+    setup();
+
+    expect(getPasswordInput()).toHaveValue("");
+  });
+
+  test("必須である", () => {
+    setup();
+
+    expect(getPasswordInput()).toBeRequired();
+  });
+
+  test("エラーの時エラーが表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "a".repeat(10));
+
+    expect(input).toHaveAccessibleDescription(ERRORS.password.min);
+  });
+
+  test("初期状態はtype=passwordで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+
+    await user.type(input, "aA1!".repeat(11));
+
+    expect(input).toHaveAttribute("type", "password");
+  });
+
+  test("Visibilityアイコンをクリックするとtype=textで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+    const visibilityIcon = screen.getByRole("button", {
+      name: LABELS.visibilityIcon,
+    });
+
+    await user.type(input, "aA1!".repeat(11));
+    await user.click(visibilityIcon);
+
+    expect(input).toHaveAttribute("type", "text");
+  });
+
+  test("VisibilityOffアイコンをクリックするとtype=passwordで表示される", async () => {
+    const { user } = setup();
+    const input = getPasswordInput();
+    const visibilityIcon = screen.getByRole("button", {
+      name: LABELS.visibilityIcon,
+    });
+
+    await user.type(input, "aA1!".repeat(11));
+    await user.click(visibilityIcon);
+
+    const visibilityOffIcon = screen.getByRole("button", {
+      name: LABELS.visibilityOffIcon,
+    });
+
+    await user.click(visibilityOffIcon);
+
+    expect(input).toHaveAttribute("type", "password");
   });
 });
