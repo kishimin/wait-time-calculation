@@ -8,6 +8,7 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -43,11 +44,12 @@ const Register = () => {
             isLoggedIn: true,
             userName: data.userName,
           });
-
           const token = tokenSchema.parse(data.token);
 
           localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, token);
           localStorage.setItem(LOCAL_STORAGE_KEY.USER, JSON.stringify(userObj));
+
+          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
 
           await navigate(PATHS.index);
         } catch {
