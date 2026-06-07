@@ -1,5 +1,8 @@
 import { screen } from "@testing-library/react";
-import { getPostApiUserRegisterMockHandler } from "../../api/endpoints/user/user.msw";
+import {
+  getPostApiUserLoginMockHandler,
+  getPostApiUserRegisterMockHandler,
+} from "../../api/endpoints/user/user.msw";
 import { server } from "../../api/mocks/server";
 import { setup } from "./setup";
 
@@ -21,6 +24,23 @@ describe("認証", () => {
       "a@gmail.com",
     );
     await user.click(screen.getByRole("button", { name: "新規登録" }));
+
+    expect(await screen.findByRole("list")).toBeVisible();
+  });
+
+  test("ログインが成功すると一覧画面に遷移する", async () => {
+    const { user } = setup("/login");
+    server.use(
+      getPostApiUserLoginMockHandler({
+        userName: "a",
+        email: "a@gmail.com",
+        token: "a",
+      }),
+    );
+
+    await user.type(screen.getByRole("textbox", { name: "ユーザー名" }), "a");
+    await user.type(screen.getByLabelText(/パスワード/), "aA1!".repeat(11));
+    await user.click(screen.getByRole("button", { name: "ログイン" }));
 
     expect(await screen.findByRole("list")).toBeVisible();
   });
