@@ -13,10 +13,14 @@ export const TopBar = (props: Props) => {
       <Typography variant={"h1"}>{"まちログ"}</Typography>
       <Box component={"img"} src={"/QueueLogoImage.png"} />
 
-      {isLoggedIn && (
+      {isLoggedIn ? (
         <>
           <Typography variant={"h2"}>{userName}</Typography>
           <Button>{"ログアウト"}</Button>
+        </>
+      ) : (
+        <>
+          <Button>{"新規登録"}</Button>
         </>
       )}
     </AppBar>
