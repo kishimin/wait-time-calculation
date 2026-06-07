@@ -1,28 +1,7 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router";
-import { SnackbarContextProvider } from "../../../providers/snackbar";
-import CreateLine from "../views/create-line";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { BUTTONS, ERRORS, LABELS } from "./constants";
 import { getCreateButton, getExplanationInput, getTitleInput } from "./helper";
-
-const setup = () => {
-  const user = userEvent.setup();
-  const queryClient = new QueryClient();
-
-  render(
-    <MemoryRouter>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarContextProvider>
-          <CreateLine />
-        </SnackbarContextProvider>
-      </QueryClientProvider>
-    </MemoryRouter>,
-  );
-
-  return { user };
-};
+import { setup } from "./setup";
 
 describe("タイトルのテキスト入力", () => {
   test("タイトルのテキスト入力が表示される", () => {
