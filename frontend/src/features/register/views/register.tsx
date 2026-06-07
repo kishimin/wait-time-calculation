@@ -17,8 +17,8 @@ import { useSnackbar } from "../../../hooks/use-snackbar";
 import { tokenSchema, UserSchema } from "../../../schemas/user";
 import { LOCAL_STORAGE_KEY } from "../../../types/localstorage";
 import { PATHS } from "../../../types/paths";
-import { formSchema } from "../schemas/form";
-import type { FormSchema } from "../types/form";
+import { formSchema } from "../schemas/register-form";
+import type { FormSchema } from "../types/register-form";
 
 const Register = () => {
   const { toggleSnack } = useSnackbar();
