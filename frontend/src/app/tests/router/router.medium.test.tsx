@@ -2,8 +2,8 @@ import { screen } from "@testing-library/react";
 import {
   getPostApiUserLoginMockHandler,
   getPostApiUserRegisterMockHandler,
-} from "../../api/endpoints/user/user.msw";
-import { server } from "../../api/mocks/server";
+} from "../../../api/endpoints/user/user.msw";
+import { server } from "../../../api/mocks/server";
 import { setup } from "./setup";
 
 describe("認証", () => {
