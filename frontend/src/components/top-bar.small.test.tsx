@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/dom";
 import { render } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import type { ComponentProps } from "react";
 import { TopBar } from "./top-bar";
 
@@ -10,7 +11,11 @@ const defaultProps: Props = {
   userName: "",
 };
 const setup = (props: Partial<Props> = {}) => {
+  const user = userEvent.setup();
+
   render(<TopBar {...defaultProps} {...props} />);
+
+  return { user };
 };
 
 test("ヘッダーが表示される", () => {
@@ -43,6 +48,14 @@ describe("ログイン時", () => {
     setup({ isLoggedIn: true });
 
     expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
+  });
+
+  test("ログアウトすると、未ログイン状態となる", async () => {
+    const { user } = setup({ isLoggedIn: true });
+
+    await user.click(screen.getByRole("button", { name: "ログアウト" }));
+
+    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
   });
 });
 
