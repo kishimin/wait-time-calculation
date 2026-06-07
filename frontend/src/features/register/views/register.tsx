@@ -18,8 +18,8 @@ import { PostApiUserRegisterBody } from "../../../gen/endpoints/user/user.zod";
 import { useSnackbar } from "../../../hooks/use-snackbar";
 import { LOCAL_STORAGE_KEY } from "../../../types/localstorage";
 import { PATHS } from "../../../types/paths";
-import { formSchema } from "../schemas/register-form";
-import type { FormSchema } from "../types/register-form";
+import { registerUserSchema } from "../schemas/register-form";
+import type { RegisterUser } from "../types/register-form";
 
 const Register = () => {
   const { toggleSnack } = useSnackbar();
@@ -30,8 +30,8 @@ const Register = () => {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<RegisterUser>({
+    resolver: zodResolver(registerUserSchema),
     mode: "onChange",
   });
 
@@ -61,7 +61,7 @@ const Register = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+  const onSubmit: SubmitHandler<RegisterUser> = (data) => {
     const result = PostApiUserRegisterBody.safeParse({
       username: data.userName,
       password: data.password,
