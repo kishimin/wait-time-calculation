@@ -7,3 +7,9 @@ test("まちログと表示される", () => {
 
   expect(screen.getByRole("heading", { name: "まちログ" })).toBeVisible();
 });
+
+test("まちログのロゴ画像が表示される", () => {
+  render(<TopBar />);
+
+  expect(screen.getByRole("img")).toBeVisible();
+});
