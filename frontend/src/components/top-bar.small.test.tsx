@@ -52,4 +52,10 @@ describe("未ログイン時", () => {
 
     expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
   });
+
+  test("ログインボタンが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("button", { name: "ログイン" })).toBeVisible();
+  });
 });
