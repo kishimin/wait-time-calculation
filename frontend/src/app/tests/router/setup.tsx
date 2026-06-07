@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import { SnackbarContextProvider } from "../../../providers/snackbar";
+import { UserContextProvider } from "../../../providers/user";
 import { RouterContents } from "../../routes/router";
 
 export const setup = (path = "/") => {
@@ -13,7 +14,9 @@ export const setup = (path = "/") => {
     <MemoryRouter initialEntries={[path]}>
       <QueryClientProvider client={queryClient}>
         <SnackbarContextProvider>
-          <RouterContents />
+          <UserContextProvider>
+            <RouterContents />
+          </UserContextProvider>
         </SnackbarContextProvider>
       </QueryClientProvider>
       ,
