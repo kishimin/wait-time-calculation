@@ -9,8 +9,8 @@ const defaultProps: Props = {
   isLoggedIn: false,
   userName: "",
 };
-const setup = (props: Props = defaultProps) => {
-  render(<TopBar {...props} />);
+const setup = (props: Partial<Props> = {}) => {
+  render(<TopBar {...defaultProps} {...props} />);
 };
 
 test("ヘッダーが表示される", () => {
@@ -40,7 +40,7 @@ describe("ログイン時", () => {
   });
 
   test("ログアウトボタンが表示される", () => {
-    setup({ ...defaultProps, isLoggedIn: true });
+    setup({ isLoggedIn: true });
 
     expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
   });
