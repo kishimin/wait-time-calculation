@@ -1,5 +1,5 @@
 import { screen } from "@testing-library/dom";
-import { BUTTONS, LABELS } from "../../../app/tests/schemas/constants";
+import { BUTTONS, LABELS } from "./constants";
 
 export const getUserNameInput = () => {
   return screen.getByRole("textbox", { name: LABELS.userName });

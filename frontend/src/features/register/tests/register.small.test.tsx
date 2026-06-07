@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
-import { BUTTONS, ERRORS, LABELS } from "../../../app/tests/schemas/constants";
+import { ERRORS } from "../../../app/tests/schemas/constants";
+import { BUTTONS, LABELS } from "./constants";
 import {
   getRegisterButton,
   getEmailInput,
