@@ -1,11 +1,14 @@
+import { BrowserRouter } from "react-router";
 import { AppProvider } from "../providers/provider";
-import { AppRouter } from "../routes/router";
+import { RouterContents } from "../routes/router";
 
 const App = () => {
   return (
-    <AppProvider>
-      <AppRouter />
-    </AppProvider>
+    <BrowserRouter>
+      <AppProvider>
+        <RouterContents />
+      </AppProvider>
+    </BrowserRouter>
   );
 };
 

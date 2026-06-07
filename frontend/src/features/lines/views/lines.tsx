@@ -8,6 +8,7 @@ import {
   usePostApiLineEntry,
   usePutApiLineEntryId,
 } from "../../../api/endpoints/line-entry/line-entry";
+import { TopBar } from "../../../components/top-bar";
 import { formatDuration } from "../../../utils/time";
 import type { Line } from "../types/lines";
 
@@ -55,6 +56,8 @@ const Lines = () => {
 
   return (
     <>
+      <TopBar />
+
       {isLoading || isEnterPending || isExitPending ? (
         <CircularProgress />
       ) : (

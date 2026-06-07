@@ -5,7 +5,7 @@ import {
   userNameSchema,
 } from "../../../app/schemas/auth-form";
 
-export const formSchema = z.object({
+export const registerUserSchema = z.object({
   userName: userNameSchema,
   password: passwordSchema,
   email: emailSchema,

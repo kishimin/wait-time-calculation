@@ -8,68 +8,29 @@ import {
   InputAdornment,
   TextField,
 } from "@mui/material";
-import axios from "axios";
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router";
-import { usePostApiUserLogin } from "../../../api/endpoints/user/user";
-import { tokenSchema, UserSchema } from "../../../app/schemas/user";
-import { PostApiUserLoginBody } from "../../../gen/endpoints/user/user.zod";
-import { useSnackbar } from "../../../hooks/use-snackbar";
-import { LOCAL_STORAGE_KEY } from "../../../types/localstorage";
-import { PATHS } from "../../../types/paths";
-import { formSchema } from "../schemas/login-form";
-import type { FormSchema } from "../types/login-form";
+import { TopBar } from "../../../components/top-bar";
+import { useUser } from "../../../hooks/use-user";
+import { loginUserSchema } from "../schemas/login-form";
+import type { LoginUser } from "../types/login-form";
 
 const Login = () => {
-  const { toggleSnack } = useSnackbar();
-
-  const navigate = useNavigate();
+  const { isPendingLogin, loginUser } = useUser();
 
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<FormSchema>({
-    resolver: zodResolver(formSchema),
+  } = useForm<LoginUser>({
+    resolver: zodResolver(loginUserSchema),
     mode: "onChange",
-  });
-
-  const { isPending, mutate } = usePostApiUserLogin({
-    mutation: {
-      onSuccess: async (data) => {
-        try {
-          const userObj = UserSchema.parse({
-            email: data.email,
-            isLoggedIn: true,
-            userName: data.userName,
-          });
-          const token = tokenSchema.parse(data.token);
-
-          localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, token);
-          localStorage.setItem(LOCAL_STORAGE_KEY.USER, JSON.stringify(userObj));
-
-          axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-
-          await navigate(PATHS.index);
-        } catch {
-          toggleSnack({ message: "内部的なエラーです。再度お試しください。" });
-        }
-      },
-    },
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  const onSubmit: SubmitHandler<FormSchema> = (data) => {
-    const result = PostApiUserLoginBody.safeParse({
-      username: data.userName,
-      password: data.password,
-    });
-
-    if (result.success) {
-      mutate({ data: result.data });
-    }
+  const onSubmit: SubmitHandler<LoginUser> = (data) => {
+    loginUser(data);
   };
 
   const handleClickShowPassword = () => {
@@ -86,7 +47,9 @@ const Login = () => {
 
   return (
     <>
-      {isPending ? (
+      <TopBar />
+
+      {isPendingLogin ? (
         <CircularProgress />
       ) : (
         <FormControl

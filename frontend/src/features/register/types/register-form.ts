@@ -1,4 +1,4 @@
 import * as z from "zod";
-import { formSchema } from "../schemas/register-form";
+import { registerUserSchema } from "../schemas/register-form";
 
-export type FormSchema = z.infer<typeof formSchema>;
+export type RegisterUser = z.infer<typeof registerUserSchema>;
