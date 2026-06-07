@@ -1,4 +1,4 @@
-import { AppBar, Box, Typography } from "@mui/material";
+import { AppBar, Box, Button, Typography } from "@mui/material";
 
 type Props = {
   isLoggedIn: boolean;
@@ -13,7 +13,12 @@ export const TopBar = (props: Props) => {
       <Typography variant={"h1"}>{"まちログ"}</Typography>
       <Box component={"img"} src={"/QueueLogoImage.png"} />
 
-      {isLoggedIn && <Typography variant={"h2"}>{userName}</Typography>}
+      {isLoggedIn && (
+        <>
+          <Typography variant={"h2"}>{userName}</Typography>
+          <Button>{"ログアウト"}</Button>
+        </>
+      )}
     </AppBar>
   );
 };
