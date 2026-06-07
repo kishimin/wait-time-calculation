@@ -32,7 +32,7 @@ test("まちログのロゴ画像が表示される", () => {
 });
 
 describe("ログイン時", () => {
-  test("ログイン時、ユーザー名が表示される", () => {
+  test("ユーザー名が表示される", () => {
     const userName = "ユーザー";
     setup({ isLoggedIn: true, userName });
 
