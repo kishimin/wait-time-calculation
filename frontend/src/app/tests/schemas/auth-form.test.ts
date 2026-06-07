@@ -1,4 +1,8 @@
-import { emailSchema, passwordSchema, userNameSchema } from "../schemas/form";
+import {
+  emailSchema,
+  passwordSchema,
+  userNameSchema,
+} from "../../schemas/auth-form";
 import { ERRORS } from "./constants";
 
 type TestCase = {
