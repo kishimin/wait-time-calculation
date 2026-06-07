@@ -13,11 +13,16 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { usePostApiUserRegister } from "../../../api/endpoints/user/user";
 import { PostApiUserRegisterBody } from "../../../gen/endpoints/user/user.zod";
+import { useSnackbar } from "../../../hooks/use-snackbar";
+import { tokenSchema, UserSchema } from "../../../schemas/user";
+import { LOCAL_STORAGE_KEY } from "../../../types/localstorage";
 import { PATHS } from "../../../types/paths";
 import { formSchema } from "../schemas/form";
 import type { FormSchema } from "../types/form";
 
 const Register = () => {
+  const { toggleSnack } = useSnackbar();
+
   const navigate = useNavigate();
 
   const {
@@ -31,8 +36,23 @@ const Register = () => {
 
   const { isPending, mutate } = usePostApiUserRegister({
     mutation: {
-      onSuccess: async () => {
-        await navigate(PATHS.index);
+      onSuccess: async (data) => {
+        try {
+          const userObj = UserSchema.parse({
+            email: data.email,
+            isLoggedIn: true,
+            userName: data.userName,
+          });
+
+          const token = tokenSchema.parse(data.token);
+
+          localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, token);
+          localStorage.setItem(LOCAL_STORAGE_KEY.USER, JSON.stringify(userObj));
+
+          await navigate(PATHS.index);
+        } catch {
+          toggleSnack({ message: "内部的なエラーです。再度お試しください。" });
+        }
       },
     },
   });

@@ -5,6 +5,7 @@ import { delay } from "msw";
 import { MemoryRouter } from "react-router";
 import { getPostApiUserRegisterMockHandler } from "../../../api/endpoints/user/user.msw";
 import { server } from "../../../api/mocks/server";
+import { SnackbarContextProvider } from "../../../providers/snackbar";
 import Register from "../views/register";
 import {
   getRegisterButton,
@@ -20,7 +21,9 @@ const setup = () => {
   render(
     <MemoryRouter>
       <QueryClientProvider client={queryClient}>
-        <Register />
+        <SnackbarContextProvider>
+          <Register />
+        </SnackbarContextProvider>
       </QueryClientProvider>
     </MemoryRouter>,
   );

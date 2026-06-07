@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
+import { SnackbarContextProvider } from "../../../providers/snackbar";
 import Register from "../views/register";
 import { BUTTONS, ERRORS, LABELS } from "./constants";
 import {
@@ -18,7 +19,9 @@ const setup = () => {
   render(
     <MemoryRouter>
       <QueryClientProvider client={queryClient}>
-        <Register />
+        <SnackbarContextProvider>
+          <Register />
+        </SnackbarContextProvider>
       </QueryClientProvider>
     </MemoryRouter>,
   );
