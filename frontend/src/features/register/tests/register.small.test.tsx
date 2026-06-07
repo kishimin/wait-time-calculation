@@ -1,9 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router";
-import { SnackbarContextProvider } from "../../../providers/snackbar";
-import Register from "../views/register";
+import { screen } from "@testing-library/react";
 import { BUTTONS, ERRORS, LABELS } from "./constants";
 import {
   getRegisterButton,
@@ -11,23 +6,7 @@ import {
   getPasswordInput,
   getUserNameInput,
 } from "./helper";
-
-const setup = () => {
-  const user = userEvent.setup();
-  const queryClient = new QueryClient();
-
-  render(
-    <MemoryRouter>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarContextProvider>
-          <Register />
-        </SnackbarContextProvider>
-      </QueryClientProvider>
-    </MemoryRouter>,
-  );
-
-  return { user };
-};
+import { setup } from "./setup";
 
 describe("ユーザー名のテキスト入力", () => {
   test("ユーザー名のテキスト入力が表示される", () => {
