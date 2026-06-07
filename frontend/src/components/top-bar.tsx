@@ -1,4 +1,5 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
+import { LOCAL_STORAGE_KEY } from "../types/localstorage";
 
 type Props = {
   isLoggedIn: boolean;
@@ -8,6 +9,11 @@ type Props = {
 export const TopBar = (props: Props) => {
   const { isLoggedIn, userName } = props;
 
+  const handleClickLogout = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY.TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE_KEY.USER);
+  };
+
   return (
     <AppBar position={"static"}>
       <Typography variant={"h1"}>{"まちログ"}</Typography>
@@ -16,7 +22,7 @@ export const TopBar = (props: Props) => {
       {isLoggedIn ? (
         <>
           <Typography variant={"h2"}>{userName}</Typography>
-          <Button>{"ログアウト"}</Button>
+          <Button onClick={handleClickLogout}>{"ログアウト"}</Button>
         </>
       ) : (
         <>

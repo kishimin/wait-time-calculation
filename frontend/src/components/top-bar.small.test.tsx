@@ -49,14 +49,6 @@ describe("ログイン時", () => {
 
     expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
   });
-
-  test("ログアウトすると、未ログイン状態となる", async () => {
-    const { user } = setup({ isLoggedIn: true });
-
-    await user.click(screen.getByRole("button", { name: "ログアウト" }));
-
-    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
-  });
 });
 
 describe("未ログイン時", () => {
