@@ -79,7 +79,6 @@ export const UserContextProvider = (props: Props) => {
         try {
           const userObj = UserSchema.parse({
             email: data.email,
-            isLoggedIn: true,
             userName: data.userName,
           });
           const token = tokenSchema.parse(data.token);
@@ -88,7 +87,7 @@ export const UserContextProvider = (props: Props) => {
           localStorage.setItem(LOCAL_STORAGE_KEY.USER, JSON.stringify(userObj));
 
           setToken(token);
-          setUser(user);
+          setUser(userObj);
 
           await navigate(PATHS.index);
         } catch {
