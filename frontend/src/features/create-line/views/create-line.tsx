@@ -10,8 +10,8 @@ import { useNavigate } from "react-router";
 import { usePostApiLine } from "../../../api/endpoints/line/line";
 import { useSnackbar } from "../../../hooks/use-snackbar";
 import { PATHS } from "../../../types/paths";
-import { formSchema } from "../schemas/form";
-import type { FormSchema } from "../types/form";
+import { formSchema } from "../schemas/line-form";
+import type { FormSchema } from "../types/line-form";
 
 const CreateLine = () => {
   const { toggleSnack } = useSnackbar();
