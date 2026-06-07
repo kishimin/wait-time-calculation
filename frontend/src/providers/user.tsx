@@ -43,7 +43,7 @@ export const UserContextProvider = (props: Props) => {
     return result.data;
   });
 
-  const { isPending: isPendingRegister, mutate: mutateRegister } =
+  const { isPending: isPendingRegister, mutate: register } =
     usePostApiUserRegister({
       mutation: {
         onSuccess: async (data) => {
@@ -73,36 +73,32 @@ export const UserContextProvider = (props: Props) => {
       },
     });
 
-  const { isPending: isPendingLogin, mutate: mutateLogin } =
-    usePostApiUserLogin({
-      mutation: {
-        onSuccess: async (data) => {
-          try {
-            const userObj = UserSchema.parse({
-              email: data.email,
-              isLoggedIn: true,
-              userName: data.userName,
-            });
-            const token = tokenSchema.parse(data.token);
+  const { isPending: isPendingLogin, mutate: login } = usePostApiUserLogin({
+    mutation: {
+      onSuccess: async (data) => {
+        try {
+          const userObj = UserSchema.parse({
+            email: data.email,
+            isLoggedIn: true,
+            userName: data.userName,
+          });
+          const token = tokenSchema.parse(data.token);
 
-            localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, token);
-            localStorage.setItem(
-              LOCAL_STORAGE_KEY.USER,
-              JSON.stringify(userObj),
-            );
+          localStorage.setItem(LOCAL_STORAGE_KEY.TOKEN, token);
+          localStorage.setItem(LOCAL_STORAGE_KEY.USER, JSON.stringify(userObj));
 
-            setToken(token);
-            setUser(user);
+          setToken(token);
+          setUser(user);
 
-            await navigate(PATHS.index);
-          } catch {
-            toggleSnack({
-              message: "内部的なエラーです。再度お試しください。",
-            });
-          }
-        },
+          await navigate(PATHS.index);
+        } catch {
+          toggleSnack({
+            message: "内部的なエラーです。再度お試しください。",
+          });
+        }
       },
-    });
+    },
+  });
 
   const isLoggedIn = () => {
     return !!user;
@@ -116,7 +112,7 @@ export const UserContextProvider = (props: Props) => {
     });
 
     if (result.success) {
-      mutateRegister({
+      register({
         data: result.data,
       });
     }
@@ -129,7 +125,7 @@ export const UserContextProvider = (props: Props) => {
     });
 
     if (result.success) {
-      mutateLogin({ data: result.data });
+      login({ data: result.data });
     }
   };
 
