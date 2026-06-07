@@ -36,6 +36,6 @@ describe("ログイン時", () => {
     const userName = "ユーザー";
     setup({ isLoggedIn: true, userName });
 
-    expect(screen.getByText(userName)).toBeVisible();
+    expect(screen.getByRole("heading", { name: userName })).toBeVisible();
   });
 });
