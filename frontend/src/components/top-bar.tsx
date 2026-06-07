@@ -21,6 +21,7 @@ export const TopBar = (props: Props) => {
       ) : (
         <>
           <Button>{"新規登録"}</Button>
+          <Button>{"ログイン"}</Button>
         </>
       )}
     </AppBar>
