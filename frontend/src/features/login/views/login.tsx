@@ -1,8 +1,15 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  Button,
+  FormControl,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { PostApiUserLoginBody } from "../../../gen/endpoints/user/user.zod";
 import { formSchema } from "../schemas/login-form";
 import type { FormSchema } from "../types/login-form";
 
@@ -10,12 +17,20 @@ const Login = () => {
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
   });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<FormSchema> = (data) => {
+    PostApiUserLoginBody.safeParse({
+      username: data.userName,
+      password: data.password,
+    });
+  };
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -31,40 +46,50 @@ const Login = () => {
 
   return (
     <>
-      <TextField
-        {...register("userName")}
-        label={"ユーザー名"}
-        required
-        error={!!errors.userName}
-        helperText={errors.userName?.message}
-      />
-
-      <TextField
-        {...register("password")}
-        label={"パスワード"}
-        type={showPassword ? "text" : "password"}
-        required
-        error={!!errors.password}
-        helperText={errors.password?.message}
-        slotProps={{
-          input: {
-            endAdornment: (
-              <InputAdornment position={"end"}>
-                <IconButton
-                  aria-label={
-                    showPassword ? "入力内容を非表示" : "入力内容を表示"
-                  }
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  onMouseUp={handleMouseUpPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          },
+      <FormControl
+        component={"form"}
+        onSubmit={(e) => {
+          return void handleSubmit(onSubmit)(e);
         }}
-      />
+        noValidate
+      >
+        <TextField
+          {...register("userName")}
+          label={"ユーザー名"}
+          required
+          error={!!errors.userName}
+          helperText={errors.userName?.message}
+        />
+
+        <TextField
+          {...register("password")}
+          label={"パスワード"}
+          type={showPassword ? "text" : "password"}
+          required
+          error={!!errors.password}
+          helperText={errors.password?.message}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position={"end"}>
+                  <IconButton
+                    aria-label={
+                      showPassword ? "入力内容を非表示" : "入力内容を表示"
+                    }
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                    onMouseUp={handleMouseUpPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+
+        <Button type={"submit"}>{"ログイン"}</Button>
+      </FormControl>
     </>
   );
 };

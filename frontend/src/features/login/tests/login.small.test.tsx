@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/dom";
 import { ERRORS } from "../../../app/tests/schemas/constants";
-import { LABELS } from "./constants";
-import { getPasswordInput, getUserNameInput } from "./helper";
+import { BUTTONS, LABELS } from "./constants";
+import { getLoginButton, getPasswordInput, getUserNameInput } from "./helper";
 import { setup } from "./setup";
 
 describe("ユーザー名のテキスト入力", () => {
@@ -103,5 +103,23 @@ describe("パスワードのパスワード入力", () => {
     await user.click(visibilityOffIcon);
 
     expect(input).toHaveAttribute("type", "password");
+  });
+});
+
+describe("ログイン", () => {
+  test("ログインボタンが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("button", { name: BUTTONS.login })).toBeVisible();
+  });
+
+  test("入力項目がエラーの時にクリックするとエラーが表示される", async () => {
+    const { user } = setup();
+
+    await user.click(getLoginButton());
+
+    expect(getUserNameInput()).toHaveAccessibleDescription(
+      ERRORS.userName.required,
+    );
   });
 });
