@@ -2,7 +2,6 @@ import { screen } from "@testing-library/dom";
 import { render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ComponentProps } from "react";
-import { MemoryRouter } from "react-router";
 import { TopBar } from "./top-bar";
 
 type Props = ComponentProps<typeof TopBar>;
@@ -10,16 +9,15 @@ type Props = ComponentProps<typeof TopBar>;
 const defaultProps: Props = {
   isLoggedIn: false,
   userName: "",
+  onLogout: () => void 0,
+  onLogin: () => void 0,
+  onRegister: () => void 0,
 };
 
 const setup = (props: Partial<Props> = {}) => {
   const user = userEvent.setup();
 
-  render(
-    <MemoryRouter>
-      <TopBar {...defaultProps} {...props} />
-    </MemoryRouter>,
-  );
+  render(<TopBar {...defaultProps} {...props} />);
 
   return { user };
 };
