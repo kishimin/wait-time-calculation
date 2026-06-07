@@ -160,3 +160,9 @@ describe("新規登録", () => {
     );
   });
 });
+
+test("トップバーが表示される", () => {
+  setup();
+
+  expect(screen.getByRole("banner")).toBeVisible();
+});
