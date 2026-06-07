@@ -23,8 +23,8 @@ describe("ユーザー名", () => {
 });
 
 describe("パスワード", () => {
-  test("10文字以下の時エラーとなる", () => {
-    const result = passwordSchema.safeParse("a".repeat(10));
+  test("11文字以下の時エラーとなる", () => {
+    const result = passwordSchema.safeParse("a".repeat(11));
 
     expect(result.success).toBe(false);
     expect(result.error?.issues[0].message).toBe(ERRORS.password.min);
