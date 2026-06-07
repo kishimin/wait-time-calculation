@@ -45,3 +45,11 @@ describe("ログイン時", () => {
     expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
   });
 });
+
+describe("未ログイン時", () => {
+  test("新規登録ボタンが表示される", () => {
+    setup();
+
+    expect(screen.getByRole("button", { name: "新規登録" })).toBeVisible();
+  });
+});
