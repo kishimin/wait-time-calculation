@@ -6,23 +6,6 @@ export const LABELS = {
   email: "メールアドレス",
 } as const;
 
-export const ERRORS = {
-  userName: {
-    required: "必須です",
-    max: "50文字以内で入力してください",
-  },
-  password: {
-    min: "12文字以上で入力してください",
-    max: "100文字以内で入力してください",
-    halfWidth: "半角英数字記号で入力してください",
-  },
-  email: {
-    required: "必須です",
-    max: "256文字以内で入力してください",
-    style: "メールアドレスの形式が正しくありません",
-  },
-} as const;
-
 export const BUTTONS = {
   register: "新規登録",
 } as const;

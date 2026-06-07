@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/dom";
-import { ERRORS, LABELS } from "./constants";
+import { ERRORS } from "../../../app/tests/schemas/constants";
+import { LABELS } from "./constants";
 import { getUserNameInput } from "./helper";
 import { setup } from "./setup";
 
