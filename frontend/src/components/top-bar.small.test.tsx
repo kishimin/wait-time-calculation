@@ -38,4 +38,10 @@ describe("ログイン時", () => {
 
     expect(screen.getByRole("heading", { name: userName })).toBeVisible();
   });
+
+  test("ログアウトボタンが表示される", () => {
+    setup({ ...defaultProps, isLoggedIn: true });
+
+    expect(screen.getByRole("button", { name: "ログアウト" })).toBeVisible();
+  });
 });
