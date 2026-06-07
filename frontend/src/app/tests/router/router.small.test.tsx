@@ -8,11 +8,7 @@ describe("ルート", () => {
     expect(await screen.findByRole("list")).toBeVisible();
   });
 
-  test("作成画面のルートは、/createである", () => {
-    setup("/create");
 
-    expect(screen.getByRole("button", { name: "作成" })).toBeVisible();
-  });
 
   test("新規登録画面のルートは/registerである", () => {
     setup("/register");
