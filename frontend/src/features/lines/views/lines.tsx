@@ -1,5 +1,6 @@
 import { Button, CircularProgress, List, ListItem } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 import {
   getGetApiLineQueryKey,
   useGetApiLine,
@@ -9,10 +10,12 @@ import {
   usePutApiLineEntryId,
 } from "../../../api/endpoints/line-entry/line-entry";
 import { TopBar } from "../../../components/top-bar";
+import { PATHS } from "../../../types/paths";
 import { formatDuration } from "../../../utils/time";
 import type { Line } from "../types/lines";
 
 const Lines = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine({
     query: {
@@ -54,6 +57,10 @@ const Lines = () => {
     exit({ id: lineEntryId });
   };
 
+  const handleClickCreateButton = async () => {
+    await navigate(PATHS.create);
+  };
+
   return (
     <>
       <TopBar />
@@ -87,6 +94,14 @@ const Lines = () => {
           ))}
         </List>
       )}
+
+      <Button
+        onClick={() => {
+          void handleClickCreateButton();
+        }}
+      >
+        {"作成"}
+      </Button>
     </>
   );
 };

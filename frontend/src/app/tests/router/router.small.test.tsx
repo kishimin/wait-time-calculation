@@ -8,8 +8,6 @@ describe("ルート", () => {
     expect(await screen.findByRole("list")).toBeVisible();
   });
 
-
-
   test("新規登録画面のルートは/registerである", () => {
     setup("/register");
 

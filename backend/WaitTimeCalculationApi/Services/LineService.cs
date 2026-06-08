@@ -44,9 +44,8 @@ namespace WaitTimeCalculationApi.Services
                         .Select(x =>
                             {
                                 TimeSpan? timeSpan = x.ExitedAt - x.EnteredAt;
-                                return timeSpan?.TotalSeconds;
+                                return (double?)timeSpan?.TotalSeconds;
                             })
-                        .DefaultIfEmpty(0)
                         .Average(),
                     CurrentLineEntryId = currentLineEntry?.LineEntryId
                 });
