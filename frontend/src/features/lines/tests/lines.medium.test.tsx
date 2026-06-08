@@ -1,75 +1,14 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { render, screen, within } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { screen, within } from "@testing-library/react";
 import { delay } from "msw";
-import { MemoryRouter } from "react-router";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import {
   getPostApiLineEntryMockHandler,
   getPutApiLineEntryIdMockHandler,
 } from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
-import { SnackbarContextProvider } from "../../../providers/snackbar";
-import { UserContextProvider } from "../../../providers/user";
-import type { Line } from "../types/lines";
-import Lines from "../views/lines";
-
-const BUTTONS = {
-  ENTER: "入場",
-  EXIT: "退場",
-} as const;
-
-type LinesResponse = {
-  id: string;
-  title: string;
-  averageWaitTime: number;
-  currentLineEntryId: string | null;
-};
-
-const enterLines: LinesResponse[] = [
-  {
-    id: "",
-    averageWaitTime: 11042,
-    title: "タイトル",
-    currentLineEntryId: null,
-  },
-];
-
-const exitLines: LinesResponse[] = [
-  {
-    id: "",
-    averageWaitTime: 11042,
-    title: "タイトル",
-    currentLineEntryId: "1",
-  },
-];
-
-type Props = {
-  lines: Line[];
-};
-
-const setup = (props: Props = { lines: enterLines }) => {
-  const { lines } = props;
-
-  const user = userEvent.setup();
-  const queryClient = new QueryClient();
-  server.use(getGetApiLineMockHandler(lines));
-
-  render(
-    <MemoryRouter>
-      <QueryClientProvider client={queryClient}>
-        <SnackbarContextProvider>
-          <UserContextProvider>
-            <Lines />
-          </UserContextProvider>
-        </SnackbarContextProvider>
-      </QueryClientProvider>
-      ,
-    </MemoryRouter>,
-  );
-
-  return { user };
-};
+import { BUTTONS } from "./constants";
+import { enterLines, exitLines } from "./data";
+import { setup } from "./setup";
 
 describe("初期表示", () => {
   test("ローディングが表示される", () => {
