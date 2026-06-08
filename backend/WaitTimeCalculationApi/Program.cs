@@ -93,6 +93,21 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        "Frontend",
+        policy =>
+        {
+            policy
+                .WithOrigins(
+                    builder.Configuration["FrontendUrl"] ?? throw new Exception("FrontendUrl is missing")
+                )
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 // dependency injection
 builder.Services.AddScoped<ILineRepository, LineRepository>();
 builder.Services.AddScoped<ILineService, LineService>();
@@ -113,6 +128,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("Frontend");
 
 app.UseAuthentication();
 app.UseAuthorization();
