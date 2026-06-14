@@ -12,8 +12,8 @@ using WaitTimeCalculationApi.Data;
 namespace WaitTimeCalculationApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260510014745_AddDateTimeOffsetNull")]
-    partial class AddDateTimeOffsetNull
+    [Migration("20260614125155_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,21 +200,34 @@ namespace WaitTimeCalculationApi.Migrations
 
             modelBuilder.Entity("WaitTimeCalculationApi.Models.LineEntry", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<Guid>("LineId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTimeOffset?>("EnteredAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTimeOffset>("EnteredAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<DateTimeOffset?>("ExitedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("UserId", "LineId");
+                    b.Property<Guid>("LineId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTimeOffset>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("LineId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("LineEntries");
                 });

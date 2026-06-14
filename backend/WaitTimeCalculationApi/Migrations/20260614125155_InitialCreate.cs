@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WaitTimeCalculationApi.Migrations
 {
     /// <inheritdoc />
-    public partial class LineEntry : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,7 +79,9 @@ namespace WaitTimeCalculationApi.Migrations
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Explanation = table.Column<string>(type: "varchar(400)", maxLength: 400, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -218,13 +220,18 @@ namespace WaitTimeCalculationApi.Migrations
                 name: "LineEntries",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    LineId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    LineId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EnteredAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
+                    ExitedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LineEntries", x => new { x.UserId, x.LineId });
+                    table.PrimaryKey("PK_LineEntries", x => x.Id);
                     table.ForeignKey(
                         name: "FK_LineEntries_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -290,6 +297,11 @@ namespace WaitTimeCalculationApi.Migrations
                 name: "IX_LineEntries_LineId",
                 table: "LineEntries",
                 column: "LineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LineEntries_UserId",
+                table: "LineEntries",
+                column: "UserId");
         }
 
         /// <inheritdoc />
