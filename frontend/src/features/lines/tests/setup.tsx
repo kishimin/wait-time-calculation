@@ -7,7 +7,7 @@ import { server } from "../../../api/mocks/server";
 import { SnackbarContextProvider } from "../../../providers/snackbar";
 import { UserContextProvider } from "../../../providers/user";
 import type { Line } from "../types/lines";
-import Lines from "../views/lines";
+import LinesPage from "../views/lines-page";
 import { enterLines } from "./data";
 
 type Props = {
@@ -26,7 +26,7 @@ export const setup = (props: Props = { lines: enterLines }) => {
       <QueryClientProvider client={queryClient}>
         <SnackbarContextProvider>
           <UserContextProvider>
-            <Lines />
+            <LinesPage />
           </UserContextProvider>
         </SnackbarContextProvider>
       </QueryClientProvider>
