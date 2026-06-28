@@ -1,4 +1,4 @@
-import { Button, CircularProgress, List, ListItem } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import {
@@ -11,10 +11,10 @@ import {
 } from "../../../api/endpoints/line-entry/line-entry";
 import { TopBar } from "../../../components/top-bar";
 import { PATHS } from "../../../types/paths";
-import { formatDuration } from "../../../utils/time";
+import { Lines } from "../components/lines";
 import type { Line } from "../types/lines";
 
-const Lines = () => {
+const LinesPage = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { isLoading, data = [] } = useGetApiLine({
@@ -68,31 +68,11 @@ const Lines = () => {
       {isLoading || isEnterPending || isExitPending ? (
         <CircularProgress />
       ) : (
-        <List>
-          {data.map((line) => (
-            <ListItem
-              key={line.id}
-              secondaryAction={
-                line.currentLineEntryId ? (
-                  <Button
-                    onClick={() =>
-                      handleClickExitButton(line.currentLineEntryId ?? "")
-                    }
-                  >
-                    {"退場"}
-                  </Button>
-                ) : (
-                  <Button onClick={() => handleClickEnterButton(line.id ?? "")}>
-                    {"入場"}
-                  </Button>
-                )
-              }
-            >
-              {line.title}
-              {line.averageWaitTime && formatDuration(line.averageWaitTime)}
-            </ListItem>
-          ))}
-        </List>
+        <Lines
+          lines={data}
+          onEnter={handleClickEnterButton}
+          onExit={handleClickExitButton}
+        />
       )}
 
       <Button
@@ -106,4 +86,4 @@ const Lines = () => {
   );
 };
 
-export default Lines;
+export default LinesPage;
