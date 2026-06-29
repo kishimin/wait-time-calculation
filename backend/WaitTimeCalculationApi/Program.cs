@@ -102,6 +102,9 @@ builder.Services.AddScoped<ILineEntryService, LineEntryService>();
 
 var app = builder.Build();
 
+// monitor
+app.MapGet("/health", () => Results.Ok("OK"));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
