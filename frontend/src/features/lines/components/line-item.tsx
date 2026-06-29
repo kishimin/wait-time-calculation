@@ -25,9 +25,19 @@ export const LineItem = (props: Props) => {
         )
       }
     >
-      <Stack spacing={2} direction={"row"}>
-        <Typography>{title}</Typography>
-        <Typography>
+      <Stack spacing={2} direction={"row"} sx={{ width: "100%", minWidth: 0 }}>
+        <Typography
+          sx={{
+            flex: 1,
+            minWidth: 0,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {title}
+        </Typography>
+        <Typography sx={{ flexShrink: 0 }}>
           {averageWaitTime !== null && formatDuration(averageWaitTime)}
         </Typography>
       </Stack>

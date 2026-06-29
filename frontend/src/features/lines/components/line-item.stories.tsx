@@ -70,13 +70,13 @@ export const MinBoundaryValues: Story = {
 };
 
 /** 最大の境界値の値の状態 */
-export const MaxBoundaryValues: Story = {
+export const MaxBoundaryLength: Story = {
   args: {
     line: {
       id: crypto.randomUUID(),
       title: "あ".repeat(100),
-      // 平均待ち時間はv2以降で1日を限度とする
-      averageWaitTime: 24 * 60 * 60,
+      // 23時間59分59秒が最大の文字数
+      averageWaitTime: 86399,
       currentLineEntryId: null,
     },
   },
@@ -88,8 +88,8 @@ export const EnglishMaxLength: Story = {
     line: {
       id: crypto.randomUUID(),
       title: "A".repeat(100),
-      // 平均待ち時間はv2以降で1日を限度とする
-      averageWaitTime: 24 * 60 * 60,
+      // 23時間59分59秒が最大の文字数
+      averageWaitTime: 86399,
       currentLineEntryId: null,
     },
   },
