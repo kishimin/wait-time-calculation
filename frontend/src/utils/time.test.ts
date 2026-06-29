@@ -19,9 +19,15 @@ describe("formatDuration", () => {
     expect(formatDuration(seconds)).toBe("4時間2秒");
   });
 
-  test("秒が0のとき、秒が表示される", () => {
+  test("秒が0のとき、秒が表示されない", () => {
     const seconds = 14520;
 
-    expect(formatDuration(seconds)).toBe("4時間2分0秒");
+    expect(formatDuration(seconds)).toBe("4時間2分");
+  });
+
+  test("0のとき、0秒と表示される", () => {
+    const seconds = 0;
+
+    expect(formatDuration(seconds)).toBe("0秒");
   });
 });
