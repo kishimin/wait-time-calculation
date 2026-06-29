@@ -32,7 +32,7 @@ export const LineItem = (props: Props) => {
       }
     >
       <ListItemText
-        sx={{ pr: 2 }}
+        sx={{ pr: 4 }}
         primary={
           <Stack direction={"row"} sx={{ width: "100%", minWidth: 0 }}>
             <Typography
