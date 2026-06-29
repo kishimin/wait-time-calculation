@@ -2,6 +2,7 @@ import { List } from "@mui/material";
 import type { Line } from "../types/lines";
 import { LineItem } from "./line-item";
 
+
 type Props = {
   /** 待ち対象一覧 */
   lines: Line[];

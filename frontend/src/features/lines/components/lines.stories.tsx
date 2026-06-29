@@ -1,13 +1,23 @@
+import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
+import type { Line } from "../types/lines";
 import { Lines } from "./lines";
 
 const meta = {
   args: {
-    // TODO:モックの仕方
-    onEnter: () => void 0,
-    onExit: () => void 0,
+    onEnter: () => fn(),
+    onExit: () => fn(),
   },
   component: Lines,
+  decorators: [
+    (Story) => (
+      <Box sx={{ width: "375px" }}>
+        <Story />
+      </Box>
+    ),
+  ],
+  title: "features/lines/components/Lines",
 } satisfies Meta<typeof Lines>;
 
 export default meta;
@@ -34,10 +44,17 @@ export const Empty: Story = {
   },
 };
 
-/** 待ち対象が1万件の状態 */
+/** 待ち対象が1000件の状態 */
 export const ManyLines: Story = {
   args: {
-    // TODO: 1万件の配列を作成する
-    lines: [],
+    lines: Array.from(
+      { length: 1000 },
+      (_, index): Line => ({
+        id: index.toString(),
+        title: `行列 ${index + 1}`,
+        averageWaitTime: index % 5 === 0 ? null : index * 60,
+        currentLineEntryId: index % 2 === 0 ? `entry-${index}` : null,
+      }),
+    ),
   },
 };
