@@ -12,8 +12,8 @@ using WaitTimeCalculationApi.Data;
 namespace WaitTimeCalculationApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260614125155_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20260629141156_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,7 @@ namespace WaitTimeCalculationApi.Migrations
                 .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            MySqlModelBuilderExtensions.UseGuidCollation(modelBuilder, "");
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

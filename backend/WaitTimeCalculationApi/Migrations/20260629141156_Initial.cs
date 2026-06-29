@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace WaitTimeCalculationApi.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -75,7 +75,7 @@ namespace WaitTimeCalculationApi.Migrations
                 name: "Lines",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     Title = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Explanation = table.Column<string>(type: "varchar(400)", maxLength: 400, nullable: false)
@@ -220,10 +220,10 @@ namespace WaitTimeCalculationApi.Migrations
                 name: "LineEntries",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    LineId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    LineId = table.Column<Guid>(type: "char(36)", nullable: false),
                     EnteredAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
                     ExitedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
