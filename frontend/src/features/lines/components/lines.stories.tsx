@@ -13,39 +13,31 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-/** デフォルトの待ち対象の状態 */
+/** 待ち対象が1件以上ある状態 */
 export const Basic: Story = {
   args: {
     lines: [
       {
         id: crypto.randomUUID(),
         title: "タイトル",
-        averageWaitTime: null,
+        averageWaitTime: 1,
         currentLineEntryId: null,
       },
     ],
   },
 };
 
-/** 待ち対象が0件のとき */
+/** 待ち対象が0件の状態 */
 export const Empty: Story = {
   args: {
     lines: [],
   },
 };
 
-/** 待ち対象が1万件のとき */
+/** 待ち対象が1万件の状態 */
 export const ManyLines: Story = {
   args: {
     // TODO: 1万件の配列を作成する
     lines: [],
   },
 };
-
-/** 平均待ち時間がnullのとき */
-
-/** 平均待ち時間が0のとき */
-
-/** 平均待ち時間が1以上のとき */
-
-/** 退場時のとき */

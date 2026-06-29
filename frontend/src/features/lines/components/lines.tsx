@@ -1,6 +1,6 @@
-import { Button, List, ListItem } from "@mui/material";
-import { formatDuration } from "../../../utils/time";
+import { List } from "@mui/material";
 import type { Line } from "../types/lines";
+import { LineItem } from "./line-item";
 
 type Props = {
   /** 待ち対象一覧 */
@@ -17,22 +17,7 @@ export const Lines = (props: Props) => {
   return (
     <List>
       {lines.map((line) => (
-        <ListItem
-          key={line.id}
-          secondaryAction={
-            line.currentLineEntryId ? (
-              // TODO: line.currentLineEntryIdでいいと思う
-              <Button onClick={() => onExit(line.currentLineEntryId ?? "")}>
-                {"退場"}
-              </Button>
-            ) : (
-              <Button onClick={() => onEnter(line.id)}>{"入場"}</Button>
-            )
-          }
-        >
-          {line.title}
-          {line.averageWaitTime && formatDuration(line.averageWaitTime)}
-        </ListItem>
+        <LineItem key={line.id} line={line} onEnter={onEnter} onExit={onExit} />
       ))}
     </List>
   );
