@@ -1,4 +1,10 @@
-import { Button, ListItem, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  ListItem,
+  ListItemText,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { formatDuration } from "../../../utils/time";
 import type { Line } from "../types/lines";
 
@@ -25,22 +31,27 @@ export const LineItem = (props: Props) => {
         )
       }
     >
-      <Stack spacing={2} direction={"row"} sx={{ width: "100%", minWidth: 0 }}>
-        <Typography
-          sx={{
-            flex: 1,
-            minWidth: 0,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          {title}
-        </Typography>
-        <Typography sx={{ flexShrink: 0 }}>
-          {averageWaitTime !== null && formatDuration(averageWaitTime)}
-        </Typography>
-      </Stack>
+      <ListItemText
+        sx={{ pr: 2 }}
+        primary={
+          <Stack direction={"row"} sx={{ width: "100%", minWidth: 0 }}>
+            <Typography
+              sx={{
+                flex: 1,
+                minWidth: 0,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
+              {title}
+            </Typography>
+            <Typography sx={{ flexShrink: 0 }}>
+              {averageWaitTime !== null && formatDuration(averageWaitTime)}
+            </Typography>
+          </Stack>
+        }
+      />
     </ListItem>
   );
 };

@@ -16,6 +16,7 @@ const meta = {
       </Box>
     ),
   ],
+  title: "features/lines/components/LineItem",
 } satisfies Meta<typeof LineItem>;
 
 export default meta;
