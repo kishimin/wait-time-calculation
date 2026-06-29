@@ -13,25 +13,22 @@ type Props = {
 
 export const LineItem = (props: Props) => {
   const { line, onEnter, onExit } = props;
+  const { currentLineEntryId, id, averageWaitTime, title } = line;
 
   return (
     <ListItem
       secondaryAction={
-        line.currentLineEntryId ? (
-          // TODO: line.currentLineEntryIdでいいと思う
-          <Button onClick={() => onExit(line.currentLineEntryId ?? "")}>
-            {"退場"}
-          </Button>
+        currentLineEntryId ? (
+          <Button onClick={() => onExit(currentLineEntryId)}>{"退場"}</Button>
         ) : (
-          <Button onClick={() => onEnter(line.id)}>{"入場"}</Button>
+          <Button onClick={() => onEnter(id)}>{"入場"}</Button>
         )
       }
     >
       <Stack spacing={2} direction={"row"}>
-        <Typography>{line.title}</Typography>
+        <Typography>{title}</Typography>
         <Typography>
-          {line.averageWaitTime !== null &&
-            formatDuration(line.averageWaitTime)}
+          {averageWaitTime !== null && formatDuration(averageWaitTime)}
         </Typography>
       </Stack>
     </ListItem>

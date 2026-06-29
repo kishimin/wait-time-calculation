@@ -1,13 +1,21 @@
+import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { fn } from "storybook/test";
 import { LineItem } from "./line-item";
 
 const meta = {
   args: {
-    // TODO:モックの仕方
-    onEnter: () => void 0,
-    onExit: () => void 0,
+    onEnter: fn(),
+    onExit: fn(),
   },
   component: LineItem,
+  decorators: [
+    (Story) => (
+      <Box sx={{ width: "375px" }}>
+        <Story />
+      </Box>
+    ),
+  ],
 } satisfies Meta<typeof LineItem>;
 
 export default meta;
