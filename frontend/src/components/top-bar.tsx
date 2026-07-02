@@ -1,7 +1,7 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-router";
-import LogoImage from "../../public/images/QueueLogImage.png";
 import { useUser } from "../hooks/use-user";
+import LogoImage from "../images/QueueLogImage.png";
 import { PATHS } from "../types/paths";
 
 export const TopBar = () => {
