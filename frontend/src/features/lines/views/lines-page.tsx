@@ -12,6 +12,7 @@ import {
 import { TopBar } from "../../../components/top-bar";
 import { PATHS } from "../../../types/paths";
 import { Lines } from "../components/lines";
+import { LineSchema } from "../schemas/line";
 import type { Line } from "../types/line";
 
 const LinesPage = () => {
@@ -20,12 +21,20 @@ const LinesPage = () => {
   const { isLoading, data = [] } = useGetApiLine({
     query: {
       select: (data): Line[] =>
-        data.map((line) => ({
-          id: line.id ?? crypto.randomUUID(),
-          title: line.title ?? "",
-          averageWaitTime: line.averageWaitTime ?? null,
-          currentLineEntryId: line.currentLineEntryId ?? null,
-        })),
+        data.map((line) => {
+          const result = LineSchema.safeParse({
+            id: line.id,
+            title: line.title,
+            averageWaitTime: line.averageWaitTime,
+            currentLineEntryId: line.currentLineEntryId,
+          });
+
+          if (result.success) {
+            return result.data;
+          }
+
+          throw new Error("");
+        }),
     },
   });
   const { isPending: isEnterPending, mutate: enter } = usePostApiLineEntry({
