@@ -33,7 +33,7 @@ const LinesPage = () => {
             return result.data;
           }
 
-          throw new Error("");
+          throw new Error("Parse Error");
         }),
     },
   });

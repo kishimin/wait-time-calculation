@@ -5,5 +5,5 @@ export const LineSchema = z.object({
   id: z.uuid(),
   title: titleSchema,
   averageWaitTime: z.int().nullable(),
-  currentLineEntryId: z.string().nullable(),
+  currentLineEntryId: z.uuid().nullable(),
 });

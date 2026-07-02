@@ -29,7 +29,7 @@ describe("初期ローディング後の表示", () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
 
-    expect(lines[0]).toHaveTextContent(enterLines[0].title);
+    expect(lines[0]).toHaveTextContent("タイトル");
   });
 
   test("平均待ち時間がh時m分s秒で表示される", async () => {

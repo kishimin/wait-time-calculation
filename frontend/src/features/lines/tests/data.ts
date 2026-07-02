@@ -1,19 +1,19 @@
-import type { Line } from "../types/line";
+import type { LinesResponseDto } from "../../../models";
 
-export const enterLines: Line[] = [
+export const enterLines: LinesResponseDto[] = [
   {
-    id: "",
+    id: crypto.randomUUID(),
     averageWaitTime: 11042,
     title: "タイトル",
     currentLineEntryId: null,
   },
 ];
 
-export const exitLines: Line[] = [
+export const exitLines: LinesResponseDto[] = [
   {
-    id: "",
+    id: crypto.randomUUID(),
     averageWaitTime: 11042,
     title: "タイトル",
-    currentLineEntryId: "1",
+    currentLineEntryId: crypto.randomUUID(),
   },
 ];
