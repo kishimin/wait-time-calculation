@@ -1,5 +1,14 @@
-import { explanationSchema, titleSchema } from "../schemas/line-form";
-import { ERRORS } from "./constants";
+import { explanationSchema, titleSchema } from "./line";
+
+export const ERRORS = {
+  title: {
+    required: "必須です",
+    max: "100文字以内で入力してください",
+  },
+  explanation: {
+    max: "400文字以内で入力してください",
+  },
+} as const;
 
 describe("タイトル", () => {
   test("空の時エラーとなる", () => {

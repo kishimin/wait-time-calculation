@@ -6,7 +6,7 @@ import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
 import { SnackbarContextProvider } from "../../../providers/snackbar";
 import { UserContextProvider } from "../../../providers/user";
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 import LinesPage from "../views/lines-page";
 import { enterLines } from "./data";
 

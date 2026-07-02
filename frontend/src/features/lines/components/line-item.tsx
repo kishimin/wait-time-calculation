@@ -6,7 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { formatDuration } from "../../../utils/time";
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 
 type Props = {
   /** 待ち対象 */

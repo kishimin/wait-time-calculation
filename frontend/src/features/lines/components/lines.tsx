@@ -1,7 +1,6 @@
 import { List } from "@mui/material";
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 import { LineItem } from "./line-item";
-
 
 type Props = {
   /** 待ち対象一覧 */

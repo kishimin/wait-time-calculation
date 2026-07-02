@@ -12,7 +12,7 @@ import {
 import { TopBar } from "../../../components/top-bar";
 import { PATHS } from "../../../types/paths";
 import { Lines } from "../components/lines";
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 
 const LinesPage = () => {
   const navigate = useNavigate();

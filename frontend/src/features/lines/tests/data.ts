@@ -1,4 +1,4 @@
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 
 export const enterLines: Line[] = [
   {

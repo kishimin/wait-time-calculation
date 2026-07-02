@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import type { Line } from "../types/lines";
+import type { Line } from "../types/line";
 import { Lines } from "./lines";
 
 const meta = {
