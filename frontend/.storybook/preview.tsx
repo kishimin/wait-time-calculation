@@ -1,4 +1,6 @@
+import { ThemeProvider } from "@mui/material";
 import type { Preview } from "@storybook/react-vite";
+import theme from "../src/theme/theme";
 
 const preview: Preview = {
   parameters: {
@@ -17,6 +19,13 @@ const preview: Preview = {
     },
   },
   tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <ThemeProvider theme={theme}>
+        <Story />
+      </ThemeProvider>
+    ),
+  ],
 };
 
 export default preview;
