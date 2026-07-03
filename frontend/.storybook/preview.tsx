@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@mui/material";
 import type { Preview } from "@storybook/react-vite";
-import theme from "../src/theme/theme";
+import { MemoryRouter } from "react-router";
+import { AppProvider } from "../src/app/providers/provider";
 
 const preview: Preview = {
   parameters: {
@@ -21,9 +21,11 @@ const preview: Preview = {
   tags: ["autodocs"],
   decorators: [
     (Story) => (
-      <ThemeProvider theme={theme}>
-        <Story />
-      </ThemeProvider>
+      <MemoryRouter>
+        <AppProvider>
+          <Story />
+        </AppProvider>
+      </MemoryRouter>
     ),
   ],
 };
