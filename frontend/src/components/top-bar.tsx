@@ -10,7 +10,7 @@ export const TopBar = () => {
   return (
     <AppBar position={"static"}>
       <Typography variant={"h1"}>{"まちログ"}</Typography>
-      <Box component={"img"} src={LogoImage} />
+      <Box component={"img"} src={LogoImage} alt={"まちログロゴ画像"} />
 
       {isLoggedIn() ? (
         <>
