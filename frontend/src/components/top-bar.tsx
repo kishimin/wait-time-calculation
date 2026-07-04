@@ -1,34 +1,36 @@
-import { AppBar, Box, Button, Typography } from "@mui/material";
-import { Link } from "react-router";
-import LogoImage from "../../public/images/QueueLogImage.png";
+import { AppBar, Box, Stack, Typography } from "@mui/material";
 import { useUser } from "../hooks/use-user";
-import { PATHS } from "../types/paths";
+import LogoImage from "../images/QueueLogImage.png";
+import { GuestMenu } from "./guest-menu";
+import { UserMenu } from "./user-menu";
 
 export const TopBar = () => {
   const { isLoggedIn, user, logout } = useUser();
 
   return (
     <AppBar position={"static"}>
-      <Typography variant={"h1"}>{"まちログ"}</Typography>
-      <Box component={"img"} src={LogoImage} />
+      <Stack direction={"row"} sx={{ alignItems: "center" }}>
+        <Typography variant={"h6"}>{"まちログ"}</Typography>
+        <Box
+          component={"img"}
+          src={LogoImage}
+          alt={"まちログロゴ画像"}
+          width={"10%"}
+        />
 
-      {isLoggedIn() ? (
-        <>
-          <Typography variant={"h2"}>{user?.userName}</Typography>
-          <Button
-            onClick={() => {
+        {isLoggedIn() ? (
+          <UserMenu
+            onClickLogout={() => {
               void logout();
             }}
-          >
-            {"ログアウト"}
-          </Button>
-        </>
-      ) : (
-        <>
-          <Link to={PATHS.register}>{"新規登録"}</Link>
-          <Link to={PATHS.login}>{"ログイン"}</Link>
-        </>
-      )}
+            userName={user?.userName ?? ""}
+          />
+        ) : (
+          <Box sx={{ ml: "auto", display: "flex", gap: 2 }}>
+            <GuestMenu />
+          </Box>
+        )}
+      </Stack>
     </AppBar>
   );
 };

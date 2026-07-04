@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/react-vite";
+import { MemoryRouter } from "react-router";
+import { AppProvider } from "../src/app/providers/provider";
 
 const preview: Preview = {
   parameters: {
@@ -16,6 +18,16 @@ const preview: Preview = {
       test: "todo",
     },
   },
+  tags: ["autodocs"],
+  decorators: [
+    (Story) => (
+      <MemoryRouter>
+        <AppProvider>
+          <Story />
+        </AppProvider>
+      </MemoryRouter>
+    ),
+  ],
 };
 
 export default preview;

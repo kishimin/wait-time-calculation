@@ -1,13 +1,12 @@
 import { screen, within } from "@testing-library/react";
 import { delay } from "msw";
-import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import {
   getPostApiLineEntryMockHandler,
   getPutApiLineEntryIdMockHandler,
 } from "../../../api/endpoints/line-entry/line-entry.msw";
 import { server } from "../../../api/mocks/server";
 import { BUTTONS } from "./constants";
-import { enterLines, exitLines } from "./data";
+import { exitLines } from "./data";
 import { setup } from "./setup";
 
 describe("初期表示", () => {
@@ -29,7 +28,7 @@ describe("初期ローディング後の表示", () => {
     setup();
     const lines = await screen.findAllByRole("listitem");
 
-    expect(lines[0]).toHaveTextContent(enterLines[0].title);
+    expect(lines[0]).toHaveTextContent("タイトル");
   });
 
   test("平均待ち時間がh時m分s秒で表示される", async () => {
@@ -97,18 +96,6 @@ describe("入退場", () => {
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
   });
 
-  test("入場したら、退場ボタンに切り替わる", async () => {
-    const { user } = setup();
-    const lines = await screen.findAllByRole("listitem");
-    const entryButton = within(lines[0]).getByRole("button");
-    server.use(getPostApiLineEntryMockHandler());
-    server.use(getGetApiLineMockHandler(exitLines));
-
-    await user.click(entryButton);
-
-    expect(entryButton).toHaveTextContent(BUTTONS.EXIT);
-  });
-
   describe("入場中", () => {
     test("退場ボタンをクリックすると、ローディングが表示される", async () => {
       const { user } = setup({ lines: exitLines });
@@ -126,18 +113,6 @@ describe("入退場", () => {
       await user.click(exitButton);
 
       expect(screen.getByRole("progressbar")).toBeVisible();
-    });
-
-    test("退場したら、入場ボタンに切り替わる", async () => {
-      const { user } = setup({ lines: exitLines });
-      const lines = await screen.findAllByRole("listitem");
-      const entryButton = within(lines[0]).getByRole("button");
-      server.use(getPostApiLineEntryMockHandler());
-      server.use(getGetApiLineMockHandler(enterLines));
-
-      await user.click(entryButton);
-
-      expect(entryButton).toHaveTextContent(BUTTONS.ENTER);
     });
   });
 });

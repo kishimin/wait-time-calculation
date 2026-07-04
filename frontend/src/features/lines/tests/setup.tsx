@@ -4,14 +4,14 @@ import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import { getGetApiLineMockHandler } from "../../../api/endpoints/line/line.msw";
 import { server } from "../../../api/mocks/server";
+import type { LinesResponseDto } from "../../../models";
 import { SnackbarContextProvider } from "../../../providers/snackbar";
 import { UserContextProvider } from "../../../providers/user";
-import type { Line } from "../types/lines";
-import Lines from "../views/lines";
+import LinesPage from "../views/lines-page";
 import { enterLines } from "./data";
 
 type Props = {
-  lines: Line[];
+  lines: LinesResponseDto[];
 };
 
 export const setup = (props: Props = { lines: enterLines }) => {
@@ -26,7 +26,7 @@ export const setup = (props: Props = { lines: enterLines }) => {
       <QueryClientProvider client={queryClient}>
         <SnackbarContextProvider>
           <UserContextProvider>
-            <Lines />
+            <LinesPage />
           </UserContextProvider>
         </SnackbarContextProvider>
       </QueryClientProvider>

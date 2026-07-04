@@ -1,10 +1,9 @@
-/// <reference types="vitest/config" />
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { storybookTest } from "@storybook/addon-vitest/vitest-plugin";
 import react from "@vitejs/plugin-react";
-import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vite";
+import { configDefaults } from "vitest/config";
 const dirname =
   typeof __dirname !== "undefined"
     ? __dirname
@@ -36,20 +35,13 @@ export default defineConfig({
             configDir: path.join(dirname, ".storybook"),
           }),
         ],
-        test: {
-          name: "storybook",
-          browser: {
-            enabled: true,
-            headless: true,
-            provider: playwright({}),
-            instances: [
-              {
-                browser: "chromium",
-              },
-            ],
-          },
-        },
       },
+    ],
+    exclude: [
+      ...configDefaults.exclude,
+      "**/e2e/**", // e2eファイルを除外
+      "**/*.stories.{ts,tsx}", // storyファイルを除外
+      "**/.storybook/**",
     ],
   },
 });
