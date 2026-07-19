@@ -8,6 +8,10 @@ test("ログイン画面が表示される", async ({ page }) => {
     page.getByRole("button", { name: loginTexts.loginButton }),
   ).toBeVisible();
   await page.screenshot({ path: "screenshot/login.png" });
+  await page.screenshot({
+    path: "screenshot/login_full_page.png",
+    fullPage: true,
+  });
 });
 
 test("ログインして一覧画面に遷移する", async ({ page }) => {
