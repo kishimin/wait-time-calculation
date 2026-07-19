@@ -16,6 +16,8 @@ test.describe("未認証時", () => {
       path: "screenshot/lines_uncertified_full_page.png",
       fullPage: true,
     });
+
+    await expect(page).toHaveScreenshot();
   });
 
   test("新規登録のリンクをクリックすると新規登録画面に遷移する", async ({
@@ -34,5 +36,7 @@ test.describe("未認証時", () => {
       path: "screenshot/register_full_page.png",
       fullPage: true,
     });
+
+    await expect(page).toHaveScreenshot();
   });
 });

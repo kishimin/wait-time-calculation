@@ -14,6 +14,8 @@ test("ログイン画面が表示される", async ({ page }) => {
     path: "screenshot/login_full_page.png",
     fullPage: true,
   });
+
+  await expect(page).toHaveScreenshot();
 });
 
 test("ログインすると一覧画面に遷移する", async ({ page }) => {
@@ -39,4 +41,6 @@ test("ログインすると一覧画面に遷移する", async ({ page }) => {
   await page
     .getByRole("banner")
     .screenshot({ path: "screenshot/banner_certified.png" });
+
+  await expect(page).toHaveScreenshot();
 });
