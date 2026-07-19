@@ -1,4 +1,6 @@
 import { expect, test } from "@playwright/test";
+import { appBarTexts } from "./constants/components";
+import { linesTexts } from "./constants/lines";
 import { loginTexts, loginUser } from "./constants/login";
 
 test("ログイン画面が表示される", async ({ page }) => {
@@ -14,7 +16,7 @@ test("ログイン画面が表示される", async ({ page }) => {
   });
 });
 
-test("ログインして一覧画面に遷移する", async ({ page }) => {
+test("ログインすると一覧画面に遷移する", async ({ page }) => {
   await page.goto(loginTexts.link);
 
   await page
@@ -23,7 +25,15 @@ test("ログインして一覧画面に遷移する", async ({ page }) => {
   await page.getByLabel(loginTexts.passwordInput).fill(loginUser.password);
   await page.getByRole("button", { name: loginTexts.loginButton }).click();
 
-  await expect(page).toHaveURL("/");
+  await expect(page).toHaveURL(linesTexts.link);
 
+  await expect(
+    page.getByRole("button", { name: appBarTexts.logoutButton }),
+  ).toBeVisible();
   await expect(page.getByRole("list")).toBeVisible();
+
+  await page.screenshot({
+    path: "screenshot/lines_certified_full_page.png",
+    fullPage: true,
+  });
 });
