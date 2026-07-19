@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 import { enterLines } from "./data";
 
+// ビデオ撮影
+test.use({ video: { mode: "on" } });
+
 test("一覧のタイトルが表示される", async ({ page }) => {
   await page.route("**/api/line", (route) =>
     route.fulfill({
@@ -23,6 +26,4 @@ test("一覧のタイトルが表示される", async ({ page }) => {
 
   // VRT
   await expect(page).toHaveScreenshot();
-
-  // ビデオ撮影
 });

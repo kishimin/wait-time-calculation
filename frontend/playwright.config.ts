@@ -73,10 +73,10 @@ export default defineConfig({
     // },
   ],
 
-  /* Run your local dev server before starting the tests */
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:3000',
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  /* Run the Vite dev server before starting the browser tests. */
+  webServer: {
+    command: "npm run dev -- --host localhost",
+    url: "http://localhost:5173",
+    reuseExistingServer: !process.env.CI,
+  },
 });
