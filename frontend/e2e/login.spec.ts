@@ -36,4 +36,7 @@ test("ログインすると一覧画面に遷移する", async ({ page }) => {
     path: "screenshot/lines_certified_full_page.png",
     fullPage: true,
   });
+  await page
+    .getByRole("banner")
+    .screenshot({ path: "screenshot/banner_certified.png" });
 });
