@@ -7,6 +7,7 @@ test("ログイン画面が表示される", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: loginTexts.loginButton }),
   ).toBeVisible();
+  await page.screenshot({ path: "screenshot/login.png" });
 });
 
 test("ログインして一覧画面に遷移する", async ({ page }) => {
