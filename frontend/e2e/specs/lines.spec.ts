@@ -1,14 +1,14 @@
 import { expect, test } from "@playwright/test";
-import { appBarTexts } from "./constants/components";
-import { linesTexts } from "./constants/lines";
-import { registerTexts } from "./constants/register";
+import { topBarTexts } from "../constants/components";
+import { linesTexts } from "../constants/lines";
+import { registerTexts } from "../constants/register";
 
 test.describe("未認証時", () => {
   test("未認証の一覧ページの表示", async ({ page }) => {
     await page.goto(linesTexts.link);
 
     await expect(
-      page.getByRole("link", { name: appBarTexts.registerLink }),
+      page.getByRole("link", { name: topBarTexts.registerLink }),
     ).toBeVisible();
     await expect(page.getByRole("list")).toBeVisible();
 
@@ -25,7 +25,7 @@ test.describe("未認証時", () => {
   }) => {
     await page.goto(linesTexts.link);
 
-    await page.getByRole("link", { name: appBarTexts.registerLink }).click();
+    await page.getByRole("link", { name: topBarTexts.registerLink }).click();
 
     await expect(page).toHaveURL(registerTexts.link);
     await expect(
