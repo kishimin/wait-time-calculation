@@ -1,16 +1,16 @@
 import { expect, test } from "@playwright/test";
-import { topBarTexts } from "../constants/components";
-import { linesTexts } from "../constants/lines";
-import { registerTexts } from "../constants/register";
+import { TopBar } from "../components/top-bar";
+import { LinesPage } from "../pages/lines-page";
+import { RegisterPage } from "../pages/register-page";
 
 test.describe("未認証時", () => {
   test("未認証の一覧ページの表示", async ({ page }) => {
-    await page.goto(linesTexts.link);
+    const linesPage = new LinesPage(page);
+    const topBar = new TopBar(page);
+    await linesPage.goto();
 
-    await expect(
-      page.getByRole("link", { name: topBarTexts.registerLink }),
-    ).toBeVisible();
-    await expect(page.getByRole("list")).toBeVisible();
+    await expect(topBar.getRegisterLink).toBeVisible();
+    await expect(linesPage.getLinesList).toBeVisible();
 
     await page.screenshot({
       path: "screenshot/lines_uncertified_full_page.png",
@@ -23,14 +23,15 @@ test.describe("未認証時", () => {
   test("新規登録のリンクをクリックすると新規登録画面に遷移する", async ({
     page,
   }) => {
-    await page.goto(linesTexts.link);
+    const linesPage = new LinesPage(page);
+    const topBar = new TopBar(page);
+    const registerPage = new RegisterPage(page);
+    await linesPage.goto();
 
-    await page.getByRole("link", { name: topBarTexts.registerLink }).click();
+    await topBar.clickRegisterLink();
 
-    await expect(page).toHaveURL(registerTexts.link);
-    await expect(
-      page.getByRole("button", { name: registerTexts.registerButton }),
-    ).toBeVisible();
+    await expect(page).toHaveURL(registerPage.path);
+    await expect(registerPage.getRegisterButton).toBeVisible();
 
     await page.screenshot({
       path: "screenshot/register_full_page.png",
