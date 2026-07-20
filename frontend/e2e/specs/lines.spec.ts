@@ -26,18 +26,27 @@ test.describe("未認証時", () => {
     const linesPage = new LinesPage(page);
     const topBar = new TopBar(page);
     const registerPage = new RegisterPage(page);
-    await linesPage.goto();
 
-    await topBar.clickRegisterLink();
+    await test.step("一覧画面", async () => {
+      await linesPage.goto();
 
-    await expect(page).toHaveURL(registerPage.path);
-    await expect(registerPage.getRegisterButton).toBeVisible();
-
-    await page.screenshot({
-      path: "screenshot/register_full_page.png",
-      fullPage: true,
+      await topBar.clickRegisterLink();
     });
 
-    await expect(page).toHaveScreenshot();
+    await test.step("新規登録画面への遷移", async () => {
+      await expect(page).toHaveURL(registerPage.path);
+      await expect(registerPage.getRegisterButton).toBeVisible();
+    });
+
+    await test.step("スクリーンショット", async () => {
+      await page.screenshot({
+        path: "screenshot/register_full_page.png",
+        fullPage: true,
+      });
+    });
+
+    await test.step("VRT", async () => {
+      await expect(page).toHaveScreenshot();
+    });
   });
 });
