@@ -3,8 +3,6 @@ import { appBarTexts } from "./constants/components";
 import { linesTexts } from "./constants/lines";
 import { loginTexts, loginUser } from "./constants/login";
 
-test.use({ video: { mode: "on" } });
-
 test("ログイン画面が表示される", async ({ page }) => {
   await page.goto(loginTexts.link);
 

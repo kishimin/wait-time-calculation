@@ -31,6 +31,7 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+    video: "off",
   },
 
   /* Configure projects for major browsers */
@@ -39,6 +40,29 @@ export default defineConfig({
       name: "chromium",
       use: {
         ...devices["Desktop Chrome"],
+      },
+      testIgnore: [
+        "**/src/features/login/tests/login.playwright.spec.ts",
+        "**/src/features/lines/tests/lines.playwright.spec.ts",
+        "**/e2e/lines.spec.ts",
+        "**/e2e/login.spec.ts",
+      ],
+    },
+
+    {
+      name: "chromium-video",
+      testMatch: [
+        "**/src/features/login/tests/login.playwright.spec.ts",
+        "**/src/features/lines/tests/lines.playwright.spec.ts",
+        "**/e2e/lines.spec.ts",
+        "**/e2e/login.spec.ts",
+      ],
+      use: {
+        ...devices["Desktop Chrome"],
+        video: "on",
+        launchOptions: {
+          slowMo: 500,
+        },
       },
     },
 

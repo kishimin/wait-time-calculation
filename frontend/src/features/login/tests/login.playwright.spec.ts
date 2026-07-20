@@ -2,8 +2,6 @@ import { expect, test } from "@playwright/test";
 import { enterLines } from "../../lines/tests/data";
 import { BUTTONS, LABELS, loginUser } from "./constants";
 
-test.use({ video: "on" });
-
 test("ログインしたら、一覧画面に遷移する", async ({ page }) => {
   await page.goto("/login");
 

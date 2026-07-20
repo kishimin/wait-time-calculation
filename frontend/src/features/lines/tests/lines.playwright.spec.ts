@@ -2,8 +2,6 @@ import { expect, test } from "@playwright/test";
 import { enterLines } from "./data";
 
 // ビデオ撮影
-test.use({ video: { mode: "on" } });
-
 test("一覧のタイトルが表示される", async ({ page }) => {
   await page.route("**/api/line", (route) =>
     route.fulfill({

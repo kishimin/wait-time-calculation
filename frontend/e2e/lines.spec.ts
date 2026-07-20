@@ -3,8 +3,6 @@ import { appBarTexts } from "./constants/components";
 import { linesTexts } from "./constants/lines";
 import { registerTexts } from "./constants/register";
 
-test.use({ video: { mode: "on" } });
-
 test.describe("未認証時", () => {
   test("未認証の一覧ページの表示", async ({ page }) => {
     await page.goto(linesTexts.link);
