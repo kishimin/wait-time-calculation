@@ -18,18 +18,18 @@ export const TopBar = () => {
           width={"10%"}
         />
 
-        {isLoggedIn() ? (
-          <UserMenu
-            onClickLogout={() => {
-              void logout();
-            }}
-            userName={user?.userName ?? ""}
-          />
-        ) : (
-          <Box sx={{ ml: "auto", display: "flex", gap: 2 }}>
+        <Box sx={{ ml: "auto", display: "flex", gap: 2 }}>
+          {isLoggedIn() ? (
+            <UserMenu
+              onClickLogout={() => {
+                void logout();
+              }}
+              userName={user?.userName ?? ""}
+            />
+          ) : (
             <GuestMenu />
-          </Box>
-        )}
+          )}
+        </Box>
       </Stack>
     </AppBar>
   );

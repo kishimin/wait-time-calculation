@@ -40,6 +40,7 @@ export default defineConfig({
     exclude: [
       ...configDefaults.exclude,
       "**/e2e/**", // e2eファイルを除外
+      "src/**/*.spec.ts",
       "**/*.stories.{ts,tsx}", // storyファイルを除外
       "**/.storybook/**",
     ],

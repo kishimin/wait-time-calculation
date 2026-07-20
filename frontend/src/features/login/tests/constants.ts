@@ -9,3 +9,10 @@ export const LABELS = {
 export const BUTTONS = {
   login: "ログイン",
 } as const;
+
+export const loginUser = {
+  userName: "a",
+  password: "aA1!".repeat(11),
+  email: "test@example.com",
+  token: "test-token",
+} as const;
